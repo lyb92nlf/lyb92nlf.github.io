@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>绪论</title>
+    <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
+<p>在计算机系统中，“经验”通常以“数据”的形式存在。</p>
+<p>ML研究的主要内容：在计算机上从数据中产生“模型”的算法。</p>
+<p>而模型的作用是，当面对新的数据时，模型会给我们提供一定的判断，即是数据预测。</p>
+<script type="math/tex; mode=display">
+数据\stackrel{学习算法}{\Longrightarrow}模型\stackrel{新情况}{\Longrightarrow}预测</script><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>数据集<code>data set</code>：数据的集合</p>
+<p>示例<code>instance</code>/样本<code>sample</code>：每条数据描述了一个对象的信息，每条数据称之为样本</p>
+<p>属性<code>attribute</code>/特征<code>feature</code>：数据描述的是样本在某些方面的性质，称之为属性</p>
+<p>属性值<code>attribute value</code>：属性的取值</p>
+<p>属性空间<code>attribute space</code>/样本空间<code>sample space</code>/输入空间<code>input space</code>：对于一个样本而言，假如它有n种属性，则组成了一个n维空间，称之为样本空间</p>
+<p>维数<code>dimensionality</code>：属性的个数</p>
+<p>特征向量<code>feature vector</code>：样本在属性空间中对应的向量</p>
+<hr>
+<p>学习<code>learning</code>/训练<code>training</code>：从数据集中学得模型的过程</p>
+<p>训练数据<code>training data</code>：学习过程中使用的数据</p>
+<p>训练样本<code>training sample</code>：训练数据中的样本</p>
+<p>训练集<code>training set</code>：训练样本的集合</p>
+<p>假设<code>hypothesis</code>：学得的模型对应了数据集中某种潜在的规律</p>
+<p>真相/真实<code>ground-truth</code>：数据集本身的潜在的规律。学习的过程就是逼近真相的过程</p>
+<p>学习器<code>learner</code>：模型的别称</p>
+<hr>
+<p>标记<code>label</code>：有关示例结果的信息，一般用y表示</p>
+<p>样例<code>example</code>：具有标记信息的示例</p>
+<p>标记空间<code>label space</code>/输出空间：所有标记的集合构成的空间</p>
+<hr>
+<p>分类<code>classification</code>：欲预测的值为离散值</p>
+<p>回归<code>regression</code>：欲预测的值为连续值</p>
+<p>二分类<code>binary classification</code>：分类的类别只有两类（正类和反类）</p>
+<p>多分类<code>multi-class classification</code>：分类的类别＞2</p>
+<hr>
+<p>测试<code>testing</code>：学得模型后，对其进行预测的过程。机器学习是一个反复的过程，需要重复多次学习、测试、调整，才能得到准确率最高的模型</p>
+<p>测试样本<code>testing sample</code>：被预测的样本</p>
+<hr>
+<p>聚类<code>clustering</code>：无监督学习的一种，将训练集的数据分为若干组，而这些组事先是不知道的</p>
+<p>簇<code>cluster</code>：聚类得到的数据分类（组）</p>
+<hr>
+<p>监督学习<code>supervised learning</code>：训练数据拥有标记信息</p>
+<p>无监督学习<code>unsupervised learning</code>：训练数据没有标记信息</p>
+<hr>
+<p>泛化<code>generalization</code>能力：学得模型适用于新样本的能力。或者说，模型预测数据的精准度</p>
+<p>独立同分布<code>independent and identically distributed</code>：简称i.i.d。假设样本空间的全体样本服从一个未知的分布，而我们在学习时使用的样本都是独立的从这个分布上采样获得的</p>
+<h2 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h2><p>所有假设组成的空间</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131735707.png" alt="西瓜问题的假设空间"></p>
+<p>学习的目的是<strong>泛化</strong>，即通过训练，得到一个模型，而这个模型可以对新样例的标签进行精准的预测。</p>
+<p>学习的过程看作是在假设空间中进行搜索的过程，搜索目标是找到与训练集匹配的假设，即能够将训练集中的瓜判断正确的假设</p>
+<p>需要注意的是，现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本的训练集进行的，因此，可能有多个假设与训练集一致，即存在着一个与训练集一致的“假设空间”，称为样本空间</p>
+<h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
+<p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
+<p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>决策树</title>
+    <url>/2021/11/13/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
+    <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树"></p>
+<p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
+<p>其基本算法如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法"></p>
+<p>注：在决策树基本算法中，有三种情形导致递归返回</p>
+<ol>
+<li>当前结点包含的样本全属于同一类别，无需划分 </li>
+<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分 </li>
+<li>当前结点包含的样本集合为空，不能划分。</li>
+</ol>
+<p>在第2种情形下，把当前结点标记为叶结点，但类别设定为该结点所含样本最多的类别。</p>
+<p>在第3种情形下，把当前结点标记为叶节点，但类别设定为其父结点所含样本最多的类别。</p>
+<p>它们的不同点是：第2种是利用当前结点的<strong>后验分布</strong>，第3种则是把父结点的样本分布作为当前结点的<strong>先验分布</strong></p>
+<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策数学习的关键就是如何选择最优划分属性</p>
+<ol>
+<li><p>信息增益</p>
+<p>实战：ID3决策树学习算法</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Ent(D)=-\sum_{k=1}^{|y|}p_k\log_2^{p_k}</script><script type="math/tex; mode=display">
+Gain(D,a)=Ent(D)-\sum_{v=1}^V\frac{|D^v|}{D}Ent(D^v)</script></li>
+</ol>
+<ol>
+<li><p>增益率</p>
+<p>实战：C4.5决策树算法</p>
+<ol>
+<li>先从候选属性中找出信息增益高于平均水平的属性</li>
+<li>在从中选择信息增益最高的属性</li>
+</ol>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain\_ratio(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2^{\frac{|D^v|}{|D|}}</script><script type="math/tex; mode=display">
+Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}</script></li>
+</ol>
+<ol>
+<li><p>基尼指数</p>
+<p>实战：CART决策树</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\, \min_{a\in A}\, Gini\_index(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Gini(D)=\sum_{k=1}^{|y|}\sum_{k'≠k}p_kp_{k'}=1\, -\, \sum_{k=1}^{|y|}p_k^2</script><script type="math/tex; mode=display">
+Gini\_index(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)</script></li>
+</ol>
+<h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><p>剪枝是决策树学习算法<strong>对付过拟合</strong>的主要手段。</p>
+<ol>
+<li><p>预剪枝</p>
+<p>对每个结点在<strong>划分前先进行评估</strong>，如果当前节点的划分<strong>不能</strong>带来决策树泛化<strong>性能提升</strong>，则<strong>停止划分</strong>并将当前节点<strong>标记为叶节点</strong></p>
+</li>
+<li><p>后剪枝</p>
+<p>先生成<strong>完整的决策树</strong>，<strong>自底向上</strong>的对<strong>非叶节点</strong>进行考察，如果当前节点对应的子树替换成叶节点能带来决策树泛<strong>化性能提升</strong>，则将子树<strong>替换</strong>成叶节点</p>
+</li>
+</ol>
+<p>对比预剪枝与后剪枝生成的决策树：</p>
+<p>后剪枝通常比预剪枝保留更多的分支，其欠拟合风险很小，因此后剪枝的泛化性能往往优于预剪枝决策树。但后剪枝过程是生成完整决策树之后自底往上裁剪，因此其训练时间开销比预剪枝要大。</p>
+<h2 id="连续和缺失值"><a href="#连续和缺失值" class="headerlink" title="连续和缺失值"></a>连续和缺失值</h2><h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p>使用<strong>连续属性离散化技术</strong>对连续值进行处理</p>
+<p>C4.5决策树算法采用二分法处理连续属性</p>
+<p>假设连续属性a的值从小到大排序为{a1,a2,a3,…,an}</p>
+<p>取划分点（n个值对应n-1个划分点）</p>
+<script type="math/tex; mode=display">
+T_a = \left\{ \frac{a^i\, + a^{i+1}}{2}\, |\,1≤i≤n-1| \right\}</script><script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
+&=\max_{t\in T_a}\, Ent(D)-\sum_{\lambda\in \lbrace -,+\rbrace}\frac{|D^v|}{D}Ent(D_t^\lambda)
+\end{align}</script><p>$ D^- $ ：属性值小于t的样本</p>
+<p>$D^+$：属性值大于t的样本</p>
+<h3 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h3><p>现实任务中常会遇到不完整的样本，即样本的某些属性值缺失</p>
+<p>给定数据集D和属性a</p>
+<ol>
+<li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
+<li>$\stackrel{<em>}{D^v}$为在$\stackrel{</em>}{D}$中属性a上取值为$a^v$的样本子集</li>
+<li>$\stackrel{<em>}{D^k}$表示$\stackrel{</em>}{D}$中属于第k类的样本子集</li>
+</ol>
+<p>于是有$\stackrel{<em>}{D}=\bigcup_{k=1}^{|y|}\stackrel{</em>}{D^k}$，$\stackrel{<em>}{D}=\bigcup_{v=1}^{V}\stackrel{</em>}{D^v}$</p>
+<p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
+<p>无缺省样本所占比例</p>
+<script type="math/tex; mode=display">
+\rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然$\sum<em>{k=1}^{|y|}\stackrel{*}{p_k}=\sum</em>{v=1}^V\stackrel{*}{r_k}=1$</p>
+<p>:confused:问题1：如何在属性值缺失的情况下进行划分属性选择</p>
+<p>于是有新的信息增益公式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
+&=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
+\end{align}</script><p>其中</p>
+<script type="math/tex; mode=display">
+Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><p>:confused:问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
+<ol>
+<li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
+<li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
+</ol>
+<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><p>此类决策树中，非叶节点不在是仅对某个属性，而是对属性的线性组合进行测试。</p>
+<p>即每个非叶节点是一个形如$\sum_{i=1}^{d}w_ia_i=t$的线性分类器，其中$w_i$是属性$a_i$的权重，$w_i$和$t$可在该节点所含样本的样本集和属性集学到</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+        <tag>决策树</tag>
+      </tags>
+  </entry>
+</search>
