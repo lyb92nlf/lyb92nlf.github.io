@@ -1,74 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>绪论</title>
-    <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
-<p>在计算机系统中，“经验”通常以“数据”的形式存在。</p>
-<p>ML研究的主要内容：在计算机上从数据中产生“模型”的算法。</p>
-<p>而模型的作用是，当面对新的数据时，模型会给我们提供一定的判断，即是数据预测。</p>
-<script type="math/tex; mode=display">
-数据\stackrel{学习算法}{\Longrightarrow}模型\stackrel{新情况}{\Longrightarrow}预测</script><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>数据集<code>data set</code>：数据的集合</p>
-<p>示例<code>instance</code>/样本<code>sample</code>：每条数据描述了一个对象的信息，每条数据称之为样本</p>
-<p>属性<code>attribute</code>/特征<code>feature</code>：数据描述的是样本在某些方面的性质，称之为属性</p>
-<p>属性值<code>attribute value</code>：属性的取值</p>
-<p>属性空间<code>attribute space</code>/样本空间<code>sample space</code>/输入空间<code>input space</code>：对于一个样本而言，假如它有n种属性，则组成了一个n维空间，称之为样本空间</p>
-<p>维数<code>dimensionality</code>：属性的个数</p>
-<p>特征向量<code>feature vector</code>：样本在属性空间中对应的向量</p>
-<hr>
-<p>学习<code>learning</code>/训练<code>training</code>：从数据集中学得模型的过程</p>
-<p>训练数据<code>training data</code>：学习过程中使用的数据</p>
-<p>训练样本<code>training sample</code>：训练数据中的样本</p>
-<p>训练集<code>training set</code>：训练样本的集合</p>
-<p>假设<code>hypothesis</code>：学得的模型对应了数据集中某种潜在的规律</p>
-<p>真相/真实<code>ground-truth</code>：数据集本身的潜在的规律。学习的过程就是逼近真相的过程</p>
-<p>学习器<code>learner</code>：模型的别称</p>
-<hr>
-<p>标记<code>label</code>：有关示例结果的信息，一般用y表示</p>
-<p>样例<code>example</code>：具有标记信息的示例</p>
-<p>标记空间<code>label space</code>/输出空间：所有标记的集合构成的空间</p>
-<hr>
-<p>分类<code>classification</code>：欲预测的值为离散值</p>
-<p>回归<code>regression</code>：欲预测的值为连续值</p>
-<p>二分类<code>binary classification</code>：分类的类别只有两类（正类和反类）</p>
-<p>多分类<code>multi-class classification</code>：分类的类别＞2</p>
-<hr>
-<p>测试<code>testing</code>：学得模型后，对其进行预测的过程。机器学习是一个反复的过程，需要重复多次学习、测试、调整，才能得到准确率最高的模型</p>
-<p>测试样本<code>testing sample</code>：被预测的样本</p>
-<hr>
-<p>聚类<code>clustering</code>：无监督学习的一种，将训练集的数据分为若干组，而这些组事先是不知道的</p>
-<p>簇<code>cluster</code>：聚类得到的数据分类（组）</p>
-<hr>
-<p>监督学习<code>supervised learning</code>：训练数据拥有标记信息</p>
-<p>无监督学习<code>unsupervised learning</code>：训练数据没有标记信息</p>
-<hr>
-<p>泛化<code>generalization</code>能力：学得模型适用于新样本的能力。或者说，模型预测数据的精准度</p>
-<p>独立同分布<code>independent and identically distributed</code>：简称i.i.d。假设样本空间的全体样本服从一个未知的分布，而我们在学习时使用的样本都是独立的从这个分布上采样获得的</p>
-<h2 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h2><p>所有假设组成的空间</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131735707.png" alt="西瓜问题的假设空间"></p>
-<p>学习的目的是<strong>泛化</strong>，即通过训练，得到一个模型，而这个模型可以对新样例的标签进行精准的预测。</p>
-<p>学习的过程看作是在假设空间中进行搜索的过程，搜索目标是找到与训练集匹配的假设，即能够将训练集中的瓜判断正确的假设</p>
-<p>需要注意的是，现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本的训练集进行的，因此，可能有多个假设与训练集一致，即存在着一个与训练集一致的“假设空间”，称为样本空间</p>
-<h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
-<p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
-<p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>决策树</title>
     <url>/2021/11/13/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
     <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树"></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树" style="zoom:50%;" /></p>
 <p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
 <p>其基本算法如下图所示</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法"></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法" style="zoom:50%;" /></p>
 <p>注：在决策树基本算法中，有三种情形导致递归返回</p>
 <ol>
 <li>当前结点包含的样本全属于同一类别，无需划分 </li>
@@ -139,19 +78,22 @@ Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
 <p>给定数据集D和属性a</p>
 <ol>
 <li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
-<li>$\stackrel{<em>}{D^v}$为在$\stackrel{</em>}{D}$中属性a上取值为$a^v$的样本子集</li>
-<li>$\stackrel{<em>}{D^k}$表示$\stackrel{</em>}{D}$中属于第k类的样本子集</li>
+<li>$\stackrel{*}{D^v}$为在<code>1</code>中属性a上取值为$a^v$的样本子集</li>
+<li>$\stackrel{*}{D^k}$表示在<code>1</code>中属于第k类的样本子集</li>
 </ol>
-<p>于是有$\stackrel{<em>}{D}=\bigcup_{k=1}^{|y|}\stackrel{</em>}{D^k}$，$\stackrel{<em>}{D}=\bigcup_{v=1}^{V}\stackrel{</em>}{D^v}$</p>
-<p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
+<p>于是有</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{D}=\bigcup_{k=1}^{|y|}\stackrel{*}{D^k},\stackrel{*}{D}=\bigcup_{v=1}^{V}\stackrel{*}{D^v}</script><p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
 <p>无缺省样本所占比例</p>
 <script type="math/tex; mode=display">
 \rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
 <script type="math/tex; mode=display">
 \stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
 <script type="math/tex; mode=display">
-\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然$\sum<em>{k=1}^{|y|}\stackrel{*}{p_k}=\sum</em>{v=1}^V\stackrel{*}{r_k}=1$</p>
-<p>:confused:问题1：如何在属性值缺失的情况下进行划分属性选择</p>
+\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{|y|}\stackrel{*}{p_k}=\sum_{v=1}^V\stackrel{*}{r_k}=1</script><div class="note danger simple"><p>问题1：如何在属性值缺失的情况下进行划分属性选择</p>
+</div>
 <p>于是有新的信息增益公式</p>
 <script type="math/tex; mode=display">
 \begin{align}
@@ -159,7 +101,8 @@ Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
 &=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
 \end{align}</script><p>其中</p>
 <script type="math/tex; mode=display">
-Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><p>:confused:问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
+Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><div class="note danger simple"><p>问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
+</div>
 <ol>
 <li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
 <li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
@@ -174,6 +117,218 @@ Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
         <tag>决策树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>绪论</title>
+    <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
+<p>在计算机系统中，“经验”通常以“数据”的形式存在。</p>
+<p>ML研究的主要内容：在计算机上从数据中产生“模型”的算法。</p>
+<p>而模型的作用是，当面对新的数据时，模型会给我们提供一定的判断，即是数据预测。</p>
+<script type="math/tex; mode=display">
+数据\stackrel{学习算法}{\Longrightarrow}模型\stackrel{新情况}{\Longrightarrow}预测</script><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>数据集<code>data set</code>：数据的集合</p>
+<p>示例<code>instance</code>/样本<code>sample</code>：每条数据描述了一个对象的信息，每条数据称之为样本</p>
+<p>属性<code>attribute</code>/特征<code>feature</code>：数据描述的是样本在某些方面的性质，称之为属性</p>
+<p>属性值<code>attribute value</code>：属性的取值</p>
+<p>属性空间<code>attribute space</code>/样本空间<code>sample space</code>/输入空间<code>input space</code>：对于一个样本而言，假如它有n种属性，则组成了一个n维空间，称之为样本空间</p>
+<p>维数<code>dimensionality</code>：属性的个数</p>
+<p>特征向量<code>feature vector</code>：样本在属性空间中对应的向量</p>
+<hr>
+<p>学习<code>learning</code>/训练<code>training</code>：从数据集中学得模型的过程</p>
+<p>训练数据<code>training data</code>：学习过程中使用的数据</p>
+<p>训练样本<code>training sample</code>：训练数据中的样本</p>
+<p>训练集<code>training set</code>：训练样本的集合</p>
+<p>假设<code>hypothesis</code>：学得的模型对应了数据集中某种潜在的规律</p>
+<p>真相/真实<code>ground-truth</code>：数据集本身的潜在的规律。学习的过程就是逼近真相的过程</p>
+<p>学习器<code>learner</code>：模型的别称</p>
+<hr>
+<p>标记<code>label</code>：有关示例结果的信息，一般用y表示</p>
+<p>样例<code>example</code>：具有标记信息的示例</p>
+<p>标记空间<code>label space</code>/输出空间：所有标记的集合构成的空间</p>
+<hr>
+<p>分类<code>classification</code>：欲预测的值为离散值</p>
+<p>回归<code>regression</code>：欲预测的值为连续值</p>
+<p>二分类<code>binary classification</code>：分类的类别只有两类（正类和反类）</p>
+<p>多分类<code>multi-class classification</code>：分类的类别＞2</p>
+<hr>
+<p>测试<code>testing</code>：学得模型后，对其进行预测的过程。机器学习是一个反复的过程，需要重复多次学习、测试、调整，才能得到准确率最高的模型</p>
+<p>测试样本<code>testing sample</code>：被预测的样本</p>
+<hr>
+<p>聚类<code>clustering</code>：无监督学习的一种，将训练集的数据分为若干组，而这些组事先是不知道的</p>
+<p>簇<code>cluster</code>：聚类得到的数据分类（组）</p>
+<hr>
+<p>监督学习<code>supervised learning</code>：训练数据拥有标记信息</p>
+<p>无监督学习<code>unsupervised learning</code>：训练数据没有标记信息</p>
+<hr>
+<p>泛化<code>generalization</code>能力：学得模型适用于新样本的能力。或者说，模型预测数据的精准度</p>
+<p>独立同分布<code>independent and identically distributed</code>：简称i.i.d。假设样本空间的全体样本服从一个未知的分布，而我们在学习时使用的样本都是独立的从这个分布上采样获得的</p>
+<h2 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h2><p>所有假设组成的空间</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131735707.png" alt="西瓜问题的假设空间"></p>
+<p>学习的目的是<strong>泛化</strong>，即通过训练，得到一个模型，而这个模型可以对新样例的标签进行精准的预测。</p>
+<p>学习的过程看作是在假设空间中进行搜索的过程，搜索目标是找到与训练集匹配的假设，即能够将训练集中的瓜判断正确的假设</p>
+<p>需要注意的是，现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本的训练集进行的，因此，可能有多个假设与训练集一致，即存在着一个与训练集一致的“假设空间”，称为样本空间</p>
+<h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
+<p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
+<p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模型评估与选择</title>
+    <url>/2021/11/14/Chapter02%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%92%8C%E8%AF%84%E4%BC%B0/</url>
+    <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
+<li><p>错误率<code>error rate</code>：错误样本数占测试样本数的比例</p>
+</li>
+<li><p>精度<code>accuracy</code>：1 - 错误率</p>
+</li>
+<li><p>误差<code>error</code>：学习器的实际预测输出与样本的真实输出之间的差异</p>
+</li>
+<li><p>训练误差<code>training error</code>/经验误差<code>empirical error</code>：学习器在训练集上的误差</p>
+</li>
+<li><p>泛化误差<code>generalization error</code>：在新样本上的误差</p>
+<p>想得到的就是泛化误差较小的模型。在实际希望中，需要的是在新样本上能表现很好的学习器，就需要从训练样本中尽可能学出适用于所有潜在样本的“普遍规律”，用以判别新样本，但如果学习器将训练样本中一些自身特点当作所有潜在样本都会具有的性质，就会导致泛化能力下降。这种现象称为“过拟合”，与其相对的就是“欠拟合”：训练一般性质尚未完成。</p>
+</li>
+<li><p>过拟合<code>overfitting</code>：形象的讲就是学的太细致，假设训练集样本中叶子含有锯齿，那么得到的学习器会认为只有锯齿的才是叶子。把一些特点当做所有数据共有的特性。</p>
+</li>
+<li><p>欠拟合<code>underfitting</code>：就是训练样本的一般性质没有学好，书中例子就是训练树叶欠拟合就会误以为绿色都是树叶。</p>
+</li>
+</ul>
+<div class="note info simple"><ol>
+<li>相对于过拟合，欠拟合相对容易克服</li>
+<li>过拟合只能缓解不能避免</li>
+</ol>
+</div>
+<div class="note primary simple"><p>通常评估模型的好坏由泛化误差决定，但由于泛化误差不能直接获得（事先不知道新样本）</p>
+</div>
+<h1 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h1><p>首先，区分一下测试集和验证集。测试集是指学得模型在<strong>实际使用中</strong>遇到的样本的集合；验证集是在<strong>学习过程中</strong>用于评估测试的样本集合。</p>
+<p>评估方法的基本思想：把数据集D分为训练集S和验证集T，将验证集的测试误差作为泛化误差的近似</p>
+<div class="tabs" id="评估方法"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#评估方法-1">留出法（hold-out）</button></li><li class="tab"><button type="button" data-href="#评估方法-2">交叉验证法（cross validation）</button></li><li class="tab"><button type="button" data-href="#评估方法-3">自助法（bootstrapping）</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="评估方法-1"><ol>
+<li><p>定义</p>
+<p>文字描述：把数据集D分为训练集S和验证集T</p>
+<p>数学描述：$ D=S\bigcup T,S\bigcap T=\emptyset $</p>
+<blockquote>
+<p>假定D包含1000个样本，将其划分为S包含700个样本，T包含300个样本，用S进行训练以后，如果模型在T上有90个样本分类错误，那么其错误率为（90/300）*100%=30%，精度为1-30%=70%。</p>
+</blockquote>
+</li>
+<li><p>要求</p>
+<ul>
+<li><p><strong>S和T的比例</strong></p>
+<p>常取2：1或4：1，一般来说，验证集样本不少于30</p>
+</li>
+<li><p>S与T的划分要尽可能保持数据分布的一致性</p>
+<p>分层采样（<strong>指定训练集和验证集中正反例的比例</strong>）：保留类别的比例</p>
+<p>假设数据集包含1000个样本，其中500个正例，500个反例，将其划分为包含70%样本的训练集和30%样本的验证集，按照分层采样的策略，S应该包含350个正例，350个反例。T应该包含150个正例，150个反例。</p>
+</li>
+</ul>
+</li>
+<li><p>如何选择正反例</p>
+<ul>
+<li>对样本排序后按顺序挑选</li>
+<li>随机挑选</li>
+</ul>
+</li>
+<li><p>一般策略：多次使用留出法，计算测试误差的平均值</p>
+<p>采用分层采样策略，若干次随机挑选样本，重复评估后取平均值</p>
+</li>
+</ol>
+<div class="note success simple"><p>保证S、T和集合内正反例的比例，随机挑选样本，取多次评估的测试误差的平均值</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="评估方法-2"><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111141112123.png" alt=""></p>
+<p>将数据集分为k个大小相似的互斥子集（分层采样、随机划分）。每次用K-1个子集的并集作为训练集，余下的子集作为验证集；获得K组训练/验证集，从而可进行k次训练和测试，最终返回的是这k个测试误差的均值。</p>
+<ul>
+<li><p>留一法<code>leave-one-out</code>：训练集只有一个样本</p>
+<p>虽然不受随机划分方式的影响，但在数据集较大时，训练的花销让人难以忍受</p>
+</li>
+</ul><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="评估方法-3"><p>我们希望评估的是用整个D训练出的模型。但在留出法和交叉验证法中，由于保留了一部分样本用于测试，因此实际评估的模型所使用的训练集比D小，这必然会引入一些因训练样本规模不同而导致的估计偏差。</p>
+<p>给定包含m个样本的数据集D，每次随机从D 中挑选一个样本，将其拷贝放入D’，然后再将该样本放回初始数据集D中，使得该样本在下次采样时仍有可能被采到。重复执行m 次，就可以得到包含m个样本的数据集D’。于是可以将D’作为训练集，D\D’作为验证集。通过自助采样，初始样本集D中大约有36.8%的样本没有出现在D’中。</p>
+<p>自助法在数据集较小，难以有效划分训练集/测试集时很有用，但由于自助法产生的数据集（随机抽样）改变了初始数据集的分布，因此引入了估计偏差。在初始数据集足够时，留出法和交叉验证法更加常用。</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h1><p>大多数学习算法都有些参数(parameter)需要设定，参数配置不同，学得模型的性能往往有显著差别。</p>
+<p>学习算法的很多参数是在实数范围内取值，因此，对每种参数取值都训练出模型来是不可行的。常用的做法是：对每个参数选定一个范围和步长λ，这样使得学习的过程变得可行。</p>
+<div class="note danger simple"><p>当选定好模型和调参完成后，我们需要使用初始的数据集D重新训练模型，即让最初划分出来用于评估的测试集也被模型学习，增强模型的学习效果。</p>
+</div>
+<hr>
+<h1 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h1><p>衡量模型泛化能力的评价标准，在对比<strong>不同模型的能力</strong>时，使用不同的性能度量往往会导致不同的评判结果。</p>
+<p>给定样例集$ D={(x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m)} $,其中$y_i$是对示例$x_i$的真实标记，预测结果为$f(x)$</p>
+<h2 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h2><p>均方误差</p>
+<script type="math/tex; mode=display">
+E(f;D)=\frac{1}{m}\sum_{i=1}^m{\left( f\left(x_i\right) -y_i\right)}^2</script><p>更一般的，数据分布D和概率密度函数$p(\cdot)$</p>
+<script type="math/tex; mode=display">
+E(f;D)=\int_{x \in D}\left(f(x)-y\right)^2p(x)dx</script><h2 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h2><div class="tabs" id="分类任务的性能度量"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务的性能度量-1">错误率与精度</button></li><li class="tab"><button type="button" data-href="#分类任务的性能度量-2">查准率、查全率和F1</button></li><li class="tab"><button type="button" data-href="#分类任务的性能度量-3">ROC与AUC</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务的性能度量-1"><p>错误率：分类错误的样本占样本总数的比例</p>
+<script type="math/tex; mode=display">
+E(f;D)=\frac{1}{m}\sum_{i=1}^mⅡ\left(f(x_i)\not=y_i\right)\tag{Ⅱ(true)=1}</script><p>精度：分类正确的样本占样本总数的比例</p>
+<script type="math/tex; mode=display">
+acc(f;D)=1-E(f;D)</script><p>更一般的，对于数据分布D和概率密度函数$p(·)$</p>
+<script type="math/tex; mode=display">
+E(f;D)=\int_{s\in D}Ⅱ\left(f\left(x\right)\not=y\right)p(x)dx</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务的性能度量-2"><p>分类结果的混淆矩阵</p>
+<table>
+    <tr>
+        <td rowspan="2" align="center" vlign="center">真实情况</td>    
+        <td colspan="2" align="center">预测情况</td>  
+    </tr>
+    <tr>
+        <td align="center">正例</td>
+        <td align="center">反例</td>
+    </tr>
+    <tr>
+        <td align="center">正例</td>
+        <td align="center">TP(真正例)</td>
+        <td align="center">FN(假反例)</td>
+    </tr>
+    <tr>
+        <td align="center">反例</td>
+        <td align="center">FP(假正例)</td>
+        <td align="center">TN(真反例)</td>
+    </tr>
+</table>
+
+<p><strong>查准率</strong>P：推送给用户的内容用户是否感兴趣。</p>
+<p><strong>查全率</strong>R：所有用户感兴趣的内容中，我们推送出来了多少。</p>
+<div class="tabs" id="分类划分"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类划分-1">二分类</button></li><li class="tab"><button type="button" data-href="#分类划分-2">多分类</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类划分-1"><script type="math/tex; mode=display">
+P=\frac{TP}{TP+FP}\tag{查准率}</script><script type="math/tex; mode=display">
+R=\frac{TP}{TP+FN}\tag{查全率}</script><p>查全率与查准率时一对矛盾的度量</p>
+<p>“P-R曲线”正是描述查准/查全率变化的曲线，P-R曲线定义如下：对测试样本进行排序，将最可能是“正例”的样本排在前面，最不可能是“正例”的排在后面，设置不同的阈值，每次计算出当前阈值下对应的P值和R值，最后连成曲线，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111141456636.jpg" alt="P-R曲线" style="zoom:50%;" /></p>
+<p>图像中有如下信息：</p>
+<ul>
+<li>模型B完全包含模型C，则B的性能优于C</li>
+<li>模型A和模型B出现交叉，则比较曲线下面积的大小，面积大者优</li>
+</ul>
+<p>但由于面积值不容易估算，则引入平衡点BEP（Break-Even Point），该点处R=P。那么我们认为学习器A优于B。</p>
+<p>但BEP过于简化了，更常用F1度量。它是基于查准率与查全率的调和平均：</p>
+<script type="math/tex; mode=display">
+\frac{1}{F1}=\frac{1}{2}\left(\frac{1}{P}+\frac{1}{R}\right)</script><script type="math/tex; mode=display">
+F1=\frac{2\times P\times R}{P+R}=\frac{2\times TP}{样例总数+TP-TN}</script><p>更一般的情况，使用$F_\beta$形式。它是基于于查准率与查全率的加权调和平均：</p>
+<script type="math/tex; mode=display">
+\frac{1}{F_\beta}=\frac{1}{1+\beta^2}\left(\frac{1}{P}+\frac{\beta^2}{R}\right)</script><script type="math/tex; mode=display">
+F_\beta=\frac{\left(1+\beta^2\right)\times P\times R}{\left(\beta^2\times P\right)+R}</script><script type="math/tex; mode=display">
+\beta\begin{cases}
+> 1,对R有更大的影响\\
+< 1,对P有更大的影响\\
+= 1,退化为F1
+\end{cases}</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类划分-2"><p>多分类问题实际像就是n个二分类问题。每两两类别的组合对应一个混淆矩阵</p>
+<div class="tabs" id="多分类问题的度量"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#多分类问题的度量-1">宏观计算</button></li><li class="tab"><button type="button" data-href="#多分类问题的度量-2">微观计算</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="多分类问题的度量-1"><p>先计算，后求均值</p>
+<script type="math/tex; mode=display">
+macro-P=\frac{1}{n}\sum_{i=1}^nP_i</script><script type="math/tex; mode=display">
+macro-R=\frac{1}{n}\sum_{i=1}^nR_i</script><script type="math/tex; mode=display">
+macro-F1=\frac{2\times macro-P\times macro-R}{macro-P+macro-R}</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="多分类问题的度量-2"><p>先求均值，在计算</p>
+<script type="math/tex; mode=display">
+micro-P=\frac{\overline{TP}}{\overline{TP}+\overline{FP}}</script><script type="math/tex; mode=display">
+micro-R=\frac{\overline{TP}}{\overline{TP}+\overline{FN}}</script><script type="math/tex; mode=display">
+micro-F1=\frac{2\times micro-P\times micro-R}{micro-P+macro-R}</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务的性能度量-3"><p>学习器对测试样本的评估结果一般为一个实值或概率预测。然后设定一个阈值，大于阈值为正例，小于阈值为负例，因此这个实值或预测结果的好坏，直接决定了学习器的泛化能力。实际上，将这些实值或概率预测进行排序，则排序的好坏决定了学习器的性能高低。</p>
+<p>ROC曲线正是从这个角度出发来研究学习器的泛化性能，ROC曲线与P-R曲线相似，根据学习器的预测结果，对样例进行排序，按照排序的顺序逐个把样本作为正例进行预测，每次计算出两个重要量的值，分别以它们为横、纵坐标作图，就得到ROC曲线。不同的是ROC曲线以“真正例率”（True Positive Rate，简称TPR）为纵轴，横轴为“假正例率”（False Positive Rate，简称FPR），两者定义如下：</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
       </tags>
   </entry>
 </search>
