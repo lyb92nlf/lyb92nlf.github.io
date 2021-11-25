@@ -63,6 +63,136 @@
       </tags>
   </entry>
   <entry>
+    <title>线性模型</title>
+    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
+<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
+<script type="math/tex; mode=display">
+f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
+<script type="math/tex; mode=display">
+f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
+<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
+<p>首先，以<em>单属性</em>为例，给定数据集D</p>
+<script type="math/tex; mode=display">
+f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
+<script type="math/tex; mode=display">
+\begin{align}
+(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
+&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
+\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
+<p>然后，通过使偏导等于0，可以得到w和b</p>
+<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
+<script type="math/tex; mode=display">
+X=\left[
+\begin{matrix}
+ x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
+ x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
+ \vdots & \vdots & \ddots & \vdots \\
+ x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+ x_1^T      & 1    \\
+ x_2^T      & 1    \\
+ \vdots & \vdots   \\
+ x_m^T      & 1    \\
+\end{matrix}
+\right]</script><script type="math/tex; mode=display">
+X\left[
+\begin{matrix}
+ w_1\\
+ w_2\\
+ \vdots\\
+ w_d\\
+ b\\
+\end{matrix}
+\right]=\left[
+\begin{matrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots \\
+ f(x_m)\\
+\end{matrix}
+\right]\Longrightarrow
+XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
+<script type="math/tex; mode=display">
+f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
+\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
+<p>更一般的，考虑存在反函数g，令</p>
+<script type="math/tex; mode=display">
+g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
+<script type="math/tex; mode=display">
+y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
+<p>对数几率回归的<strong>优点</strong>：</p>
+<ol>
+<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
+<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
+<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
+<p>给定数据集</p>
+<script type="math/tex; mode=display">
+D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
+<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
+<p>最终结果：</p>
+<ul>
+<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
+<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
+<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
+<p>ECOC的工作步骤：</p>
+<ul>
+<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
+<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
+</ul>
+<p>编码矩阵：</p>
+<ul>
+<li><strong>二元码：</strong>正类、反类</li>
+<li><strong>三元码：</strong>正类、反类、停用类</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
+<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
+<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
+<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
+<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
+<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
+<p>解决方法：</p>
+<ol>
+<li><p>使正反例的数目接近</p>
+<ul>
+<li>欠采样 - 减少反例</li>
+<li>过采样 - 增加正例</li>
+</ul>
+</li>
+<li><p>再放缩</p>
+<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
+<p>则分类器的决策规则为：</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+</li>
+</ol>
+<hr>
+<blockquote id="fn_1">
+<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>模型评估与选择</title>
     <url>/2021/11/14/Chapter02%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%92%8C%E8%AF%84%E4%BC%B0/</url>
     <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
@@ -215,125 +345,114 @@ micro-F1=\frac{2\times micro-P\times micro-R}{micro-P+macro-R}</script><button t
       </tags>
   </entry>
   <entry>
-    <title>线性模型</title>
-    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
-<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
-<script type="math/tex; mode=display">
-f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
-<script type="math/tex; mode=display">
-f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
-<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
-<p>首先，以<em>单属性</em>为例，给定数据集D</p>
-<script type="math/tex; mode=display">
-f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
-<script type="math/tex; mode=display">
-\begin{align}
-(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
-&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
-\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
-<p>然后，通过使偏导等于0，可以得到w和b</p>
-<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
-<script type="math/tex; mode=display">
-X=\left[
-\begin{matrix}
- x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
- x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
- \vdots & \vdots & \ddots & \vdots \\
- x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
-\end{matrix}
-\right]
-=\left[
-\begin{matrix}
- x_1^T      & 1    \\
- x_2^T      & 1    \\
- \vdots & \vdots   \\
- x_m^T      & 1    \\
-\end{matrix}
-\right]</script><script type="math/tex; mode=display">
-X\left[
-\begin{matrix}
- w_1\\
- w_2\\
- \vdots\\
- w_d\\
- b\\
-\end{matrix}
-\right]=\left[
-\begin{matrix}
- f(x_1)\\
- f(x_2)\\
- \vdots \\
- f(x_m)\\
-\end{matrix}
-\right]\Longrightarrow
-XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
-<script type="math/tex; mode=display">
-f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
-\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
-<p>更一般的，考虑存在反函数g，令</p>
-<script type="math/tex; mode=display">
-g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
-<script type="math/tex; mode=display">
-y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
-<p>对数几率回归的<strong>优点</strong>：</p>
+    <title>决策树</title>
+    <url>/2021/11/16/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
+    <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树" style="zoom:50%;" /></p>
+<p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
+<p>其基本算法如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法" style="zoom:50%;" /></p>
+<p>注：在决策树基本算法中，有三种情形导致递归返回</p>
 <ol>
-<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
-<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
-<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
-<p>给定数据集</p>
-<script type="math/tex; mode=display">
-D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
-<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
-<p>最终结果：</p>
-<ul>
-<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
-<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
-<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
-<p>ECOC的工作步骤：</p>
-<ul>
-<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
-<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
-</ul>
-<p>编码矩阵：</p>
-<ul>
-<li><strong>二元码：</strong>正类、反类</li>
-<li><strong>三元码：</strong>正类、反类、停用类</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
-<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
-<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
-<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
-<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
-<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
-</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
-<p>解决方法：</p>
+<li>当前结点包含的样本全属于同一类别，无需划分 </li>
+<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分 </li>
+<li>当前结点包含的样本集合为空，不能划分。</li>
+</ol>
+<p>在第2种情形下，把当前结点标记为叶结点，但类别设定为该结点所含样本最多的类别。</p>
+<p>在第3种情形下，把当前结点标记为叶节点，但类别设定为其父结点所含样本最多的类别。</p>
+<p>它们的不同点是：第2种是利用当前结点的<strong>后验分布</strong>，第3种则是把父结点的样本分布作为当前结点的<strong>先验分布</strong></p>
+<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策数学习的关键就是如何选择最优划分属性</p>
 <ol>
-<li><p>使正反例的数目接近</p>
-<ul>
-<li>欠采样 - 减少反例</li>
-<li>过采样 - 增加正例</li>
-</ul>
+<li><p>信息增益</p>
+<p>实战：ID3决策树学习算法</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Ent(D)=-\sum_{k=1}^{|y|}p_k\log_2^{p_k}</script><script type="math/tex; mode=display">
+Gain(D,a)=Ent(D)-\sum_{v=1}^V\frac{|D^v|}{D}Ent(D^v)</script></li>
+</ol>
+<ol>
+<li><p>增益率</p>
+<p>实战：C4.5决策树算法</p>
+<ol>
+<li>先从候选属性中找出信息增益高于平均水平的属性</li>
+<li>在从中选择信息增益最高的属性</li>
+</ol>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain\_ratio(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2^{\frac{|D^v|}{|D|}}</script><script type="math/tex; mode=display">
+Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}</script></li>
+</ol>
+<ol>
+<li><p>基尼指数</p>
+<p>实战：CART决策树</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\, \min_{a\in A}\, Gini\_index(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Gini(D)=\sum_{k=1}^{|y|}\sum_{k'≠k}p_kp_{k'}=1\, -\, \sum_{k=1}^{|y|}p_k^2</script><script type="math/tex; mode=display">
+Gini\_index(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)</script></li>
+</ol>
+<h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><p>剪枝是决策树学习算法<strong>对付过拟合</strong>的主要手段。</p>
+<ol>
+<li><p>预剪枝</p>
+<p>对每个结点在<strong>划分前先进行评估</strong>，如果当前节点的划分<strong>不能</strong>带来决策树泛化<strong>性能提升</strong>，则<strong>停止划分</strong>并将当前节点<strong>标记为叶节点</strong></p>
 </li>
-<li><p>再放缩</p>
-<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
-<p>则分类器的决策规则为：</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+<li><p>后剪枝</p>
+<p>先生成<strong>完整的决策树</strong>，<strong>自底向上</strong>的对<strong>非叶节点</strong>进行考察，如果当前节点对应的子树替换成叶节点能带来决策树泛<strong>化性能提升</strong>，则将子树<strong>替换</strong>成叶节点</p>
 </li>
 </ol>
-<hr>
-<blockquote id="fn_1">
-<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
+<p>对比预剪枝与后剪枝生成的决策树：</p>
+<p>后剪枝通常比预剪枝保留更多的分支，其欠拟合风险很小，因此后剪枝的泛化性能往往优于预剪枝决策树。但后剪枝过程是生成完整决策树之后自底往上裁剪，因此其训练时间开销比预剪枝要大。</p>
+<h2 id="连续和缺失值"><a href="#连续和缺失值" class="headerlink" title="连续和缺失值"></a>连续和缺失值</h2><h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p>使用<strong>连续属性离散化技术</strong>对连续值进行处理</p>
+<p>C4.5决策树算法采用二分法处理连续属性</p>
+<p>假设连续属性a的值从小到大排序为{a1,a2,a3,…,an}</p>
+<p>取划分点（n个值对应n-1个划分点）</p>
+<script type="math/tex; mode=display">
+T_a = \left\{ \frac{a^i\, + a^{i+1}}{2}\, |\,1≤i≤n-1| \right\}</script><script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
+&=\max_{t\in T_a}\, Ent(D)-\sum_{\lambda\in \lbrace -,+\rbrace}\frac{|D^v|}{D}Ent(D_t^\lambda)
+\end{align}</script><p>$ D^- $ ：属性值小于t的样本</p>
+<p>$D^+$：属性值大于t的样本</p>
+<h3 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h3><p>现实任务中常会遇到不完整的样本，即样本的某些属性值缺失</p>
+<p>给定数据集D和属性a</p>
+<ol>
+<li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
+<li>$\stackrel{*}{D^v}$为在<code>1</code>中属性a上取值为$a^v$的样本子集</li>
+<li>$\stackrel{*}{D^k}$表示在<code>1</code>中属于第k类的样本子集</li>
+</ol>
+<p>于是有</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{D}=\bigcup_{k=1}^{|y|}\stackrel{*}{D^k},\stackrel{*}{D}=\bigcup_{v=1}^{V}\stackrel{*}{D^v}</script><p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
+<p>无缺省样本所占比例</p>
+<script type="math/tex; mode=display">
+\rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{|y|}\stackrel{*}{p_k}=\sum_{v=1}^V\stackrel{*}{r_k}=1</script><div class="note danger simple"><p>问题1：如何在属性值缺失的情况下进行划分属性选择</p>
+</div>
+<p>于是有新的信息增益公式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
+&=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
+\end{align}</script><p>其中</p>
+<script type="math/tex; mode=display">
+Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><div class="note danger simple"><p>问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
+</div>
+<ol>
+<li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
+<li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
+</ol>
+<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><p>此类决策树中，非叶节点不在是仅对某个属性，而是对属性的线性组合进行测试。</p>
+<p>即每个非叶节点是一个形如$\sum_{i=1}^{d}w_ia_i=t$的线性分类器，其中$w_i$是属性$a_i$的权重，$w_i$和$t$可在该节点所含样本的样本集和属性集学到</p>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -342,6 +461,7 @@ D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C�
       <tags>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
+        <tag>决策树</tag>
       </tags>
   </entry>
   <entry>
@@ -417,6 +537,73 @@ E=\lambda\frac{1}{m}\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2</script></li>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
         <tag>神经网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贝叶斯分类器</title>
+    <url>/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/</url>
+    <content><![CDATA[<blockquote>
+<p>可以先学习<a href="https://zhuanlan.zhihu.com/p/32825019">贝叶斯公式</a>和<a href="https://zhuanlan.zhihu.com/p/26262151">一个简单的朴素贝叶斯分类算法</a></p>
+</blockquote>
+<h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>是概率框架下实施决策的基本方法，以多分类任务解释其基本原理</p>
+<p>定义样本x的风险</p>
+<script type="math/tex; mode=display">
+R(c_i|x)=\sum_{j=1}^N\lambda_{ij}P(c_j|x)</script><p>大概意思就是：基于x的特征判定为某类别的概率 × 判定为该类别的损失λ 之和</p>
+<p>任务：使所有样本x的风险最小。</p>
+<p>贝叶斯判定准则：为最小化总体风险，只需每个样本选择能使风险最小的类别</p>
+<p><br/></p>
+<p>具体来说，定义损失λ为：正确类别（即i=j），损失为0；不正确类别，损失为1</p>
+<p>那么，样本x的风险=1-基于x的特征判定为某类别的概率</p>
+<p>所以最小化风险的贝叶斯最优分类器为<strong>基于x的特征判定为某类别的概率最大</strong></p>
+<p><strong>即对于每个样本x，选择能使基于x的特征判定概率最大的类别</strong></p>
+<script type="math/tex; mode=display">
+p(c|x)=\frac{p(c)p(x|c)}{p(x)}</script><p>关键就是<strong>类条件概率p(x|c)</strong>的求取</p>
+<h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><blockquote>
+<p>参考<a href="https://www.matongxue.com/madocs/447/">马同学 (matongxue.com)</a>，极大似然估计就是通过事实，推断出最有可能的参数</p>
+</blockquote>
+<p>估计类条件概率的一种常用策略：</p>
+<ol>
+<li>先假设类条件概率具有某种确定的概率分布形式</li>
+<li>再基于训练集对概率分布的参数进行估计。</li>
+</ol>
+<p>假设p(x|c)，x为多维向量</p>
+<ol>
+<li>具有确定的形式，且被多个参数唯一确定</li>
+<li>使用训练集D对多个参数进行估计（设定参数，使得所有的x出现的概率最大）</li>
+<li>通过估计的参数求出各类别的p(x|c)</li>
+</ol>
+<p>实际应用中，概率分布形式应利用应用任务本身的经验知识，如果只是猜测，很可能产生误导性结果</p>
+<h2 id="朴素贝叶斯分类器"><a href="#朴素贝叶斯分类器" class="headerlink" title="朴素贝叶斯分类器"></a>朴素贝叶斯分类器</h2><script type="math/tex; mode=display">
+p(类别|特征)=\frac{p(类别)p(特征|类别)}{p(特征)}</script><p>前提：假设样本所有属性相互独立</p>
+<script type="math/tex; mode=display">
+p(c|x)=\frac{p(c)p(x|c)}{p(x)}=\frac{p(c)}{p(x)}\prod_{i=1}^dp(x_i|c)</script><p>由于每个样本的p(x)相等，所以，朴素贝叶斯分类器的表达式为</p>
+<script type="math/tex; mode=display">
+h_{nb}(x)=\underset{c\in \gamma}{argmax}\;p(c)\prod_{i=1}^dp(x_i|c)</script><p>对于连续属性的p(xi|c)使用<strong>极大似然估计</strong>，xi为一维向量</p>
+<h3 id="拉普拉斯修正"><a href="#拉普拉斯修正" class="headerlink" title="拉普拉斯修正"></a>拉普拉斯修正</h3><p>如果在训练集里好瓜从未出现过敲声清脆的值，那么当测试样本x中出现清脆时，p(清脆|好瓜)=0，p(好瓜|x)=0，这样，无论该样本其他属性哪怕明显是好瓜，分类结果都将是坏瓜。为了避免这种问题，常用<strong>拉普拉斯修正</strong></p>
+<p>定义N：训练集D中可能的类别个数，Ni表示第i个属性可能的取值数</p>
+<p>则</p>
+<script type="math/tex; mode=display">
+p(c)=\frac{|D_c|+1}{|D|+N}\;\;\;\;\;p(x_i|c)=\frac{|D_{c,x_i}|+1}{|D_c|+N_i}</script><h1 id="半朴素贝叶斯分类器"><a href="#半朴素贝叶斯分类器" class="headerlink" title="半朴素贝叶斯分类器"></a>半朴素贝叶斯分类器</h1><h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><p>隐变量：例如由于西瓜的根蒂脱落，无法看出是“蜷缩”或“硬挺”，这种未观察的变量叫做隐变量</p>
+<p>以初始值Θ为起点，迭代执行以下步骤直至收敛：</p>
+<ul>
+<li>基于Θ推断隐变量的期望</li>
+<li>基于期望和已观测的变量对参数Θ做极大似然估计</li>
+</ul>
+<h1 id="朴素贝叶斯分类器示例"><a href="#朴素贝叶斯分类器示例" class="headerlink" title="朴素贝叶斯分类器示例"></a>朴素贝叶斯分类器示例</h1><p>假设存在以下训练集</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111221412472.jpg" alt="训练集" style="zoom:80%;" /></p>
+<p>测试集：第一行样本</p>
+<p>计算过程和测试结果</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007713.jpg" alt="过程" style="zoom:80%;" /></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007688.jpg" alt="结果" style="zoom:80%;" /></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+        <tag>贝叶斯分类器</tag>
       </tags>
   </entry>
   <entry>
@@ -565,190 +752,86 @@ K(x_1,x_2)=\psi(x_1)^T\psi(x_2)</script><p>则优化式仍然可解</p>
       </tags>
   </entry>
   <entry>
-    <title>决策树</title>
-    <url>/2021/11/16/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
-    <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树" style="zoom:50%;" /></p>
-<p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
-<p>其基本算法如下图所示</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法" style="zoom:50%;" /></p>
-<p>注：在决策树基本算法中，有三种情形导致递归返回</p>
-<ol>
-<li>当前结点包含的样本全属于同一类别，无需划分 </li>
-<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分 </li>
-<li>当前结点包含的样本集合为空，不能划分。</li>
-</ol>
-<p>在第2种情形下，把当前结点标记为叶结点，但类别设定为该结点所含样本最多的类别。</p>
-<p>在第3种情形下，把当前结点标记为叶节点，但类别设定为其父结点所含样本最多的类别。</p>
-<p>它们的不同点是：第2种是利用当前结点的<strong>后验分布</strong>，第3种则是把父结点的样本分布作为当前结点的<strong>先验分布</strong></p>
-<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策数学习的关键就是如何选择最优划分属性</p>
-<ol>
-<li><p>信息增益</p>
-<p>实战：ID3决策树学习算法</p>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\,\max_{a\in A}Gain(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-Ent(D)=-\sum_{k=1}^{|y|}p_k\log_2^{p_k}</script><script type="math/tex; mode=display">
-Gain(D,a)=Ent(D)-\sum_{v=1}^V\frac{|D^v|}{D}Ent(D^v)</script></li>
-</ol>
-<ol>
-<li><p>增益率</p>
-<p>实战：C4.5决策树算法</p>
-<ol>
-<li>先从候选属性中找出信息增益高于平均水平的属性</li>
-<li>在从中选择信息增益最高的属性</li>
-</ol>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\,\max_{a\in A}Gain\_ratio(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2^{\frac{|D^v|}{|D|}}</script><script type="math/tex; mode=display">
-Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}</script></li>
-</ol>
-<ol>
-<li><p>基尼指数</p>
-<p>实战：CART决策树</p>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\, \min_{a\in A}\, Gini\_index(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-Gini(D)=\sum_{k=1}^{|y|}\sum_{k'≠k}p_kp_{k'}=1\, -\, \sum_{k=1}^{|y|}p_k^2</script><script type="math/tex; mode=display">
-Gini\_index(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)</script></li>
-</ol>
-<h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><p>剪枝是决策树学习算法<strong>对付过拟合</strong>的主要手段。</p>
-<ol>
-<li><p>预剪枝</p>
-<p>对每个结点在<strong>划分前先进行评估</strong>，如果当前节点的划分<strong>不能</strong>带来决策树泛化<strong>性能提升</strong>，则<strong>停止划分</strong>并将当前节点<strong>标记为叶节点</strong></p>
-</li>
-<li><p>后剪枝</p>
-<p>先生成<strong>完整的决策树</strong>，<strong>自底向上</strong>的对<strong>非叶节点</strong>进行考察，如果当前节点对应的子树替换成叶节点能带来决策树泛<strong>化性能提升</strong>，则将子树<strong>替换</strong>成叶节点</p>
-</li>
-</ol>
-<p>对比预剪枝与后剪枝生成的决策树：</p>
-<p>后剪枝通常比预剪枝保留更多的分支，其欠拟合风险很小，因此后剪枝的泛化性能往往优于预剪枝决策树。但后剪枝过程是生成完整决策树之后自底往上裁剪，因此其训练时间开销比预剪枝要大。</p>
-<h2 id="连续和缺失值"><a href="#连续和缺失值" class="headerlink" title="连续和缺失值"></a>连续和缺失值</h2><h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p>使用<strong>连续属性离散化技术</strong>对连续值进行处理</p>
-<p>C4.5决策树算法采用二分法处理连续属性</p>
-<p>假设连续属性a的值从小到大排序为{a1,a2,a3,…,an}</p>
-<p>取划分点（n个值对应n-1个划分点）</p>
-<script type="math/tex; mode=display">
-T_a = \left\{ \frac{a^i\, + a^{i+1}}{2}\, |\,1≤i≤n-1| \right\}</script><script type="math/tex; mode=display">
-\begin{align}
-Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
-&=\max_{t\in T_a}\, Ent(D)-\sum_{\lambda\in \lbrace -,+\rbrace}\frac{|D^v|}{D}Ent(D_t^\lambda)
-\end{align}</script><p>$ D^- $ ：属性值小于t的样本</p>
-<p>$D^+$：属性值大于t的样本</p>
-<h3 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h3><p>现实任务中常会遇到不完整的样本，即样本的某些属性值缺失</p>
-<p>给定数据集D和属性a</p>
-<ol>
-<li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
-<li>$\stackrel{*}{D^v}$为在<code>1</code>中属性a上取值为$a^v$的样本子集</li>
-<li>$\stackrel{*}{D^k}$表示在<code>1</code>中属于第k类的样本子集</li>
-</ol>
-<p>于是有</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{D}=\bigcup_{k=1}^{|y|}\stackrel{*}{D^k},\stackrel{*}{D}=\bigcup_{v=1}^{V}\stackrel{*}{D^v}</script><p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
-<p>无缺省样本所占比例</p>
-<script type="math/tex; mode=display">
-\rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{|y|}\stackrel{*}{p_k}=\sum_{v=1}^V\stackrel{*}{r_k}=1</script><div class="note danger simple"><p>问题1：如何在属性值缺失的情况下进行划分属性选择</p>
-</div>
-<p>于是有新的信息增益公式</p>
-<script type="math/tex; mode=display">
-\begin{align}
-Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
-&=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
-\end{align}</script><p>其中</p>
-<script type="math/tex; mode=display">
-Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><div class="note danger simple"><p>问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
-</div>
-<ol>
-<li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
-<li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
-</ol>
-<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><p>此类决策树中，非叶节点不在是仅对某个属性，而是对属性的线性组合进行测试。</p>
-<p>即每个非叶节点是一个形如$\sum_{i=1}^{d}w_ia_i=t$的线性分类器，其中$w_i$是属性$a_i$的权重，$w_i$和$t$可在该节点所含样本的样本集和属性集学到</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>决策树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贝叶斯分类器</title>
-    <url>/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/</url>
-    <content><![CDATA[<blockquote>
-<p>可以先学习<a href="https://zhuanlan.zhihu.com/p/32825019">贝叶斯公式</a>和<a href="https://zhuanlan.zhihu.com/p/26262151">一个简单的朴素贝叶斯分类算法</a></p>
-</blockquote>
-<h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>是概率框架下实施决策的基本方法，以多分类任务解释其基本原理</p>
-<p>定义样本x的风险</p>
-<script type="math/tex; mode=display">
-R(c_i|x)=\sum_{j=1}^N\lambda_{ij}P(c_j|x)</script><p>大概意思就是：基于x的特征判定为某类别的概率 × 判定为该类别的损失λ 之和</p>
-<p>任务：使所有样本x的风险最小。</p>
-<p>贝叶斯判定准则：为最小化总体风险，只需每个样本选择能使风险最小的类别</p>
-<p><br/></p>
-<p>具体来说，定义损失λ为：正确类别（即i=j），损失为0；不正确类别，损失为1</p>
-<p>那么，样本x的风险=1-基于x的特征判定为某类别的概率</p>
-<p>所以最小化风险的贝叶斯最优分类器为<strong>基于x的特征判定为某类别的概率最大</strong></p>
-<p><strong>即对于每个样本x，选择能使基于x的特征判定概率最大的类别</strong></p>
-<script type="math/tex; mode=display">
-p(c|x)=\frac{p(c)p(x|c)}{p(x)}</script><p>关键就是<strong>类条件概率p(x|c)</strong>的求取</p>
-<h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><blockquote>
-<p>参考<a href="https://www.matongxue.com/madocs/447/">马同学 (matongxue.com)</a>，极大似然估计就是通过事实，推断出最有可能的参数</p>
-</blockquote>
-<p>估计类条件概率的一种常用策略：</p>
-<ol>
-<li>先假设类条件概率具有某种确定的概率分布形式</li>
-<li>再基于训练集对概率分布的参数进行估计。</li>
-</ol>
-<p>假设p(x|c)，x为多维向量</p>
-<ol>
-<li>具有确定的形式，且被多个参数唯一确定</li>
-<li>使用训练集D对多个参数进行估计（设定参数，使得所有的x出现的概率最大）</li>
-<li>通过估计的参数求出各类别的p(x|c)</li>
-</ol>
-<p>实际应用中，概率分布形式应利用应用任务本身的经验知识，如果只是猜测，很可能产生误导性结果</p>
-<h2 id="朴素贝叶斯分类器"><a href="#朴素贝叶斯分类器" class="headerlink" title="朴素贝叶斯分类器"></a>朴素贝叶斯分类器</h2><script type="math/tex; mode=display">
-p(类别|特征)=\frac{p(类别)p(特征|类别)}{p(特征)}</script><p>前提：假设样本所有属性相互独立</p>
-<script type="math/tex; mode=display">
-p(c|x)=\frac{p(c)p(x|c)}{p(x)}=\frac{p(c)}{p(x)}\prod_{i=1}^dp(x_i|c)</script><p>由于每个样本的p(x)相等，所以，朴素贝叶斯分类器的表达式为</p>
-<script type="math/tex; mode=display">
-h_{nb}(x)=\underset{c\in \gamma}{argmax}\;p(c)\prod_{i=1}^dp(x_i|c)</script><p>对于连续属性的p(xi|c)使用<strong>极大似然估计</strong>，xi为一维向量</p>
-<h3 id="拉普拉斯修正"><a href="#拉普拉斯修正" class="headerlink" title="拉普拉斯修正"></a>拉普拉斯修正</h3><p>如果在训练集里好瓜从未出现过敲声清脆的值，那么当测试样本x中出现清脆时，p(清脆|好瓜)=0，p(好瓜|x)=0，这样，无论该样本其他属性哪怕明显是好瓜，分类结果都将是坏瓜。为了避免这种问题，常用<strong>拉普拉斯修正</strong></p>
-<p>定义N：训练集D中可能的类别个数，Ni表示第i个属性可能的取值数</p>
-<p>则</p>
-<script type="math/tex; mode=display">
-p(c)=\frac{|D_c|+1}{|D|+N}\;\;\;\;\;p(x_i|c)=\frac{|D_{c,x_i}|+1}{|D_c|+N_i}</script><h1 id="半朴素贝叶斯分类器"><a href="#半朴素贝叶斯分类器" class="headerlink" title="半朴素贝叶斯分类器"></a>半朴素贝叶斯分类器</h1><h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><p>隐变量：例如由于西瓜的根蒂脱落，无法看出是“蜷缩”或“硬挺”，这种未观察的变量叫做隐变量</p>
-<p>以初始值Θ为起点，迭代执行以下步骤直至收敛：</p>
+    <title>SVM数学知识补充</title>
+    <url>/2021/11/18/SVM%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h1 id="原问题"><a href="#原问题" class="headerlink" title="原问题"></a>原问题</h1><p>Prime Problem</p>
+<p>最小化$f(w)$，w为所有待优化的未知量</p>
+<p>限制条件：</p>
 <ul>
-<li>基于Θ推断隐变量的期望</li>
-<li>基于期望和已观测的变量对参数Θ做极大似然估计</li>
+<li>$g_i(w)\leq0,i\in[1,k]$</li>
+<li>$h_i(w)=0,i\in[1,M]$</li>
 </ul>
-<h1 id="朴素贝叶斯分类器示例"><a href="#朴素贝叶斯分类器示例" class="headerlink" title="朴素贝叶斯分类器示例"></a>朴素贝叶斯分类器示例</h1><p>假设存在以下训练集</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111221412472.jpg" alt="训练集" style="zoom:80%;" /></p>
-<p>测试集：第一行样本</p>
-<p>计算过程和测试结果</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007713.jpg" alt="过程" style="zoom:80%;" /></p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007688.jpg" alt="结果" style="zoom:80%;" /></p>
-]]></content>
+<blockquote>
+<p>非常具有普适性：</p>
+<ol>
+<li>最小化问题f(x)，则-f(x)是最大化问题</li>
+<li>限制条件包含大于等于0和等于C的情况</li>
+</ol>
+</blockquote>
+<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>首先，定义</p>
+<script type="math/tex; mode=display">
+\begin{align}
+L(w,\alpha,\beta)&=f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\nonumber
+\end{align}</script><p>Dual Problem</p>
+<p>最大化</p>
+<script type="math/tex; mode=display">
+\theta(\alpha,\beta)=\underset{所有w}{\inf}\lbrace L(w,\alpha,\beta)\rbrace</script><p>限制条件</p>
+<ul>
+<li>$\alpha_i\geq0,i\in[0,k]$</li>
+</ul>
+<blockquote>
+<p>inf：求最小值</p>
+<p>确定α、β的取值的情况下，遍历所有的w求L最小值</p>
+<p>当取不同的α、β的情况下，取最大值θ</p>
+</blockquote>
+<h1 id="原问题与对偶问题的关系"><a href="#原问题与对偶问题的关系" class="headerlink" title="原问题与对偶问题的关系"></a>原问题与对偶问题的关系</h1><p>定理：</p>
+<script type="math/tex; mode=display">
+如果w^*是原问题的解，\alpha^*,\beta^*是对偶问题的解，则有
+f(w^*)\geq\theta(\alpha^*,\beta^*)</script><p>证明</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
+&\leq L(w^*,\alpha^*,\beta^*)\nonumber\\
+&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
+&\leq f(w^*)\nonumber
+\end{align}</script><p>第三步证明过程：</p>
+<script type="math/tex; mode=display">
+因为w^*,\alpha^*,\beta^*是解，且限制条件\alpha_i^*\geq0,g_i(w*)\leq0,h_i(w^*)=0</script><h1 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h1><ol>
+<li>原问题与对偶问题的间距<code>Duality Gap</code></li>
+</ol>
+<script type="math/tex; mode=display">
+G=f(w^*)-\theta(\alpha^*,\beta^*)</script><ol>
+<li><p>对于某些特定的优化问题，可以证明G=0</p>
+</li>
+<li><p>强对偶定理</p>
+<p>若f(w)为<strong>凸函数</strong>，且g(w)、h(w)为<strong>线性函数</strong>，则此优化问题的G=0</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
+&=L(w^*,\alpha^*,\beta^*)\nonumber\\
+&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
+&=f(w^*)\nonumber
+\end{align}</script></li>
+</ol>
+<blockquote>
+<p>第一个≤变成=：w*在α*、β*的条件下是L取到最小值</p>
+<p>第二个≤变成=：KKT条件</p>
+</blockquote>
+<script type="math/tex; mode=display">
+a_i^*=0\; 或\; g_i(w^*)=0\tag{对任意的i∈[1,k]}</script><h1 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h1><p>必然存在最小值。外国人认为的凸与中国人认为的凸不太一样，下面给出凸函数的定义</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181607529.png" alt="凸函数" style="zoom: 33%;" /></p>
+<p>这里的x,y可以扩展到多维，仍然满足</p>
+<script type="math/tex; mode=display">
+f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</script>]]></content>
       <categories>
         <category>笔记</category>
-        <category>西瓜书</category>
+        <category>数学知识</category>
       </categories>
       <tags>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
-        <tag>贝叶斯分类器</tag>
+        <tag>对偶问题</tag>
+        <tag>优化理论</tag>
       </tags>
   </entry>
   <entry>
@@ -846,89 +929,6 @@ k=\frac{p_1-p_2}{1-p_2}\;\;\;p_1=\frac{a+d}{m}\;\;\;p_2=\frac{(a+b)(a+c)+(b+d)(c
         <tag>继承学习</tag>
         <tag>adaboost</tag>
         <tag>随机森林</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SVM数学知识补充</title>
-    <url>/2021/11/18/SVM%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<h1 id="原问题"><a href="#原问题" class="headerlink" title="原问题"></a>原问题</h1><p>Prime Problem</p>
-<p>最小化$f(w)$，w为所有待优化的未知量</p>
-<p>限制条件：</p>
-<ul>
-<li>$g_i(w)\leq0,i\in[1,k]$</li>
-<li>$h_i(w)=0,i\in[1,M]$</li>
-</ul>
-<blockquote>
-<p>非常具有普适性：</p>
-<ol>
-<li>最小化问题f(x)，则-f(x)是最大化问题</li>
-<li>限制条件包含大于等于0和等于C的情况</li>
-</ol>
-</blockquote>
-<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>首先，定义</p>
-<script type="math/tex; mode=display">
-\begin{align}
-L(w,\alpha,\beta)&=f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\nonumber
-\end{align}</script><p>Dual Problem</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-\theta(\alpha,\beta)=\underset{所有w}{\inf}\lbrace L(w,\alpha,\beta)\rbrace</script><p>限制条件</p>
-<ul>
-<li>$\alpha_i\geq0,i\in[0,k]$</li>
-</ul>
-<blockquote>
-<p>inf：求最小值</p>
-<p>确定α、β的取值的情况下，遍历所有的w求L最小值</p>
-<p>当取不同的α、β的情况下，取最大值θ</p>
-</blockquote>
-<h1 id="原问题与对偶问题的关系"><a href="#原问题与对偶问题的关系" class="headerlink" title="原问题与对偶问题的关系"></a>原问题与对偶问题的关系</h1><p>定理：</p>
-<script type="math/tex; mode=display">
-如果w^*是原问题的解，\alpha^*,\beta^*是对偶问题的解，则有
-f(w^*)\geq\theta(\alpha^*,\beta^*)</script><p>证明</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
-&\leq L(w^*,\alpha^*,\beta^*)\nonumber\\
-&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
-&\leq f(w^*)\nonumber
-\end{align}</script><p>第三步证明过程：</p>
-<script type="math/tex; mode=display">
-因为w^*,\alpha^*,\beta^*是解，且限制条件\alpha_i^*\geq0,g_i(w*)\leq0,h_i(w^*)=0</script><h1 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h1><ol>
-<li>原问题与对偶问题的间距<code>Duality Gap</code></li>
-</ol>
-<script type="math/tex; mode=display">
-G=f(w^*)-\theta(\alpha^*,\beta^*)</script><ol>
-<li><p>对于某些特定的优化问题，可以证明G=0</p>
-</li>
-<li><p>强对偶定理</p>
-<p>若f(w)为<strong>凸函数</strong>，且g(w)、h(w)为<strong>线性函数</strong>，则此优化问题的G=0</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
-&=L(w^*,\alpha^*,\beta^*)\nonumber\\
-&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
-&=f(w^*)\nonumber
-\end{align}</script></li>
-</ol>
-<blockquote>
-<p>第一个≤变成=：w*在α*、β*的条件下是L取到最小值</p>
-<p>第二个≤变成=：KKT条件</p>
-</blockquote>
-<script type="math/tex; mode=display">
-a_i^*=0\; 或\; g_i(w^*)=0\tag{对任意的i∈[1,k]}</script><h1 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h1><p>必然存在最小值。外国人认为的凸与中国人认为的凸不太一样，下面给出凸函数的定义</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181607529.png" alt="凸函数" style="zoom: 33%;" /></p>
-<p>这里的x,y可以扩展到多维，仍然满足</p>
-<script type="math/tex; mode=display">
-f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</script>]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>数学知识</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>对偶问题</tag>
-        <tag>优化理论</tag>
       </tags>
   </entry>
   <entry>
