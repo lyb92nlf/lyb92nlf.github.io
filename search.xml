@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>绪论</title>
+    <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
+<p>在计算机系统中，“经验”通常以“数据”的形式存在。</p>
+<p>ML研究的主要内容：在计算机上从数据中产生“模型”的算法。</p>
+<p>而模型的作用是，当面对新的数据时，模型会给我们提供一定的判断，即是数据预测。</p>
+<script type="math/tex; mode=display">
+数据\stackrel{学习算法}{\Longrightarrow}模型\stackrel{新情况}{\Longrightarrow}预测</script><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>数据集<code>data set</code>：数据的集合</p>
+<p>示例<code>instance</code>/样本<code>sample</code>：每条数据描述了一个对象的信息，每条数据称之为样本</p>
+<p>属性<code>attribute</code>/特征<code>feature</code>：数据描述的是样本在某些方面的性质，称之为属性</p>
+<p>属性值<code>attribute value</code>：属性的取值</p>
+<p>属性空间<code>attribute space</code>/样本空间<code>sample space</code>/输入空间<code>input space</code>：对于一个样本而言，假如它有n种属性，则组成了一个n维空间，称之为样本空间</p>
+<p>维数<code>dimensionality</code>：属性的个数</p>
+<p>特征向量<code>feature vector</code>：样本在属性空间中对应的向量</p>
+<hr>
+<p>学习<code>learning</code>/训练<code>training</code>：从数据集中学得模型的过程</p>
+<p>训练数据<code>training data</code>：学习过程中使用的数据</p>
+<p>训练样本<code>training sample</code>：训练数据中的样本</p>
+<p>训练集<code>training set</code>：训练样本的集合</p>
+<p>假设<code>hypothesis</code>：学得的模型对应了数据集中某种潜在的规律</p>
+<p>真相/真实<code>ground-truth</code>：数据集本身的潜在的规律。学习的过程就是逼近真相的过程</p>
+<p>学习器<code>learner</code>：模型的别称</p>
+<hr>
+<p>标记<code>label</code>：有关示例结果的信息，一般用y表示</p>
+<p>样例<code>example</code>：具有标记信息的示例</p>
+<p>标记空间<code>label space</code>/输出空间：所有标记的集合构成的空间</p>
+<hr>
+<p>分类<code>classification</code>：欲预测的值为离散值</p>
+<p>回归<code>regression</code>：欲预测的值为连续值</p>
+<p>二分类<code>binary classification</code>：分类的类别只有两类（正类和反类）</p>
+<p>多分类<code>multi-class classification</code>：分类的类别＞2</p>
+<hr>
+<p>测试<code>testing</code>：学得模型后，对其进行预测的过程。机器学习是一个反复的过程，需要重复多次学习、测试、调整，才能得到准确率最高的模型</p>
+<p>测试样本<code>testing sample</code>：被预测的样本</p>
+<hr>
+<p>聚类<code>clustering</code>：无监督学习的一种，将训练集的数据分为若干组，而这些组事先是不知道的</p>
+<p>簇<code>cluster</code>：聚类得到的数据分类（组）</p>
+<hr>
+<p>监督学习<code>supervised learning</code>：训练数据拥有标记信息</p>
+<p>无监督学习<code>unsupervised learning</code>：训练数据没有标记信息</p>
+<hr>
+<p>泛化<code>generalization</code>能力：学得模型适用于新样本的能力。或者说，模型预测数据的精准度</p>
+<p>独立同分布<code>independent and identically distributed</code>：简称i.i.d。假设样本空间的全体样本服从一个未知的分布，而我们在学习时使用的样本都是独立的从这个分布上采样获得的</p>
+<h2 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h2><p>所有假设组成的空间</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131735707.png" alt="西瓜问题的假设空间"></p>
+<p>学习的目的是<strong>泛化</strong>，即通过训练，得到一个模型，而这个模型可以对新样例的标签进行精准的预测。</p>
+<p>学习的过程看作是在假设空间中进行搜索的过程，搜索目标是找到与训练集匹配的假设，即能够将训练集中的瓜判断正确的假设</p>
+<p>需要注意的是，现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本的训练集进行的，因此，可能有多个假设与训练集一致，即存在着一个与训练集一致的“假设空间”，称为样本空间</p>
+<h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
+<p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
+<p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>模型评估与选择</title>
     <url>/2021/11/14/Chapter02%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%92%8C%E8%AF%84%E4%BC%B0/</url>
     <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
@@ -153,57 +215,125 @@ micro-F1=\frac{2\times micro-P\times micro-R}{micro-P+macro-R}</script><button t
       </tags>
   </entry>
   <entry>
-    <title>绪论</title>
-    <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
-<p>在计算机系统中，“经验”通常以“数据”的形式存在。</p>
-<p>ML研究的主要内容：在计算机上从数据中产生“模型”的算法。</p>
-<p>而模型的作用是，当面对新的数据时，模型会给我们提供一定的判断，即是数据预测。</p>
+    <title>线性模型</title>
+    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
+<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
 <script type="math/tex; mode=display">
-数据\stackrel{学习算法}{\Longrightarrow}模型\stackrel{新情况}{\Longrightarrow}预测</script><h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>数据集<code>data set</code>：数据的集合</p>
-<p>示例<code>instance</code>/样本<code>sample</code>：每条数据描述了一个对象的信息，每条数据称之为样本</p>
-<p>属性<code>attribute</code>/特征<code>feature</code>：数据描述的是样本在某些方面的性质，称之为属性</p>
-<p>属性值<code>attribute value</code>：属性的取值</p>
-<p>属性空间<code>attribute space</code>/样本空间<code>sample space</code>/输入空间<code>input space</code>：对于一个样本而言，假如它有n种属性，则组成了一个n维空间，称之为样本空间</p>
-<p>维数<code>dimensionality</code>：属性的个数</p>
-<p>特征向量<code>feature vector</code>：样本在属性空间中对应的向量</p>
+f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
+<script type="math/tex; mode=display">
+f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
+<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
+<p>首先，以<em>单属性</em>为例，给定数据集D</p>
+<script type="math/tex; mode=display">
+f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
+<script type="math/tex; mode=display">
+\begin{align}
+(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
+&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
+\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
+<p>然后，通过使偏导等于0，可以得到w和b</p>
+<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
+<script type="math/tex; mode=display">
+X=\left[
+\begin{matrix}
+ x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
+ x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
+ \vdots & \vdots & \ddots & \vdots \\
+ x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+ x_1^T      & 1    \\
+ x_2^T      & 1    \\
+ \vdots & \vdots   \\
+ x_m^T      & 1    \\
+\end{matrix}
+\right]</script><script type="math/tex; mode=display">
+X\left[
+\begin{matrix}
+ w_1\\
+ w_2\\
+ \vdots\\
+ w_d\\
+ b\\
+\end{matrix}
+\right]=\left[
+\begin{matrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots \\
+ f(x_m)\\
+\end{matrix}
+\right]\Longrightarrow
+XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
+<script type="math/tex; mode=display">
+f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
+\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
+<p>更一般的，考虑存在反函数g，令</p>
+<script type="math/tex; mode=display">
+g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
+<script type="math/tex; mode=display">
+y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
+<p>对数几率回归的<strong>优点</strong>：</p>
+<ol>
+<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
+<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
+<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
+<p>给定数据集</p>
+<script type="math/tex; mode=display">
+D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
+<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
+<p>最终结果：</p>
+<ul>
+<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
+<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
+<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
+<p>ECOC的工作步骤：</p>
+<ul>
+<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
+<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
+</ul>
+<p>编码矩阵：</p>
+<ul>
+<li><strong>二元码：</strong>正类、反类</li>
+<li><strong>三元码：</strong>正类、反类、停用类</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
+<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
+<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
+<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
+<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
+<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
+<p>解决方法：</p>
+<ol>
+<li><p>使正反例的数目接近</p>
+<ul>
+<li>欠采样 - 减少反例</li>
+<li>过采样 - 增加正例</li>
+</ul>
+</li>
+<li><p>再放缩</p>
+<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
+<p>则分类器的决策规则为：</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+</li>
+</ol>
 <hr>
-<p>学习<code>learning</code>/训练<code>training</code>：从数据集中学得模型的过程</p>
-<p>训练数据<code>training data</code>：学习过程中使用的数据</p>
-<p>训练样本<code>training sample</code>：训练数据中的样本</p>
-<p>训练集<code>training set</code>：训练样本的集合</p>
-<p>假设<code>hypothesis</code>：学得的模型对应了数据集中某种潜在的规律</p>
-<p>真相/真实<code>ground-truth</code>：数据集本身的潜在的规律。学习的过程就是逼近真相的过程</p>
-<p>学习器<code>learner</code>：模型的别称</p>
-<hr>
-<p>标记<code>label</code>：有关示例结果的信息，一般用y表示</p>
-<p>样例<code>example</code>：具有标记信息的示例</p>
-<p>标记空间<code>label space</code>/输出空间：所有标记的集合构成的空间</p>
-<hr>
-<p>分类<code>classification</code>：欲预测的值为离散值</p>
-<p>回归<code>regression</code>：欲预测的值为连续值</p>
-<p>二分类<code>binary classification</code>：分类的类别只有两类（正类和反类）</p>
-<p>多分类<code>multi-class classification</code>：分类的类别＞2</p>
-<hr>
-<p>测试<code>testing</code>：学得模型后，对其进行预测的过程。机器学习是一个反复的过程，需要重复多次学习、测试、调整，才能得到准确率最高的模型</p>
-<p>测试样本<code>testing sample</code>：被预测的样本</p>
-<hr>
-<p>聚类<code>clustering</code>：无监督学习的一种，将训练集的数据分为若干组，而这些组事先是不知道的</p>
-<p>簇<code>cluster</code>：聚类得到的数据分类（组）</p>
-<hr>
-<p>监督学习<code>supervised learning</code>：训练数据拥有标记信息</p>
-<p>无监督学习<code>unsupervised learning</code>：训练数据没有标记信息</p>
-<hr>
-<p>泛化<code>generalization</code>能力：学得模型适用于新样本的能力。或者说，模型预测数据的精准度</p>
-<p>独立同分布<code>independent and identically distributed</code>：简称i.i.d。假设样本空间的全体样本服从一个未知的分布，而我们在学习时使用的样本都是独立的从这个分布上采样获得的</p>
-<h2 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h2><p>所有假设组成的空间</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131735707.png" alt="西瓜问题的假设空间"></p>
-<p>学习的目的是<strong>泛化</strong>，即通过训练，得到一个模型，而这个模型可以对新样例的标签进行精准的预测。</p>
-<p>学习的过程看作是在假设空间中进行搜索的过程，搜索目标是找到与训练集匹配的假设，即能够将训练集中的瓜判断正确的假设</p>
-<p>需要注意的是，现实问题中我们常面临很大的假设空间，但学习过程是基于有限样本的训练集进行的，因此，可能有多个假设与训练集一致，即存在着一个与训练集一致的“假设空间”，称为样本空间</p>
-<h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
-<p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
-<p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
+<blockquote id="fn_1">
+<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -332,136 +462,6 @@ Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
         <tag>决策树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性模型</title>
-    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
-<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
-<script type="math/tex; mode=display">
-f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
-<script type="math/tex; mode=display">
-f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
-<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
-<p>首先，以<em>单属性</em>为例，给定数据集D</p>
-<script type="math/tex; mode=display">
-f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
-<script type="math/tex; mode=display">
-\begin{align}
-(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
-&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
-\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
-<p>然后，通过使偏导等于0，可以得到w和b</p>
-<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
-<script type="math/tex; mode=display">
-X=\left[
-\begin{matrix}
- x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
- x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
- \vdots & \vdots & \ddots & \vdots \\
- x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
-\end{matrix}
-\right]
-=\left[
-\begin{matrix}
- x_1^T      & 1    \\
- x_2^T      & 1    \\
- \vdots & \vdots   \\
- x_m^T      & 1    \\
-\end{matrix}
-\right]</script><script type="math/tex; mode=display">
-X\left[
-\begin{matrix}
- w_1\\
- w_2\\
- \vdots\\
- w_d\\
- b\\
-\end{matrix}
-\right]=\left[
-\begin{matrix}
- f(x_1)\\
- f(x_2)\\
- \vdots \\
- f(x_m)\\
-\end{matrix}
-\right]\Longrightarrow
-XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
-<script type="math/tex; mode=display">
-f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
-\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
-<p>更一般的，考虑存在反函数g，令</p>
-<script type="math/tex; mode=display">
-g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
-<script type="math/tex; mode=display">
-y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
-<p>对数几率回归的<strong>优点</strong>：</p>
-<ol>
-<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
-<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
-<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
-<p>给定数据集</p>
-<script type="math/tex; mode=display">
-D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
-<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
-<p>最终结果：</p>
-<ul>
-<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
-<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
-<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
-<p>ECOC的工作步骤：</p>
-<ul>
-<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
-<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
-</ul>
-<p>编码矩阵：</p>
-<ul>
-<li><strong>二元码：</strong>正类、反类</li>
-<li><strong>三元码：</strong>正类、反类、停用类</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
-<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
-<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
-<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
-<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
-<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
-</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
-<p>解决方法：</p>
-<ol>
-<li><p>使正反例的数目接近</p>
-<ul>
-<li>欠采样 - 减少反例</li>
-<li>过采样 - 增加正例</li>
-</ul>
-</li>
-<li><p>再放缩</p>
-<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
-<p>则分类器的决策规则为：</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
-</li>
-</ol>
-<hr>
-<blockquote id="fn_1">
-<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
       </tags>
   </entry>
   <entry>
@@ -849,43 +849,6 @@ k=\frac{p_1-p_2}{1-p_2}\;\;\;p_1=\frac{a+d}{m}\;\;\;p_2=\frac{(a+b)(a+c)+(b+d)(c
       </tags>
   </entry>
   <entry>
-    <title>样条插值和最小二乘法拟合</title>
-    <url>/2021/11/20/%E6%A0%B7%E6%9D%A1%E6%8F%92%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E6%8B%9F%E5%90%88/</url>
-    <content><![CDATA[<h1 id="最小二乘法曲线拟合"><a href="#最小二乘法曲线拟合" class="headerlink" title="最小二乘法曲线拟合"></a>最小二乘法曲线拟合</h1><h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>拟合多项式为</p>
-<script type="math/tex; mode=display">
-f(x)=a_0+a_1x+a_2x_2+\dots+a_mx_m</script><p>将n个数据带入得到矩阵</p>
-<script type="math/tex; mode=display">
-X=\left[ \begin{matrix} 1 & x_1 & x_1^2 & \cdots & x_1^m\\ 1 & x_2 & x_2^2 & \cdots & x_2^m \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & x_n & x_n^2 & \cdots & x_n^m \end{matrix} \right]</script><p>组成矩阵方程为</p>
-<script type="math/tex; mode=display">
-\begin{align}
-X^TXa&=\left[ \begin{matrix} n & \sum_{i=1}^nx_i & \sum_{i=1}^nx_i^2 & \cdots & \sum_{i=1}^nx_i^m\\ \sum_{i=1}^nx_i & \sum_{i=1}^nx_i^2 & \sum_{i=1}^nx_i^3 & \cdots & \sum_{i=1}^nx_i^{m+1} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ \sum_{i=1}^nx_i^m & \sum_{i=1}^nx_i^{m+1} & \sum_{i=1}^nx_i^{m+2} & \cdots & \sum_{i=1}^nx_i^{2m} \end{matrix} \right]\left[ \begin{matrix}a_0\\a_1\\a_2\\\vdots\\a_m\end{matrix} \right]\nonumber\\
-&=\left[ \begin{matrix}\sum_{i=1}^ny_i\\\sum_{i=1}^ny_ix_i\\\sum_{i=1}^ny_ix_i^2\\\vdots\\\sum_{i=1}^ny_ix_i^m\end{matrix} \right]=X^Ty\nonumber
-\end{align}</script><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- codeing = utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2021/11/15 09:45</span></span><br><span class="line"><span class="comment"># @Author : Lyb92nlf</span></span><br><span class="line"><span class="comment"># @File : CSI.py</span></span><br><span class="line"><span class="comment"># @Sofeware : PyCharm</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># f(x) = a0+a1x+a2x2</span></span><br><span class="line">w = np.zeros(<span class="number">3</span>)</span><br><span class="line">points = np.genfromtxt(<span class="string">&quot;data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line"><span class="comment"># 提取points中的两列数据，分别作为x,y</span></span><br><span class="line">x = points[:, <span class="number">0</span>]</span><br><span class="line">y = points[:, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># print(x,y)</span></span><br><span class="line"><span class="comment"># print(max(x),min(x))</span></span><br><span class="line"></span><br><span class="line">X = np.zeros([<span class="built_in">len</span>(x), <span class="built_in">len</span>(w)])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(w)):</span><br><span class="line">        X[i, j] = x[i] ** j</span><br><span class="line"><span class="comment"># print(X)</span></span><br><span class="line"><span class="comment"># w = (X^T X)^(-1) X^T y</span></span><br><span class="line">XTX = np.matmul(X.T, X)</span><br><span class="line">XTy = np.matmul(X.T, y)</span><br><span class="line">w = np.matmul(np.linalg.inv(XTX), XTy)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(XTX)</span></span><br><span class="line"><span class="comment"># print(y.shape)</span></span><br><span class="line"><span class="built_in">print</span>(w)</span><br><span class="line"><span class="comment"># 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Fun</span>(<span class="params">p, x</span>):</span></span><br><span class="line">    a0, a1, a2 = p</span><br><span class="line">    <span class="keyword">return</span> a2 * x ** <span class="number">2</span> + a1 * x + a0</span><br><span class="line"></span><br><span class="line">fun_x = np.arange(<span class="built_in">min</span>(x),<span class="built_in">max</span>(x),<span class="number">0.05</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, color=<span class="string">&#x27;g&#x27;</span>, linestyle=<span class="string">&#x27;&#x27;</span>, marker=<span class="string">&#x27;.&#x27;</span>, label=<span class="string">&quot;Data points&quot;</span>)</span><br><span class="line">plt.plot(fun_x, Fun(w, fun_x), color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;-&#x27;</span>, marker=<span class="string">&#x27;&#x27;</span>, label=<span class="string">&quot;Fitting curve&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<h1 id="三次样条差值"><a href="#三次样条差值" class="headerlink" title="三次样条差值"></a>三次样条差值</h1><h2 id="数学公式-1"><a href="#数学公式-1" class="headerlink" title="数学公式"></a>数学公式</h2><script type="math/tex; mode=display">
-h[i]=x[i+1]-x[i]\;\;u[i]=\frac{h[i]}{h[i]+h[i+1]}\;\;\lambda[i]=1-u[i]</script><script type="math/tex; mode=display">
-\begin{align}
-d[i]&=6f[x[i-1],x[i],x[i+1]]\nonumber\\
-&=6\times\frac{f[x[i],f[i+1]]-f[[i-1],f[i]]}{x[i+1]-x[i-1]}\nonumber
-\end{align}</script><script type="math/tex; mode=display">
-f[x[i],x[i+1]]=\frac{y[i+1]-y[i]}{h[i]}</script><script type="math/tex; mode=display">
-\left[ \begin{matrix} 2 & \lambda_1 &  &  &  & \\ u_2 & 2 & \lambda_2 &  & & \\  & u_3 & 2 & \lambda_3 &  &  \\  & & \ddots & \ddots & \ddots & \\ &  &  & u_{n-2} & 2 & \lambda_{n-1}\\ &  &  &  & u_{n-1} & 2 \end{matrix} \right]
-\left[ \begin{matrix}M_1\\M_2\\M_3\\\vdots\\M_{n-1}\end{matrix} \right]=\left[ \begin{matrix}d_1\\d_2\\d_3\\\vdots\\d_{n-1}\end{matrix} \right]</script><script type="math/tex; mode=display">
-S(x)=\frac{M_j(x_{j+1}-x)^3+M_{j+1}(x-x_j)^3}{6h_j}+(y_{j+1}-\frac{M_{j+1}h_j^2}{6})\frac{x-x_j}{h_j}+(y_j-\frac{M_jh_j^2}{6})\frac{x_{j+1}-x}{h_j}</script><h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- codeing = utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2021/11/15 12:11</span></span><br><span class="line"><span class="comment"># @Author : Lyb92nlf</span></span><br><span class="line"><span class="comment"># @File : CSI.py</span></span><br><span class="line"><span class="comment"># @Sofeware : PyCharm</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">points = np.genfromtxt(<span class="string">&quot;data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line"><span class="comment"># 提取points中的两列数据，分别作为x,y</span></span><br><span class="line"><span class="comment"># 1:6</span></span><br><span class="line">x = points[<span class="number">1</span>:<span class="number">6</span>, <span class="number">0</span>]</span><br><span class="line">y = points[<span class="number">1</span>:<span class="number">6</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># print(x, y)</span></span><br><span class="line"></span><br><span class="line">n = <span class="built_in">len</span>(x) - <span class="number">1</span></span><br><span class="line">h = np.zeros(n)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    h[i] = x[i + <span class="number">1</span>] - x[i]</span><br><span class="line"><span class="comment"># print(h)</span></span><br><span class="line"></span><br><span class="line">u = np.zeros(n - <span class="number">1</span>)</span><br><span class="line">l = np.zeros(n - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    u[i] = h[i] / (h[i] + h[i + <span class="number">1</span>])</span><br><span class="line">    l[i] = <span class="number">1</span> - u[i]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;u=&quot;</span>, u, <span class="string">&quot; &quot;</span>, <span class="string">&quot;l=&quot;</span>, l)</span><br><span class="line"></span><br><span class="line">d = np.zeros(n - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    d[i] = <span class="number">6</span> / (h[i] + h[i + <span class="number">1</span>]) * ((y[i + <span class="number">2</span>] - y[i + <span class="number">1</span>]) / h[i + <span class="number">1</span>] - (y[i + <span class="number">1</span>] - y[i]) / h[i])</span><br><span class="line"><span class="comment"># print(d)</span></span><br><span class="line"></span><br><span class="line">m = np.zeros(n + <span class="number">1</span>)</span><br><span class="line">A = np.zeros([n - <span class="number">1</span>, n - <span class="number">1</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> i == j:</span><br><span class="line">            A[i, j] = <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> i + <span class="number">1</span> == j:</span><br><span class="line">            A[i, j] = l[i]</span><br><span class="line">        <span class="keyword">if</span> j + <span class="number">1</span> == i:</span><br><span class="line">            A[i, j] = u[i]</span><br><span class="line"><span class="comment"># print(A)</span></span><br><span class="line"></span><br><span class="line">m[<span class="number">1</span>:<span class="number">4</span>] = np.matmul(np.linalg.inv(A), d)</span><br><span class="line"><span class="comment"># print(m)</span></span><br><span class="line"></span><br><span class="line">S = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示分段函数</span></span><br><span class="line">val_x = symbols(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line"><span class="comment"># (x-y)**3 = x**3 - 3x**2 y + 3xy**2 - y**3</span></span><br><span class="line"><span class="comment"># (x[i+1] - val_x) ** 3</span></span><br><span class="line"><span class="comment"># (val_x - x[i]) ** 3</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, n):</span><br><span class="line">    s = m[i] * ((x[i + <span class="number">1</span>]) ** <span class="number">3</span> - <span class="number">3</span> * (x[i + <span class="number">1</span>]) ** <span class="number">2</span> * val_x + <span class="number">3</span> * x[i + <span class="number">1</span>] * val_x ** <span class="number">2</span> - val_x ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + \</span><br><span class="line">        m[i + <span class="number">1</span>] * (val_x ** <span class="number">3</span> - <span class="number">3</span> * val_x ** <span class="number">2</span> * x[i] + <span class="number">3</span> * val_x * (x[i]) ** <span class="number">2</span> - x[i] ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + (</span><br><span class="line">                    y[i + <span class="number">1</span>] - (h[i] ** <span class="number">2</span>) * m[i + <span class="number">1</span>] / <span class="number">6</span>) * (val_x - x[i]) / h[i] + (y[i] - (h[i] ** <span class="number">2</span>) * m[i] / <span class="number">6</span>) * (</span><br><span class="line">                    x[i + <span class="number">1</span>] - val_x) / h[i]</span><br><span class="line">    S.append(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(S)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算分段函数值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s_value</span>(<span class="params">i, fun_x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> m[i] * ((x[i + <span class="number">1</span>] - fun_x) ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + m[i + <span class="number">1</span>] * ((fun_x - x[i]) ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + (</span><br><span class="line">                y[i + <span class="number">1</span>] - (h[i] ** <span class="number">2</span>) * m[i + <span class="number">1</span>] / <span class="number">6</span>) * (fun_x - x[i]) / h[i] + (y[i] - (h[i] ** <span class="number">2</span>) * m[i] / <span class="number">6</span>) * (</span><br><span class="line">                       x[i + <span class="number">1</span>] - fun_x) / h[i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.plot(x, y, color=<span class="string">&#x27;g&#x27;</span>, linestyle=<span class="string">&#x27;&#x27;</span>, marker=<span class="string">&#x27;.&#x27;</span>, label=<span class="string">&quot;Data points&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    fun_x = np.arange(x[i], x[i + <span class="number">1</span>], <span class="number">0.005</span>)</span><br><span class="line">    plt.plot(fun_x, s_value(i, fun_x), color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;-&#x27;</span>, marker=<span class="string">&#x27;&#x27;</span>, label=<span class="string">&quot;Fitting curve&quot;</span> + <span class="built_in">str</span>(i + <span class="number">1</span>))</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<h1 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h1><p>data.csv</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0,0</span><br><span class="line">5,1.27</span><br><span class="line">10,2.16</span><br><span class="line">15,2.86</span><br><span class="line">20,3.44</span><br><span class="line">25,3.87</span><br><span class="line">30,4.15</span><br><span class="line">35,4.37</span><br><span class="line">40,4.51</span><br><span class="line">45,4.58</span><br><span class="line">50,4.62</span><br><span class="line">55,4.64</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>数学知识</category>
-      </categories>
-      <tags>
-        <tag>数值分析</tag>
-        <tag>样条插值</tag>
-        <tag>最小二乘法曲线拟合</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SVM数学知识补充</title>
     <url>/2021/11/18/SVM%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
     <content><![CDATA[<h1 id="原问题"><a href="#原问题" class="headerlink" title="原问题"></a>原问题</h1><p>Prime Problem</p>
@@ -966,6 +929,43 @@ f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</
         <tag>西瓜书</tag>
         <tag>对偶问题</tag>
         <tag>优化理论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>样条插值和最小二乘法拟合</title>
+    <url>/2021/11/20/%E6%A0%B7%E6%9D%A1%E6%8F%92%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E6%8B%9F%E5%90%88/</url>
+    <content><![CDATA[<h1 id="最小二乘法曲线拟合"><a href="#最小二乘法曲线拟合" class="headerlink" title="最小二乘法曲线拟合"></a>最小二乘法曲线拟合</h1><h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>拟合多项式为</p>
+<script type="math/tex; mode=display">
+f(x)=a_0+a_1x+a_2x_2+\dots+a_mx_m</script><p>将n个数据带入得到矩阵</p>
+<script type="math/tex; mode=display">
+X=\left[ \begin{matrix} 1 & x_1 & x_1^2 & \cdots & x_1^m\\ 1 & x_2 & x_2^2 & \cdots & x_2^m \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 1 & x_n & x_n^2 & \cdots & x_n^m \end{matrix} \right]</script><p>组成矩阵方程为</p>
+<script type="math/tex; mode=display">
+\begin{align}
+X^TXa&=\left[ \begin{matrix} n & \sum_{i=1}^nx_i & \sum_{i=1}^nx_i^2 & \cdots & \sum_{i=1}^nx_i^m\\ \sum_{i=1}^nx_i & \sum_{i=1}^nx_i^2 & \sum_{i=1}^nx_i^3 & \cdots & \sum_{i=1}^nx_i^{m+1} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ \sum_{i=1}^nx_i^m & \sum_{i=1}^nx_i^{m+1} & \sum_{i=1}^nx_i^{m+2} & \cdots & \sum_{i=1}^nx_i^{2m} \end{matrix} \right]\left[ \begin{matrix}a_0\\a_1\\a_2\\\vdots\\a_m\end{matrix} \right]\nonumber\\
+&=\left[ \begin{matrix}\sum_{i=1}^ny_i\\\sum_{i=1}^ny_ix_i\\\sum_{i=1}^ny_ix_i^2\\\vdots\\\sum_{i=1}^ny_ix_i^m\end{matrix} \right]=X^Ty\nonumber
+\end{align}</script><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- codeing = utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2021/11/15 09:45</span></span><br><span class="line"><span class="comment"># @Author : Lyb92nlf</span></span><br><span class="line"><span class="comment"># @File : CSI.py</span></span><br><span class="line"><span class="comment"># @Sofeware : PyCharm</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># f(x) = a0+a1x+a2x2</span></span><br><span class="line">w = np.zeros(<span class="number">3</span>)</span><br><span class="line">points = np.genfromtxt(<span class="string">&quot;data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line"><span class="comment"># 提取points中的两列数据，分别作为x,y</span></span><br><span class="line">x = points[:, <span class="number">0</span>]</span><br><span class="line">y = points[:, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># print(x,y)</span></span><br><span class="line"><span class="comment"># print(max(x),min(x))</span></span><br><span class="line"></span><br><span class="line">X = np.zeros([<span class="built_in">len</span>(x), <span class="built_in">len</span>(w)])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(w)):</span><br><span class="line">        X[i, j] = x[i] ** j</span><br><span class="line"><span class="comment"># print(X)</span></span><br><span class="line"><span class="comment"># w = (X^T X)^(-1) X^T y</span></span><br><span class="line">XTX = np.matmul(X.T, X)</span><br><span class="line">XTy = np.matmul(X.T, y)</span><br><span class="line">w = np.matmul(np.linalg.inv(XTX), XTy)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(XTX)</span></span><br><span class="line"><span class="comment"># print(y.shape)</span></span><br><span class="line"><span class="built_in">print</span>(w)</span><br><span class="line"><span class="comment"># 构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Fun</span>(<span class="params">p, x</span>):</span></span><br><span class="line">    a0, a1, a2 = p</span><br><span class="line">    <span class="keyword">return</span> a2 * x ** <span class="number">2</span> + a1 * x + a0</span><br><span class="line"></span><br><span class="line">fun_x = np.arange(<span class="built_in">min</span>(x),<span class="built_in">max</span>(x),<span class="number">0.05</span>)</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, color=<span class="string">&#x27;g&#x27;</span>, linestyle=<span class="string">&#x27;&#x27;</span>, marker=<span class="string">&#x27;.&#x27;</span>, label=<span class="string">&quot;Data points&quot;</span>)</span><br><span class="line">plt.plot(fun_x, Fun(w, fun_x), color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;-&#x27;</span>, marker=<span class="string">&#x27;&#x27;</span>, label=<span class="string">&quot;Fitting curve&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="三次样条差值"><a href="#三次样条差值" class="headerlink" title="三次样条差值"></a>三次样条差值</h1><h2 id="数学公式-1"><a href="#数学公式-1" class="headerlink" title="数学公式"></a>数学公式</h2><script type="math/tex; mode=display">
+h[i]=x[i+1]-x[i]\;\;u[i]=\frac{h[i]}{h[i]+h[i+1]}\;\;\lambda[i]=1-u[i]</script><script type="math/tex; mode=display">
+\begin{align}
+d[i]&=6f[x[i-1],x[i],x[i+1]]\nonumber\\
+&=6\times\frac{f[x[i],f[i+1]]-f[[i-1],f[i]]}{x[i+1]-x[i-1]}\nonumber
+\end{align}</script><script type="math/tex; mode=display">
+f[x[i],x[i+1]]=\frac{y[i+1]-y[i]}{h[i]}</script><script type="math/tex; mode=display">
+\left[ \begin{matrix} 2 & \lambda_1 &  &  &  & \\ u_2 & 2 & \lambda_2 &  & & \\  & u_3 & 2 & \lambda_3 &  &  \\  & & \ddots & \ddots & \ddots & \\ &  &  & u_{n-2} & 2 & \lambda_{n-1}\\ &  &  &  & u_{n-1} & 2 \end{matrix} \right]
+\left[ \begin{matrix}M_1\\M_2\\M_3\\\vdots\\M_{n-1}\end{matrix} \right]=\left[ \begin{matrix}d_1\\d_2\\d_3\\\vdots\\d_{n-1}\end{matrix} \right]</script><script type="math/tex; mode=display">
+S(x)=\frac{M_j(x_{j+1}-x)^3+M_{j+1}(x-x_j)^3}{6h_j}+(y_{j+1}-\frac{M_{j+1}h_j^2}{6})\frac{x-x_j}{h_j}+(y_j-\frac{M_jh_j^2}{6})\frac{x_{j+1}-x}{h_j}</script><h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- codeing = utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time : 2021/11/15 12:11</span></span><br><span class="line"><span class="comment"># @Author : Lyb92nlf</span></span><br><span class="line"><span class="comment"># @File : CSI.py</span></span><br><span class="line"><span class="comment"># @Sofeware : PyCharm</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">points = np.genfromtxt(<span class="string">&quot;data.csv&quot;</span>, delimiter=<span class="string">&quot;,&quot;</span>)</span><br><span class="line"><span class="comment"># 提取points中的两列数据，分别作为x,y</span></span><br><span class="line"><span class="comment"># 1:6</span></span><br><span class="line">x = points[<span class="number">1</span>:<span class="number">6</span>, <span class="number">0</span>]</span><br><span class="line">y = points[<span class="number">1</span>:<span class="number">6</span>, <span class="number">1</span>]</span><br><span class="line"><span class="comment"># print(x, y)</span></span><br><span class="line"></span><br><span class="line">n = <span class="built_in">len</span>(x) - <span class="number">1</span></span><br><span class="line">h = np.zeros(n)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    h[i] = x[i + <span class="number">1</span>] - x[i]</span><br><span class="line"><span class="comment"># print(h)</span></span><br><span class="line"></span><br><span class="line">u = np.zeros(n - <span class="number">1</span>)</span><br><span class="line">l = np.zeros(n - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    u[i] = h[i] / (h[i] + h[i + <span class="number">1</span>])</span><br><span class="line">    l[i] = <span class="number">1</span> - u[i]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;u=&quot;</span>, u, <span class="string">&quot; &quot;</span>, <span class="string">&quot;l=&quot;</span>, l)</span><br><span class="line"></span><br><span class="line">d = np.zeros(n - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    d[i] = <span class="number">6</span> / (h[i] + h[i + <span class="number">1</span>]) * ((y[i + <span class="number">2</span>] - y[i + <span class="number">1</span>]) / h[i + <span class="number">1</span>] - (y[i + <span class="number">1</span>] - y[i]) / h[i])</span><br><span class="line"><span class="comment"># print(d)</span></span><br><span class="line"></span><br><span class="line">m = np.zeros(n + <span class="number">1</span>)</span><br><span class="line">A = np.zeros([n - <span class="number">1</span>, n - <span class="number">1</span>])</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> i == j:</span><br><span class="line">            A[i, j] = <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> i + <span class="number">1</span> == j:</span><br><span class="line">            A[i, j] = l[i]</span><br><span class="line">        <span class="keyword">if</span> j + <span class="number">1</span> == i:</span><br><span class="line">            A[i, j] = u[i]</span><br><span class="line"><span class="comment"># print(A)</span></span><br><span class="line"></span><br><span class="line">m[<span class="number">1</span>:<span class="number">4</span>] = np.matmul(np.linalg.inv(A), d)</span><br><span class="line"><span class="comment"># print(m)</span></span><br><span class="line"></span><br><span class="line">S = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示分段函数</span></span><br><span class="line">val_x = symbols(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line"><span class="comment"># (x-y)**3 = x**3 - 3x**2 y + 3xy**2 - y**3</span></span><br><span class="line"><span class="comment"># (x[i+1] - val_x) ** 3</span></span><br><span class="line"><span class="comment"># (val_x - x[i]) ** 3</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, n):</span><br><span class="line">    s = m[i] * ((x[i + <span class="number">1</span>]) ** <span class="number">3</span> - <span class="number">3</span> * (x[i + <span class="number">1</span>]) ** <span class="number">2</span> * val_x + <span class="number">3</span> * x[i + <span class="number">1</span>] * val_x ** <span class="number">2</span> - val_x ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + \</span><br><span class="line">        m[i + <span class="number">1</span>] * (val_x ** <span class="number">3</span> - <span class="number">3</span> * val_x ** <span class="number">2</span> * x[i] + <span class="number">3</span> * val_x * (x[i]) ** <span class="number">2</span> - x[i] ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + (</span><br><span class="line">                    y[i + <span class="number">1</span>] - (h[i] ** <span class="number">2</span>) * m[i + <span class="number">1</span>] / <span class="number">6</span>) * (val_x - x[i]) / h[i] + (y[i] - (h[i] ** <span class="number">2</span>) * m[i] / <span class="number">6</span>) * (</span><br><span class="line">                    x[i + <span class="number">1</span>] - val_x) / h[i]</span><br><span class="line">    S.append(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(S)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算分段函数值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">s_value</span>(<span class="params">i, fun_x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> m[i] * ((x[i + <span class="number">1</span>] - fun_x) ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + m[i + <span class="number">1</span>] * ((fun_x - x[i]) ** <span class="number">3</span>) / (<span class="number">6</span> * h[i]) + (</span><br><span class="line">                y[i + <span class="number">1</span>] - (h[i] ** <span class="number">2</span>) * m[i + <span class="number">1</span>] / <span class="number">6</span>) * (fun_x - x[i]) / h[i] + (y[i] - (h[i] ** <span class="number">2</span>) * m[i] / <span class="number">6</span>) * (</span><br><span class="line">                       x[i + <span class="number">1</span>] - fun_x) / h[i]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.plot(x, y, color=<span class="string">&#x27;g&#x27;</span>, linestyle=<span class="string">&#x27;&#x27;</span>, marker=<span class="string">&#x27;.&#x27;</span>, label=<span class="string">&quot;Data points&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    fun_x = np.arange(x[i], x[i + <span class="number">1</span>], <span class="number">0.005</span>)</span><br><span class="line">    plt.plot(fun_x, s_value(i, fun_x), color=<span class="string">&#x27;r&#x27;</span>, linestyle=<span class="string">&#x27;-&#x27;</span>, marker=<span class="string">&#x27;&#x27;</span>, label=<span class="string">&quot;Fitting curve&quot;</span> + <span class="built_in">str</span>(i + <span class="number">1</span>))</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h1 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h1><p>data.csv</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">0,0</span><br><span class="line">5,1.27</span><br><span class="line">10,2.16</span><br><span class="line">15,2.86</span><br><span class="line">20,3.44</span><br><span class="line">25,3.87</span><br><span class="line">30,4.15</span><br><span class="line">35,4.37</span><br><span class="line">40,4.51</span><br><span class="line">45,4.58</span><br><span class="line">50,4.62</span><br><span class="line">55,4.64</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>数学知识</category>
+      </categories>
+      <tags>
+        <tag>数值分析</tag>
+        <tag>样条插值</tag>
+        <tag>最小二乘法曲线拟合</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
