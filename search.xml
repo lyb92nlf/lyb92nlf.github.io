@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>PyTorch环境安装</title>
+    <url>/2022/01/14/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h2 id="1-安装Anaconda"><a href="#1-安装Anaconda" class="headerlink" title="1. 安装Anaconda"></a>1. 安装Anaconda</h2><p>包含了众多流行的科学计算、数据分析的 Python 包</p>
+<p>下载链接：<a href="https://mirror.tuna.tsinghua.edu.cn/help/anaconda/">anaconda | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<ul>
+<li>Windows环境配置<ul>
+<li>版本：Anaconda3-5.2.0</li>
+<li>路径：D:\software\Anaconda3</li>
+<li>注意事项：跳过安装VScode；取消勾选</li>
+<li>判断是否安装成功：开始➡Anaconda Prompt➡出现base安装成功</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-显卡"><a href="#2-显卡" class="headerlink" title="2.显卡"></a>2.显卡</h2><p>tensorflow和pytorch都只支持NVIDIA的显卡，对训练起到加速的作用，对学习pytorch没有影响</p>
+<p>查看显卡型号和支持的cuda版本</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+<h2 id="3-管理环境"><a href="#3-管理环境" class="headerlink" title="3. 管理环境"></a>3. 管理环境</h2><ol>
+<li><p>创建新环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -n pytorch python=3.6</span><br></pre></td></tr></table></figure>
+<p>pytorch:环境名</p>
+<p>包名+版本号</p>
+</li>
+<li><p>切换环境</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda activate pytorch</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="4-安装PyTorch"><a href="#4-安装PyTorch" class="headerlink" title="4. 安装PyTorch"></a>4. 安装PyTorch</h2><p>下载链接：<a href="https://pytorch.org/">PyTorch</a></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202201141412964.png" alt="Custom PyTorch configuration"></p>
+<p>检查是否安装成功</p>
+<ol>
+<li>pip list</li>
+<li>进入python，输入<code>import torch</code>（无报错安装成功）和<code>torch.cuda.is_available()</code>(显示true可以使用GPU)</li>
+</ol>
+<h2 id="5-python编辑器"><a href="#5-python编辑器" class="headerlink" title="5. python编辑器"></a>5. python编辑器</h2><ol>
+<li><p>PyCharm</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202201141614540.png" alt="PyCharm1"></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202201141614685.png" alt="PyCharm2"></p>
+</li>
+<li><p>Jupyter</p>
+<p>在pytorch环境中安装Jupyter</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda install nb_conda</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>PyTorch</category>
+      </categories>
+      <tags>
+        <tag>PyTorch</tag>
+        <tag>Anaconda</tag>
+        <tag>Jupyter</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>绪论</title>
     <url>/2021/11/13/Chapter01%E7%BB%AA%E8%AE%BA/</url>
     <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>机器学习(machine learning)的定义：研究如何通过计算的手段，利用经验来改善系统自身的性能。</p>
@@ -52,6 +107,136 @@
 <h2 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h2><p>很多情况下，通过现有的有限的数据集，可以得到多个假设；但是我们必须得到一个最好的模型。这时候，就要从这若干个假设空间中，选择其中的一个，从这个空间中提取ML的模型。</p>
 <p>我们可以使用另一个法宝：归纳偏好。机器学习算法在学习的过程中，对某种类型的假设的偏好，称之为归纳偏好。可以简单的理解为，对于上述不同的假设空间，在选择最优模型时，其权重不同。</p>
 <p>对于归纳偏好，我们使用奥卡姆剃刀来作为一般的原则，用于引导算法确立“正确”的偏好。奥卡姆梯度是自然科学中最常见的法则之一：若有多个假设与观察一致，则选最简单的那个。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性模型</title>
+    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
+<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
+<script type="math/tex; mode=display">
+f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
+<script type="math/tex; mode=display">
+f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
+<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
+<p>首先，以<em>单属性</em>为例，给定数据集D</p>
+<script type="math/tex; mode=display">
+f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
+<script type="math/tex; mode=display">
+\begin{align}
+(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
+&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
+\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
+<p>然后，通过使偏导等于0，可以得到w和b</p>
+<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
+<script type="math/tex; mode=display">
+X=\left[
+\begin{matrix}
+ x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
+ x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
+ \vdots & \vdots & \ddots & \vdots \\
+ x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+ x_1^T      & 1    \\
+ x_2^T      & 1    \\
+ \vdots & \vdots   \\
+ x_m^T      & 1    \\
+\end{matrix}
+\right]</script><script type="math/tex; mode=display">
+X\left[
+\begin{matrix}
+ w_1\\
+ w_2\\
+ \vdots\\
+ w_d\\
+ b\\
+\end{matrix}
+\right]=\left[
+\begin{matrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots \\
+ f(x_m)\\
+\end{matrix}
+\right]\Longrightarrow
+XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
+<script type="math/tex; mode=display">
+f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
+\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
+<p>更一般的，考虑存在反函数g，令</p>
+<script type="math/tex; mode=display">
+g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
+<script type="math/tex; mode=display">
+y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
+<p>对数几率回归的<strong>优点</strong>：</p>
+<ol>
+<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
+<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
+<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
+<p>给定数据集</p>
+<script type="math/tex; mode=display">
+D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
+<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
+<p>最终结果：</p>
+<ul>
+<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
+<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
+<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
+<p>ECOC的工作步骤：</p>
+<ul>
+<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
+<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
+</ul>
+<p>编码矩阵：</p>
+<ul>
+<li><strong>二元码：</strong>正类、反类</li>
+<li><strong>三元码：</strong>正类、反类、停用类</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
+<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
+<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
+<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
+<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
+<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
+<p>解决方法：</p>
+<ol>
+<li><p>使正反例的数目接近</p>
+<ul>
+<li>欠采样 - 减少反例</li>
+<li>过采样 - 增加正例</li>
+</ul>
+</li>
+<li><p>再放缩</p>
+<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
+<p>则分类器的决策规则为：</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+</li>
+</ol>
+<hr>
+<blockquote id="fn_1">
+<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -215,125 +400,114 @@ micro-F1=\frac{2\times micro-P\times micro-R}{micro-P+macro-R}</script><button t
       </tags>
   </entry>
   <entry>
-    <title>线性模型</title>
-    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
-<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
-<script type="math/tex; mode=display">
-f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
-<script type="math/tex; mode=display">
-f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
-<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
-<p>首先，以<em>单属性</em>为例，给定数据集D</p>
-<script type="math/tex; mode=display">
-f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
-<script type="math/tex; mode=display">
-\begin{align}
-(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
-&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
-\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
-<p>然后，通过使偏导等于0，可以得到w和b</p>
-<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
-<script type="math/tex; mode=display">
-X=\left[
-\begin{matrix}
- x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
- x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
- \vdots & \vdots & \ddots & \vdots \\
- x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
-\end{matrix}
-\right]
-=\left[
-\begin{matrix}
- x_1^T      & 1    \\
- x_2^T      & 1    \\
- \vdots & \vdots   \\
- x_m^T      & 1    \\
-\end{matrix}
-\right]</script><script type="math/tex; mode=display">
-X\left[
-\begin{matrix}
- w_1\\
- w_2\\
- \vdots\\
- w_d\\
- b\\
-\end{matrix}
-\right]=\left[
-\begin{matrix}
- f(x_1)\\
- f(x_2)\\
- \vdots \\
- f(x_m)\\
-\end{matrix}
-\right]\Longrightarrow
-XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
-<script type="math/tex; mode=display">
-f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
-\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
-<p>更一般的，考虑存在反函数g，令</p>
-<script type="math/tex; mode=display">
-g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
-<script type="math/tex; mode=display">
-y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
-<p>对数几率回归的<strong>优点</strong>：</p>
+    <title>决策树</title>
+    <url>/2021/11/16/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
+    <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树" style="zoom:50%;" /></p>
+<p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
+<p>其基本算法如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法" style="zoom:50%;" /></p>
+<p>注：在决策树基本算法中，有三种情形导致递归返回</p>
 <ol>
-<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
-<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
-<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
-<p>给定数据集</p>
-<script type="math/tex; mode=display">
-D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
-<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
-<p>最终结果：</p>
-<ul>
-<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
-<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
-<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
-<p>ECOC的工作步骤：</p>
-<ul>
-<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
-<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
-</ul>
-<p>编码矩阵：</p>
-<ul>
-<li><strong>二元码：</strong>正类、反类</li>
-<li><strong>三元码：</strong>正类、反类、停用类</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
-<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
-<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
-<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
-<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
-<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
-</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
-<p>解决方法：</p>
+<li>当前结点包含的样本全属于同一类别，无需划分 </li>
+<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分 </li>
+<li>当前结点包含的样本集合为空，不能划分。</li>
+</ol>
+<p>在第2种情形下，把当前结点标记为叶结点，但类别设定为该结点所含样本最多的类别。</p>
+<p>在第3种情形下，把当前结点标记为叶节点，但类别设定为其父结点所含样本最多的类别。</p>
+<p>它们的不同点是：第2种是利用当前结点的<strong>后验分布</strong>，第3种则是把父结点的样本分布作为当前结点的<strong>先验分布</strong></p>
+<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策数学习的关键就是如何选择最优划分属性</p>
 <ol>
-<li><p>使正反例的数目接近</p>
-<ul>
-<li>欠采样 - 减少反例</li>
-<li>过采样 - 增加正例</li>
-</ul>
+<li><p>信息增益</p>
+<p>实战：ID3决策树学习算法</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Ent(D)=-\sum_{k=1}^{|y|}p_k\log_2^{p_k}</script><script type="math/tex; mode=display">
+Gain(D,a)=Ent(D)-\sum_{v=1}^V\frac{|D^v|}{D}Ent(D^v)</script></li>
+</ol>
+<ol>
+<li><p>增益率</p>
+<p>实战：C4.5决策树算法</p>
+<ol>
+<li>先从候选属性中找出信息增益高于平均水平的属性</li>
+<li>在从中选择信息增益最高的属性</li>
+</ol>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\,\max_{a\in A}Gain\_ratio(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2^{\frac{|D^v|}{|D|}}</script><script type="math/tex; mode=display">
+Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}</script></li>
+</ol>
+<ol>
+<li><p>基尼指数</p>
+<p>实战：CART决策树</p>
+<p>最优划分属性：</p>
+<script type="math/tex; mode=display">
+a_*=arg\, \min_{a\in A}\, Gini\_index(D,a)</script><p>公式：</p>
+<script type="math/tex; mode=display">
+Gini(D)=\sum_{k=1}^{|y|}\sum_{k'≠k}p_kp_{k'}=1\, -\, \sum_{k=1}^{|y|}p_k^2</script><script type="math/tex; mode=display">
+Gini\_index(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)</script></li>
+</ol>
+<h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><p>剪枝是决策树学习算法<strong>对付过拟合</strong>的主要手段。</p>
+<ol>
+<li><p>预剪枝</p>
+<p>对每个结点在<strong>划分前先进行评估</strong>，如果当前节点的划分<strong>不能</strong>带来决策树泛化<strong>性能提升</strong>，则<strong>停止划分</strong>并将当前节点<strong>标记为叶节点</strong></p>
 </li>
-<li><p>再放缩</p>
-<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
-<p>则分类器的决策规则为：</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+<li><p>后剪枝</p>
+<p>先生成<strong>完整的决策树</strong>，<strong>自底向上</strong>的对<strong>非叶节点</strong>进行考察，如果当前节点对应的子树替换成叶节点能带来决策树泛<strong>化性能提升</strong>，则将子树<strong>替换</strong>成叶节点</p>
 </li>
 </ol>
-<hr>
-<blockquote id="fn_1">
-<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
+<p>对比预剪枝与后剪枝生成的决策树：</p>
+<p>后剪枝通常比预剪枝保留更多的分支，其欠拟合风险很小，因此后剪枝的泛化性能往往优于预剪枝决策树。但后剪枝过程是生成完整决策树之后自底往上裁剪，因此其训练时间开销比预剪枝要大。</p>
+<h2 id="连续和缺失值"><a href="#连续和缺失值" class="headerlink" title="连续和缺失值"></a>连续和缺失值</h2><h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p>使用<strong>连续属性离散化技术</strong>对连续值进行处理</p>
+<p>C4.5决策树算法采用二分法处理连续属性</p>
+<p>假设连续属性a的值从小到大排序为{a1,a2,a3,…,an}</p>
+<p>取划分点（n个值对应n-1个划分点）</p>
+<script type="math/tex; mode=display">
+T_a = \left\{ \frac{a^i\, + a^{i+1}}{2}\, |\,1≤i≤n-1| \right\}</script><script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
+&=\max_{t\in T_a}\, Ent(D)-\sum_{\lambda\in \lbrace -,+\rbrace}\frac{|D^v|}{D}Ent(D_t^\lambda)
+\end{align}</script><p>$ D^- $ ：属性值小于t的样本</p>
+<p>$D^+$：属性值大于t的样本</p>
+<h3 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h3><p>现实任务中常会遇到不完整的样本，即样本的某些属性值缺失</p>
+<p>给定数据集D和属性a</p>
+<ol>
+<li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
+<li>$\stackrel{*}{D^v}$为在<code>1</code>中属性a上取值为$a^v$的样本子集</li>
+<li>$\stackrel{*}{D^k}$表示在<code>1</code>中属于第k类的样本子集</li>
+</ol>
+<p>于是有</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{D}=\bigcup_{k=1}^{|y|}\stackrel{*}{D^k},\stackrel{*}{D}=\bigcup_{v=1}^{V}\stackrel{*}{D^v}</script><p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
+<p>无缺省样本所占比例</p>
+<script type="math/tex; mode=display">
+\rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
+<script type="math/tex; mode=display">
+\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然</p>
+<script type="math/tex; mode=display">
+\sum_{k=1}^{|y|}\stackrel{*}{p_k}=\sum_{v=1}^V\stackrel{*}{r_k}=1</script><div class="note danger simple"><p>问题1：如何在属性值缺失的情况下进行划分属性选择</p>
+</div>
+<p>于是有新的信息增益公式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
+&=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
+\end{align}</script><p>其中</p>
+<script type="math/tex; mode=display">
+Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><div class="note danger simple"><p>问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
+</div>
+<ol>
+<li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
+<li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
+</ol>
+<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><p>此类决策树中，非叶节点不在是仅对某个属性，而是对属性的线性组合进行测试。</p>
+<p>即每个非叶节点是一个形如$\sum_{i=1}^{d}w_ia_i=t$的线性分类器，其中$w_i$是属性$a_i$的权重，$w_i$和$t$可在该节点所含样本的样本集和属性集学到</p>
 ]]></content>
       <categories>
         <category>笔记</category>
@@ -342,6 +516,82 @@ D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C�
       <tags>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
+        <tag>决策树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>神经网络</title>
+    <url>/2021/11/17/Chapter05%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
+    <content><![CDATA[<h1 id="M-P神经元模型"><a href="#M-P神经元模型" class="headerlink" title="M-P神经元模型"></a>M-P神经元模型</h1><p>在这个模型中，神经元收到来自n个神经元传递过来的输入信号，这些输入信号通过带权重的连接进行传递，神经元收到的总输入值与神经元的阈值进行比较，然后通过激活函数处理以产生神经元的输出</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111171044734.jpg" alt="神经元模型" style="zoom:50%;" /></p>
+<p>常见的激活函数</p>
+<script type="math/tex; mode=display">
+sgn(x)=\begin{cases}
+1,x\geq0\\
+0,x < 0
+\end{cases}
+\;\;\;\;\;\;\;\;\;sigmoid(x)=\frac{1}{1+e^{-x}}</script><h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><p>包含输入层和输出层，输出层是M-P神经元</p>
+<p>感知机非常容易实现逻辑与、或和非运算（线性可分问题：存在一个线性超平面将两种模式分开）。</p>
+<h1 id="多层前馈神经网络"><a href="#多层前馈神经网络" class="headerlink" title="多层前馈神经网络"></a>多层前馈神经网络</h1><p>解决非线性可分问题，往往需要多层网络。</p>
+<p>多层前馈神经网络，通常分为输入层，隐层和输出层。隐层和输出层的神经元是拥有激活函数的功能神经元。同时，每层的神经元都与下一层的神经元全互联。</p>
+<p>神经网络的学习过程，就是根据训练数据来调整神经元之间的连接权值和每个功能神经元的阈值</p>
+<h1 id="误差逆传播算法"><a href="#误差逆传播算法" class="headerlink" title="误差逆传播算法"></a>误差逆传播算法</h1><p>BP算法，也称为反向传播算法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：训练集D，学习率</span><br><span class="line">过程：</span><br><span class="line">1：在(0,1)范围内随机初始化网络中所有的连接权值和阈值</span><br><span class="line">repeat</span><br><span class="line">	for all (x,y)∈D do</span><br><span class="line">		根据当前参数的和式计算当前样本的输出；</span><br><span class="line">		计算隐层神经元的梯度项；</span><br><span class="line">		计算输入神经元的梯度项；</span><br><span class="line">		更新连接权值和阈值；</span><br><span class="line">        end for</span><br><span class="line">until 达到停止条件</span><br><span class="line">输出：连接权值和阈值确定的多层前馈神经网络</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111171141160.jpg" alt="多层前馈神经网络" style="zoom:50%;" /></p>
+<ol>
+<li>计算当前参数的和式计算当前样本的输出，f=sigmoid</li>
+</ol>
+<p>​    </p>
+<script type="math/tex; mode=display">
+\hat{y}_j^k=f(\beta_j-\theta_j)</script><ol>
+<li><p>计算隐层神经元的梯度项</p>
+<p>第k个样本的均方误差</p>
+<script type="math/tex; mode=display">
+E_k=\frac{1}{2}\sum_{j=1}^l(\hat{y}_j^k-y_j^k)^2</script><script type="math/tex; mode=display">
+\Delta w_{hj}=-\eta\frac{\partial E_K}{\partial w_{hj}}=\eta g_jb_h</script><script type="math/tex; mode=display">
+\Delta \theta_j=-\eta\frac{\partial E_k}{\partial \theta_j}=-\eta g_j</script><script type="math/tex; mode=display">
+g_j=\hat{y}_j^k(1-\hat{y}_j^k)(y_j^k-\hat{y}_j^k)</script></li>
+</ol>
+<ol>
+<li><p>计算隐层神经元的梯度项</p>
+<script type="math/tex; mode=display">
+\Delta v_{ih}=\eta e_hx_i</script><script type="math/tex; mode=display">
+\Delta \gamma_h=-\eta e_h</script><script type="math/tex; mode=display">
+e_h=b_h(1-b_h)\sum_{j=1}^lw_{hj}g_j</script></li>
+<li><p>更新连接权值和阈值</p>
+<script type="math/tex; mode=display">
+v\leftarrow v+\Delta v</script></li>
+</ol>
+<div class="note warning simple"><p>如何设置隐层神经元的个数？</p>
+</div>
+<p>只要一个包含足够多神经的隐层，多层前馈神经网络就能以任意精度逼近任意复杂度的连续函数</p>
+<p>实际应用中，通常靠“试错”调整</p>
+<div class="note warning simple"><p>如何解决BP神经网络过拟合问题？</p>
+</div>
+<ol>
+<li><p>早停：若训练集误差降低，验证集误差升高，则停止训练。返回具有最小验证集误差的连接权值和阈值</p>
+</li>
+<li><p>正则化：基本思想是在误差目标函数中添加一个描述网络复杂度的部分</p>
+<p>如加入连接权值和阈值的平方和</p>
+<script type="math/tex; mode=display">
+E=\lambda\frac{1}{m}\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2</script></li>
+</ol>
+<h1 id="全局最小和局部极小"><a href="#全局最小和局部极小" class="headerlink" title="全局最小和局部极小"></a>全局最小和局部极小</h1><p>神经网络的任务是寻找到解的全局最小，然而却常常陷入局部极小解。</p>
+<p>常用的“跳出”局部极小的策略有：</p>
+<ol>
+<li>使用多组不同的参数初始化多个神经网络，按标准方法训练后，取误差最小的解作为最终参数</li>
+<li>模拟退火：每一步以一定的概率接受比当前解更差的结果。每步迭代的过程中，接受次最优解的概率逐渐降低</li>
+<li>在计算梯度时加入随机因素</li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -487,81 +737,6 @@ K(x_1,x_2)=\psi(x_1)^T\psi(x_2)</script><p>则优化式仍然可解</p>
       <tags>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>神经网络</title>
-    <url>/2021/11/17/Chapter05%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
-    <content><![CDATA[<h1 id="M-P神经元模型"><a href="#M-P神经元模型" class="headerlink" title="M-P神经元模型"></a>M-P神经元模型</h1><p>在这个模型中，神经元收到来自n个神经元传递过来的输入信号，这些输入信号通过带权重的连接进行传递，神经元收到的总输入值与神经元的阈值进行比较，然后通过激活函数处理以产生神经元的输出</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111171044734.jpg" alt="神经元模型" style="zoom:50%;" /></p>
-<p>常见的激活函数</p>
-<script type="math/tex; mode=display">
-sgn(x)=\begin{cases}
-1,x\geq0\\
-0,x < 0
-\end{cases}
-\;\;\;\;\;\;\;\;\;sigmoid(x)=\frac{1}{1+e^{-x}}</script><h1 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h1><p>包含输入层和输出层，输出层是M-P神经元</p>
-<p>感知机非常容易实现逻辑与、或和非运算（线性可分问题：存在一个线性超平面将两种模式分开）。</p>
-<h1 id="多层前馈神经网络"><a href="#多层前馈神经网络" class="headerlink" title="多层前馈神经网络"></a>多层前馈神经网络</h1><p>解决非线性可分问题，往往需要多层网络。</p>
-<p>多层前馈神经网络，通常分为输入层，隐层和输出层。隐层和输出层的神经元是拥有激活函数的功能神经元。同时，每层的神经元都与下一层的神经元全互联。</p>
-<p>神经网络的学习过程，就是根据训练数据来调整神经元之间的连接权值和每个功能神经元的阈值</p>
-<h1 id="误差逆传播算法"><a href="#误差逆传播算法" class="headerlink" title="误差逆传播算法"></a>误差逆传播算法</h1><p>BP算法，也称为反向传播算法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：训练集D，学习率</span><br><span class="line">过程：</span><br><span class="line">1：在(0,1)范围内随机初始化网络中所有的连接权值和阈值</span><br><span class="line">repeat</span><br><span class="line">	for all (x,y)∈D do</span><br><span class="line">		根据当前参数的和式计算当前样本的输出；</span><br><span class="line">		计算隐层神经元的梯度项；</span><br><span class="line">		计算输入神经元的梯度项；</span><br><span class="line">		更新连接权值和阈值；</span><br><span class="line">        end for</span><br><span class="line">until 达到停止条件</span><br><span class="line">输出：连接权值和阈值确定的多层前馈神经网络</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111171141160.jpg" alt="多层前馈神经网络" style="zoom:50%;" /></p>
-<ol>
-<li>计算当前参数的和式计算当前样本的输出，f=sigmoid</li>
-</ol>
-<p>​    </p>
-<script type="math/tex; mode=display">
-\hat{y}_j^k=f(\beta_j-\theta_j)</script><ol>
-<li><p>计算隐层神经元的梯度项</p>
-<p>第k个样本的均方误差</p>
-<script type="math/tex; mode=display">
-E_k=\frac{1}{2}\sum_{j=1}^l(\hat{y}_j^k-y_j^k)^2</script><script type="math/tex; mode=display">
-\Delta w_{hj}=-\eta\frac{\partial E_K}{\partial w_{hj}}=\eta g_jb_h</script><script type="math/tex; mode=display">
-\Delta \theta_j=-\eta\frac{\partial E_k}{\partial \theta_j}=-\eta g_j</script><script type="math/tex; mode=display">
-g_j=\hat{y}_j^k(1-\hat{y}_j^k)(y_j^k-\hat{y}_j^k)</script></li>
-</ol>
-<ol>
-<li><p>计算隐层神经元的梯度项</p>
-<script type="math/tex; mode=display">
-\Delta v_{ih}=\eta e_hx_i</script><script type="math/tex; mode=display">
-\Delta \gamma_h=-\eta e_h</script><script type="math/tex; mode=display">
-e_h=b_h(1-b_h)\sum_{j=1}^lw_{hj}g_j</script></li>
-<li><p>更新连接权值和阈值</p>
-<script type="math/tex; mode=display">
-v\leftarrow v+\Delta v</script></li>
-</ol>
-<div class="note warning simple"><p>如何设置隐层神经元的个数？</p>
-</div>
-<p>只要一个包含足够多神经的隐层，多层前馈神经网络就能以任意精度逼近任意复杂度的连续函数</p>
-<p>实际应用中，通常靠“试错”调整</p>
-<div class="note warning simple"><p>如何解决BP神经网络过拟合问题？</p>
-</div>
-<ol>
-<li><p>早停：若训练集误差降低，验证集误差升高，则停止训练。返回具有最小验证集误差的连接权值和阈值</p>
-</li>
-<li><p>正则化：基本思想是在误差目标函数中添加一个描述网络复杂度的部分</p>
-<p>如加入连接权值和阈值的平方和</p>
-<script type="math/tex; mode=display">
-E=\lambda\frac{1}{m}\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2</script></li>
-</ol>
-<h1 id="全局最小和局部极小"><a href="#全局最小和局部极小" class="headerlink" title="全局最小和局部极小"></a>全局最小和局部极小</h1><p>神经网络的任务是寻找到解的全局最小，然而却常常陷入局部极小解。</p>
-<p>常用的“跳出”局部极小的策略有：</p>
-<ol>
-<li>使用多组不同的参数初始化多个神经网络，按标准方法训练后，取误差最小的解作为最终参数</li>
-<li>模拟退火：每一步以一定的概率接受比当前解更差的结果。每步迭代的过程中，接受次最优解的概率逐渐降低</li>
-<li>在计算梯度时加入随机因素</li>
-</ol>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
@@ -893,6 +1068,101 @@ f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</
       </tags>
   </entry>
   <entry>
+    <title>PyTorch01-图像数据处理操作</title>
+    <url>/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/</url>
+    <content><![CDATA[<p>库学习两大利器</p>
+<ul>
+<li><p><code>dir()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">dir</span>(torch))</span><br><span class="line"><span class="comment"># [&#x27;AVG&#x27;, &#x27;AggregationType&#x27;, &#x27;AliasDb&#x27;, &#x27;AnyType&#x27;, &#x27;Argument&#x27;, &#x27;ArgumentSpec&#x27;, &#x27;BFloat16Storage&#x27;, &#x27;BFloat16Tensor&#x27;, &#x27;BenchmarkConfig&#x27;, &#x27;BenchmarkExecutionStats&#x27;, &#x27;Block&#x27;, &#x27;BoolStorage&#x27;, &#x27;BoolTensor&#x27;, &#x27;BoolType&#x27;, &#x27;BufferDict&#x27;, &#x27;ByteStorage&#x27;, &#x27;ByteTensor&#x27;, &#x27;CONV_BN_FUSION&#x27;, ......, &#x27;trunc_&#x27;, &#x27;typename&#x27;, &#x27;types&#x27;, &#x27;uint8&#x27;, &#x27;unbind&#x27;, &#x27;unify_type_list&#x27;, &#x27;unique&#x27;, &#x27;unique_consecutive&#x27;, &#x27;unsafe_chunk&#x27;, &#x27;unsafe_split&#x27;, &#x27;unsafe_split_with_sizes&#x27;, &#x27;unsqueeze&#x27;, &#x27;use_deterministic_algorithms&#x27;, &#x27;utils&#x27;, &#x27;vander&#x27;, &#x27;var&#x27;, &#x27;var_mean&#x27;, &#x27;vdot&#x27;, &#x27;version&#x27;, &#x27;view_as_complex&#x27;, &#x27;view_as_real&#x27;, &#x27;vitals_enabled&#x27;, &#x27;vsplit&#x27;, &#x27;vstack&#x27;, &#x27;wait&#x27;, &#x27;warnings&#x27;, &#x27;where&#x27;, &#x27;with_load_library_flags&#x27;, &#x27;xlogy&#x27;, &#x27;xlogy_&#x27;, &#x27;zero_&#x27;, &#x27;zeros&#x27;, &#x27;zeros_like&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>help()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">help</span>(torch.cuda.is_available)</span><br><span class="line"><span class="comment"># Help on function is_available in module torch.cuda:</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># is_available() -&gt; bool</span></span><br><span class="line"><span class="comment">#     Returns a bool indicating if CUDA is currently available.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="数据集类-Dataset"><a href="#数据集类-Dataset" class="headerlink" title="数据集类 - Dataset"></a>数据集类 - Dataset</h2><p>抽象类，继承类需要重写<code>__getitem__</code>方法，<code>__len__</code>方法可选</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="comment"># 假设数据集存储在根目录上的data文件夹内，样本的标签就是文件名</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,data_dir</span>):</span></span><br><span class="line">            <span class="comment"># 初始化数据成员</span></span><br><span class="line">            self.data_dir = data.<span class="built_in">dir</span></span><br><span class="line">            self.img_name_list = os.listdir(data.<span class="built_in">dir</span>) </span><br><span class="line">            </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self,index</span>):</span></span><br><span class="line">            sample_path = os.path.join(self.data_dir,self.img_name_list[index])</span><br><span class="line">            sample_label = self.img_name_list[index].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            sample = Image.<span class="built_in">open</span>(sample_path)</span><br><span class="line">            <span class="keyword">return</span> sample,sample_label</span><br><span class="line">         </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">len</span>(self.img_name_list)</span><br></pre></td></tr></table></figure>
+<h2 id="transforms"><a href="#transforms" class="headerlink" title="transforms"></a>transforms</h2><p>包含对图像进行裁剪、标准化等处理的类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="comment"># cuda11版本如果安装了cuda10版本会出现userwarming</span></span><br><span class="line"><span class="comment"># 解决方案：</span></span><br><span class="line"><span class="comment"># 	1.pip uninstall torch 	2.pip uninstall torchvision</span></span><br><span class="line"><span class="comment"># 	3.到pytorch官网重新安装对应cuda版本的torch和torchvision</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>ToTensor类 - 将图像转化为tensor类型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL/narray</span></span><br><span class="line"></span><br><span class="line">tensor_trans = transforms.ToTensor()</span><br><span class="line"><span class="comment"># 等价于调用__call__(pic)方法</span></span><br><span class="line">tensor_img_narray = tensor_trans(img_cv2)</span><br><span class="line">tensor_img_PIL = tensor_trans(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：tensor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Normalize类 - 对所有通道的像素点进行标准化处理</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：tensor（不支持PIL图像）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tensor_img[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 该类初始化时需要设定不同通道的均值和方差</span></span><br><span class="line"><span class="comment"># output[channel] = (input[channel] - mean[channel]) / std[channel]</span></span><br><span class="line">trans_norm = transforms.Normalize([channel1_mean,channel2_mean,channel3_mean],[channel1_std,channel2_std,channel3_std])</span><br><span class="line">img_norm = trans_norm.forward(tensor_img)</span><br><span class="line"><span class="built_in">print</span>(img_norm[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：tensor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Resize类 - 对图像size进行操作</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL Image or Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况一(h,w)：</span></span><br><span class="line">trans_resize = transforms.Resize((<span class="number">500</span>,<span class="number">500</span>))</span><br><span class="line"><span class="comment"># forward与__call__用法类似，区别是一般__call__包含forward</span></span><br><span class="line">img_resize = trans_resize.forward(tensor_img)</span><br><span class="line"><span class="comment"># img_resize = trans_resize(tensor_img)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况二(size):</span></span><br><span class="line"><span class="comment"># if height &gt; width, then image will be rescaled to (size * height / width, size).</span></span><br><span class="line">trans_resize = transforms.Resize(<span class="number">200</span>)</span><br><span class="line">img_resize = trans_resize.forward(tensor_img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于输入</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RandomCrop类 - 对图像进行随机裁剪</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL Image or Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况一(h,w)：</span></span><br><span class="line">trans_rdC = transforms.RandomCrop((<span class="number">100</span>,<span class="number">200</span>))</span><br><span class="line">img_rdC = trans_rdC.forward(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况二(size):</span></span><br><span class="line"><span class="comment"># 裁剪图像的大小为(size,size)</span></span><br><span class="line">trans_rdC = transforms.RandomCrop(<span class="number">100</span>)</span><br><span class="line">img_rdC = trans_rdC(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于输入</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compose类 - 组合transforms操作</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：取决于第一个transforms操作可以接受的类型</span></span><br><span class="line"></span><br><span class="line">tensor_trans = transforms.ToTensor()</span><br><span class="line">trans_resize = transforms.Resize(<span class="number">200</span>)</span><br><span class="line"><span class="comment"># 列表中前一个输出作为后一个的输入，所以类型要保持一致</span></span><br><span class="line">trans_compose = transforms.Compose([trans_resize,tensor_trans])</span><br><span class="line">img_compose = trans_compose(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于最后一个transforms操作输出的类型</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多的类可以查看源码学习！！！</p>
+<h2 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h2><p>可视化图像和数据，主要介绍两个常用的方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="comment"># The `SummaryWriter` class provides a high-level API to create an event file in a given directory and add summaries and events to it.</span></span><br><span class="line">writer = SummaryWriter(<span class="string">&#x27;logs&#x27;</span>) <span class="comment"># 自定义事件文件夹</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><code>add_scalar(tag,scalar_value,global_step)</code></p>
+<blockquote>
+<ul>
+<li>tag (string): 数据标识（相当于标题，唯一的ID）</li>
+<li>scalar_value (float or string/blobname): 存储的值（y轴）</li>
+<li>global_step (int): 全局的步数（x轴）</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    writer.add_scalar(<span class="string">&#x27;y=2x&#x27;</span>,<span class="number">2</span>*i,i)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>add_image(tag,img_tensor,global_step,dataformat)</code></p>
+<blockquote>
+<ul>
+<li>tag (string): 数据标识</li>
+<li>img_tensor (torch.Tensor, numpy.array, or string/blobname): 图像数据（tensor或narray）</li>
+<li>global_step (int): 全局步数</li>
+<li>dataformat(string): 默认tensor类型为’CHW’，对于narray类型需要给定’HWC’</li>
+</ul>
+</blockquote>
+<ol>
+<li>图像转化为narray类型的几种方法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 方法一：cv2</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">img_narray = cv2.imread(img_path)</span><br><span class="line"><span class="comment"># 方法二：numpy</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">img_PIL = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">img_narray = np.array(img_PIL)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>图像转化为tensor类型的方法</p>
+<p>详见<code>transforms</code></p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">writer.add_image(<span class="string">&#x27;Image01&#x27;</span>,img_narray,<span class="number">0</span>,dataformat=<span class="string">&#x27;HWC&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后一定要关闭！！！</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">writer.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行后在终端输入命令tensorboard --logdir=选取的目录名 --port=指定的端口号</span></span><br><span class="line"><span class="comment"># 端口号默认为6006</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision中的数据集"><a href="#torchvision中的数据集" class="headerlink" title="torchvision中的数据集"></a>torchvision中的数据集</h2><p><a href="https://pytorch.org/vision/stable/index.html">torchvision说明文档</a>，以CIFAR10为例</p>
+<blockquote>
+<ul>
+<li><strong>root</strong> (<em>string</em>) – Root directory of dataset where directory <code>cifar-10-batches-py</code> exists or will be saved to if download is set to True.</li>
+<li><strong>train</strong> (<a href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If True, creates dataset from training set, otherwise creates from test set.</li>
+<li><strong>transform</strong> (<em>callable**,</em> <em>optional</em>) – A function/transform that takes in an PIL image and returns a transformed version. E.g, <code>transforms.RandomCrop</code></li>
+<li><strong>target_transform</strong> (<em>callable**,</em> <em>optional</em>) – A function/transform that takes in the target and transforms it.</li>
+<li><strong>download</strong> (<a href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If true, downloads the dataset from the internet and puts it in root directory. If dataset is already downloaded, it is not downloaded again.</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">dataset_trans = transforms.Compose([</span><br><span class="line">    transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line">train_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">True</span>,dataset_trans,download=<span class="literal">True</span>)</span><br><span class="line">test_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">False</span>,dataset_trans,download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># img_tensor,target = train_sets[0]</span></span><br><span class="line"><span class="comment"># print(img_tensor,train_sets.classes[target])</span></span><br><span class="line"><span class="comment"># print(len(train_sets))</span></span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;./logs/dataset&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    writer.add_image(<span class="string">&#x27;train_sets&#x27;</span>,train_sets[i][<span class="number">0</span>],i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    writer.add_image(<span class="string">&#x27;test_sets&#x27;</span>,test_sets[i][<span class="number">0</span>],i)</span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<h2 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h2><p>每次从Dataset中选取batch_size个样本</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line">test_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">False</span>,transform=transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(test_sets)) <span class="comment"># 10000</span></span><br><span class="line"><span class="comment"># shuffle：是否随机选取；drop_last：图像数量不足batch_size，是否丢弃</span></span><br><span class="line">dl = DataLoader(test_sets,batch_size=<span class="number">64</span>,shuffle=<span class="literal">True</span>,drop_last=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(dl)) <span class="comment"># drop_last=True:156 ; drop_last=False:157</span></span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&#x27;./logs/dataloader&#x27;</span>)</span><br><span class="line">step = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> dl:</span><br><span class="line">    imgs,targets = item</span><br><span class="line">    <span class="built_in">print</span>(imgs.shape,targets) <span class="comment"># torch.Size([6, 3, 32, 32]) tensor([8, 4, 6, 5, 6, 3])</span></span><br><span class="line">    <span class="comment"># 某个步骤同时显示多个图像</span></span><br><span class="line">    writer.add_images(<span class="string">&#x27;CIFAR10_Test&#x27;</span>,imgs,step)</span><br><span class="line">    step += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>PyTorch</category>
+      </categories>
+      <tags>
+        <tag>PyTorch</tag>
+        <tag>Dataset</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>样条插值和最小二乘法拟合</title>
     <url>/2021/11/20/%E6%A0%B7%E6%9D%A1%E6%8F%92%E5%80%BC%E5%92%8C%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E6%8B%9F%E5%90%88/</url>
     <content><![CDATA[<h1 id="最小二乘法曲线拟合"><a href="#最小二乘法曲线拟合" class="headerlink" title="最小二乘法曲线拟合"></a>最小二乘法曲线拟合</h1><h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>拟合多项式为</p>
@@ -927,126 +1197,6 @@ S(x)=\frac{M_j(x_{j+1}-x)^3+M_{j+1}(x-x_j)^3}{6h_j}+(y_{j+1}-\frac{M_{j+1}h_j^2}
         <tag>样条插值</tag>
         <tag>最小二乘法曲线拟合</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>决策树</title>
-    <url>/2021/11/16/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
-    <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749669.png" alt="西瓜问题决策树" style="zoom:50%;" /></p>
-<p>决策树学习的目的是为了产生一颗泛化能力强，即处理未见示例能力强的决策树。</p>
-<p>其基本算法如下图所示</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111131749483.png" alt="决策树学习基本算法" style="zoom:50%;" /></p>
-<p>注：在决策树基本算法中，有三种情形导致递归返回</p>
-<ol>
-<li>当前结点包含的样本全属于同一类别，无需划分 </li>
-<li>当前属性集为空，或是所有样本在所有属性上取值相同，无法划分 </li>
-<li>当前结点包含的样本集合为空，不能划分。</li>
-</ol>
-<p>在第2种情形下，把当前结点标记为叶结点，但类别设定为该结点所含样本最多的类别。</p>
-<p>在第3种情形下，把当前结点标记为叶节点，但类别设定为其父结点所含样本最多的类别。</p>
-<p>它们的不同点是：第2种是利用当前结点的<strong>后验分布</strong>，第3种则是把父结点的样本分布作为当前结点的<strong>先验分布</strong></p>
-<h2 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h2><p>决策数学习的关键就是如何选择最优划分属性</p>
-<ol>
-<li><p>信息增益</p>
-<p>实战：ID3决策树学习算法</p>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\,\max_{a\in A}Gain(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-Ent(D)=-\sum_{k=1}^{|y|}p_k\log_2^{p_k}</script><script type="math/tex; mode=display">
-Gain(D,a)=Ent(D)-\sum_{v=1}^V\frac{|D^v|}{D}Ent(D^v)</script></li>
-</ol>
-<ol>
-<li><p>增益率</p>
-<p>实战：C4.5决策树算法</p>
-<ol>
-<li>先从候选属性中找出信息增益高于平均水平的属性</li>
-<li>在从中选择信息增益最高的属性</li>
-</ol>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\,\max_{a\in A}Gain\_ratio(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-IV(a)=-\sum_{v=1}^V\frac{|D^v|}{|D|}\log_2^{\frac{|D^v|}{|D|}}</script><script type="math/tex; mode=display">
-Gain\_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}</script></li>
-</ol>
-<ol>
-<li><p>基尼指数</p>
-<p>实战：CART决策树</p>
-<p>最优划分属性：</p>
-<script type="math/tex; mode=display">
-a_*=arg\, \min_{a\in A}\, Gini\_index(D,a)</script><p>公式：</p>
-<script type="math/tex; mode=display">
-Gini(D)=\sum_{k=1}^{|y|}\sum_{k'≠k}p_kp_{k'}=1\, -\, \sum_{k=1}^{|y|}p_k^2</script><script type="math/tex; mode=display">
-Gini\_index(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|}Gini(D^v)</script></li>
-</ol>
-<h2 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h2><p>剪枝是决策树学习算法<strong>对付过拟合</strong>的主要手段。</p>
-<ol>
-<li><p>预剪枝</p>
-<p>对每个结点在<strong>划分前先进行评估</strong>，如果当前节点的划分<strong>不能</strong>带来决策树泛化<strong>性能提升</strong>，则<strong>停止划分</strong>并将当前节点<strong>标记为叶节点</strong></p>
-</li>
-<li><p>后剪枝</p>
-<p>先生成<strong>完整的决策树</strong>，<strong>自底向上</strong>的对<strong>非叶节点</strong>进行考察，如果当前节点对应的子树替换成叶节点能带来决策树泛<strong>化性能提升</strong>，则将子树<strong>替换</strong>成叶节点</p>
-</li>
-</ol>
-<p>对比预剪枝与后剪枝生成的决策树：</p>
-<p>后剪枝通常比预剪枝保留更多的分支，其欠拟合风险很小，因此后剪枝的泛化性能往往优于预剪枝决策树。但后剪枝过程是生成完整决策树之后自底往上裁剪，因此其训练时间开销比预剪枝要大。</p>
-<h2 id="连续和缺失值"><a href="#连续和缺失值" class="headerlink" title="连续和缺失值"></a>连续和缺失值</h2><h3 id="连续值处理"><a href="#连续值处理" class="headerlink" title="连续值处理"></a>连续值处理</h3><p>使用<strong>连续属性离散化技术</strong>对连续值进行处理</p>
-<p>C4.5决策树算法采用二分法处理连续属性</p>
-<p>假设连续属性a的值从小到大排序为{a1,a2,a3,…,an}</p>
-<p>取划分点（n个值对应n-1个划分点）</p>
-<script type="math/tex; mode=display">
-T_a = \left\{ \frac{a^i\, + a^{i+1}}{2}\, |\,1≤i≤n-1| \right\}</script><script type="math/tex; mode=display">
-\begin{align}
-Gain(D,a) &= \max_{t\in T_a}\, Gain(D,a,t)\\
-&=\max_{t\in T_a}\, Ent(D)-\sum_{\lambda\in \lbrace -,+\rbrace}\frac{|D^v|}{D}Ent(D_t^\lambda)
-\end{align}</script><p>$ D^- $ ：属性值小于t的样本</p>
-<p>$D^+$：属性值大于t的样本</p>
-<h3 id="缺失值处理"><a href="#缺失值处理" class="headerlink" title="缺失值处理"></a>缺失值处理</h3><p>现实任务中常会遇到不完整的样本，即样本的某些属性值缺失</p>
-<p>给定数据集D和属性a</p>
-<ol>
-<li>$\stackrel{*}{D}$为属性a上没有缺失值的样本子集</li>
-<li>$\stackrel{*}{D^v}$为在<code>1</code>中属性a上取值为$a^v$的样本子集</li>
-<li>$\stackrel{*}{D^k}$表示在<code>1</code>中属于第k类的样本子集</li>
-</ol>
-<p>于是有</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{D}=\bigcup_{k=1}^{|y|}\stackrel{*}{D^k},\stackrel{*}{D}=\bigcup_{v=1}^{V}\stackrel{*}{D^v}</script><p>并给每一个样本x赋予一个权重$w_x$（一般初始化全为1）</p>
-<p>无缺省样本所占比例</p>
-<script type="math/tex; mode=display">
-\rho=\frac{\sum_{x\in\stackrel{*}{D}}w_x}{\sum_{x\in D}w_x}</script><p>无缺省样本中第k类所占的比例</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{p_k}=\frac{\sum_{x\in\stackrel{*}{D_k}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>无缺省样本中属性值为$a^v$所占的比例</p>
-<script type="math/tex; mode=display">
-\stackrel{*}{r_v}=\frac{\sum_{x\in\stackrel{*}{D_v}}w_x}{\sum_{x\in \stackrel{*}{D}}w_x}</script><p>显然</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{|y|}\stackrel{*}{p_k}=\sum_{v=1}^V\stackrel{*}{r_k}=1</script><div class="note danger simple"><p>问题1：如何在属性值缺失的情况下进行划分属性选择</p>
-</div>
-<p>于是有新的信息增益公式</p>
-<script type="math/tex; mode=display">
-\begin{align}
-Gain(D,a)&=\rho\times Gain(\stackrel{*}{D},a)\\
-&=\rho\times\left( Ent\left(\stackrel{*}{D}\right)-\sum_{v=1}^V\stackrel{*}{r_v}Ent\left(\stackrel{*}{D^v}\right)\right)
-\end{align}</script><p>其中</p>
-<script type="math/tex; mode=display">
-Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}}</script><div class="note danger simple"><p>问题2：给定划分属性，如果样本在该属性上的值缺失，如何对样本进行划分</p>
-</div>
-<ol>
-<li>样本x在划分属性a上的取值已知，则将x划入取值对应的子节点，样本权重不变</li>
-<li>样本x在划分属性a上的取值未知，则将x同时划入所有子节点，样本权重在属性值为$a^v$调整为$\stackrel{*}{r_v}\cdot w_x$</li>
-</ol>
-<h2 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h2><p>此类决策树中，非叶节点不在是仅对某个属性，而是对属性的线性组合进行测试。</p>
-<p>即每个非叶节点是一个形如$\sum_{i=1}^{d}w_ia_i=t$的线性分类器，其中$w_i$是属性$a_i$的权重，$w_i$和$t$可在该节点所含样本的样本集和属性集学到</p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>决策树</tag>
       </tags>
   </entry>
 </search>

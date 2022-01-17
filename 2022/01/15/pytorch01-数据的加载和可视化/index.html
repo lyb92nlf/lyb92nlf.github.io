@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PyTorch01-图像数据处理操作 | 少年歌行</title><meta name="keywords" content="PyTorch,Dataset"><meta name="author" content="Lyb92nlf"><meta name="copyright" content="Lyb92nlf"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="库学习两大利器  dir() 12print(dir(torch))# [&amp;#x27;AVG&amp;#x27;, &amp;#x27;AggregationType&amp;#x27;, &amp;#x27;AliasDb&amp;#x27;, &amp;#x27;AnyType&amp;#x27;, &amp;#x27;Argument&amp;#x27;, &amp;#x27;ArgumentSpec&amp;#x27;, &amp;#x27;BFloat16Storage&amp;#x27;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch01-图像数据处理操作">
+<meta property="og:url" content="https://lyb92nlf.github.io/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/index.html">
+<meta property="og:site_name" content="少年歌行">
+<meta property="og:description" content="库学习两大利器  dir() 12print(dir(torch))# [&amp;#x27;AVG&amp;#x27;, &amp;#x27;AggregationType&amp;#x27;, &amp;#x27;AliasDb&amp;#x27;, &amp;#x27;AnyType&amp;#x27;, &amp;#x27;Argument&amp;#x27;, &amp;#x27;ArgumentSpec&amp;#x27;, &amp;#x27;BFloat16Storage&amp;#x27;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-81dcf104f422fc0032b61e7b9a0b2382_r.jpg">
+<meta property="article:published_time" content="2022-01-15T03:12:36.000Z">
+<meta property="article:modified_time" content="2022-01-17T10:05:26.363Z">
+<meta property="article:author" content="Lyb92nlf">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="Dataset">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-81dcf104f422fc0032b61e7b9a0b2382_r.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lyb92nlf.github.io/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'PyTorch01-图像数据处理操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-17 18:05:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic3.zhimg.com/80/v2-81dcf104f422fc0032b61e7b9a0b2382_r.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">少年歌行</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PyTorch01-图像数据处理操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-15T03:12:36.000Z" title="发表于 2022-01-15 11:12:36">2022-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-17T10:05:26.363Z" title="更新于 2022-01-17 18:05:26">2022-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python/">Python</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Python/PyTorch/">PyTorch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="PyTorch01-图像数据处理操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/#post-comment"><span class="gitalk-comment-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>库学习两大利器</p>
+<ul>
+<li><p><code>dir()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">dir</span>(torch))</span><br><span class="line"><span class="comment"># [&#x27;AVG&#x27;, &#x27;AggregationType&#x27;, &#x27;AliasDb&#x27;, &#x27;AnyType&#x27;, &#x27;Argument&#x27;, &#x27;ArgumentSpec&#x27;, &#x27;BFloat16Storage&#x27;, &#x27;BFloat16Tensor&#x27;, &#x27;BenchmarkConfig&#x27;, &#x27;BenchmarkExecutionStats&#x27;, &#x27;Block&#x27;, &#x27;BoolStorage&#x27;, &#x27;BoolTensor&#x27;, &#x27;BoolType&#x27;, &#x27;BufferDict&#x27;, &#x27;ByteStorage&#x27;, &#x27;ByteTensor&#x27;, &#x27;CONV_BN_FUSION&#x27;, ......, &#x27;trunc_&#x27;, &#x27;typename&#x27;, &#x27;types&#x27;, &#x27;uint8&#x27;, &#x27;unbind&#x27;, &#x27;unify_type_list&#x27;, &#x27;unique&#x27;, &#x27;unique_consecutive&#x27;, &#x27;unsafe_chunk&#x27;, &#x27;unsafe_split&#x27;, &#x27;unsafe_split_with_sizes&#x27;, &#x27;unsqueeze&#x27;, &#x27;use_deterministic_algorithms&#x27;, &#x27;utils&#x27;, &#x27;vander&#x27;, &#x27;var&#x27;, &#x27;var_mean&#x27;, &#x27;vdot&#x27;, &#x27;version&#x27;, &#x27;view_as_complex&#x27;, &#x27;view_as_real&#x27;, &#x27;vitals_enabled&#x27;, &#x27;vsplit&#x27;, &#x27;vstack&#x27;, &#x27;wait&#x27;, &#x27;warnings&#x27;, &#x27;where&#x27;, &#x27;with_load_library_flags&#x27;, &#x27;xlogy&#x27;, &#x27;xlogy_&#x27;, &#x27;zero_&#x27;, &#x27;zeros&#x27;, &#x27;zeros_like&#x27;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>help()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span>(torch.cuda.is_available)</span><br><span class="line"><span class="comment"># Help on function is_available in module torch.cuda:</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># is_available() -&gt; bool</span></span><br><span class="line"><span class="comment">#     Returns a bool indicating if CUDA is currently available.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="数据集类-Dataset"><a href="#数据集类-Dataset" class="headerlink" title="数据集类 - Dataset"></a>数据集类 - Dataset</h2><p>抽象类，继承类需要重写<code>__getitem__</code>方法，<code>__len__</code>方法可选</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="comment"># 假设数据集存储在根目录上的data文件夹内，样本的标签就是文件名</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyData</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,data_dir</span>):</span></span><br><span class="line">            <span class="comment"># 初始化数据成员</span></span><br><span class="line">            self.data_dir = data.<span class="built_in">dir</span></span><br><span class="line">            self.img_name_list = os.listdir(data.<span class="built_in">dir</span>) </span><br><span class="line">            </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self,index</span>):</span></span><br><span class="line">            sample_path = os.path.join(self.data_dir,self.img_name_list[index])</span><br><span class="line">            sample_label = self.img_name_list[index].split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            sample = Image.<span class="built_in">open</span>(sample_path)</span><br><span class="line">            <span class="keyword">return</span> sample,sample_label</span><br><span class="line">         </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">len</span>(self.img_name_list)</span><br></pre></td></tr></table></figure>
+<h2 id="transforms"><a href="#transforms" class="headerlink" title="transforms"></a>transforms</h2><p>包含对图像进行裁剪、标准化等处理的类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="comment"># cuda11版本如果安装了cuda10版本会出现userwarming</span></span><br><span class="line"><span class="comment"># 解决方案：</span></span><br><span class="line"><span class="comment"># 	1.pip uninstall torch 	2.pip uninstall torchvision</span></span><br><span class="line"><span class="comment"># 	3.到pytorch官网重新安装对应cuda版本的torch和torchvision</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>ToTensor类 - 将图像转化为tensor类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL/narray</span></span><br><span class="line"></span><br><span class="line">tensor_trans = transforms.ToTensor()</span><br><span class="line"><span class="comment"># 等价于调用__call__(pic)方法</span></span><br><span class="line">tensor_img_narray = tensor_trans(img_cv2)</span><br><span class="line">tensor_img_PIL = tensor_trans(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：tensor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Normalize类 - 对所有通道的像素点进行标准化处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：tensor（不支持PIL图像）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(tensor_img[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"><span class="comment"># 该类初始化时需要设定不同通道的均值和方差</span></span><br><span class="line"><span class="comment"># output[channel] = (input[channel] - mean[channel]) / std[channel]</span></span><br><span class="line">trans_norm = transforms.Normalize([channel1_mean,channel2_mean,channel3_mean],[channel1_std,channel2_std,channel3_std])</span><br><span class="line">img_norm = trans_norm.forward(tensor_img)</span><br><span class="line"><span class="built_in">print</span>(img_norm[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：tensor</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Resize类 - 对图像size进行操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL Image or Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况一(h,w)：</span></span><br><span class="line">trans_resize = transforms.Resize((<span class="number">500</span>,<span class="number">500</span>))</span><br><span class="line"><span class="comment"># forward与__call__用法类似，区别是一般__call__包含forward</span></span><br><span class="line">img_resize = trans_resize.forward(tensor_img)</span><br><span class="line"><span class="comment"># img_resize = trans_resize(tensor_img)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况二(size):</span></span><br><span class="line"><span class="comment"># if height &gt; width, then image will be rescaled to (size * height / width, size).</span></span><br><span class="line">trans_resize = transforms.Resize(<span class="number">200</span>)</span><br><span class="line">img_resize = trans_resize.forward(tensor_img)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于输入</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>RandomCrop类 - 对图像进行随机裁剪</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：PIL Image or Tensor</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况一(h,w)：</span></span><br><span class="line">trans_rdC = transforms.RandomCrop((<span class="number">100</span>,<span class="number">200</span>))</span><br><span class="line">img_rdC = trans_rdC.forward(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 情况二(size):</span></span><br><span class="line"><span class="comment"># 裁剪图像的大小为(size,size)</span></span><br><span class="line">trans_rdC = transforms.RandomCrop(<span class="number">100</span>)</span><br><span class="line">img_rdC = trans_rdC(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于输入</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compose类 - 组合transforms操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输入图像类型：取决于第一个transforms操作可以接受的类型</span></span><br><span class="line"></span><br><span class="line">tensor_trans = transforms.ToTensor()</span><br><span class="line">trans_resize = transforms.Resize(<span class="number">200</span>)</span><br><span class="line"><span class="comment"># 列表中前一个输出作为后一个的输入，所以类型要保持一致</span></span><br><span class="line">trans_compose = transforms.Compose([trans_resize,tensor_trans])</span><br><span class="line">img_compose = trans_compose(img_PIL)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出图像类型：取决于最后一个transforms操作输出的类型</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多的类可以查看源码学习！！！</p>
+<h2 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h2><p>可视化图像和数据，主要介绍两个常用的方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="comment"># The `SummaryWriter` class provides a high-level API to create an event file in a given directory and add summaries and events to it.</span></span><br><span class="line">writer = SummaryWriter(<span class="string">&#x27;logs&#x27;</span>) <span class="comment"># 自定义事件文件夹</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p><code>add_scalar(tag,scalar_value,global_step)</code></p>
+<blockquote>
+<ul>
+<li>tag (string): 数据标识（相当于标题，唯一的ID）</li>
+<li>scalar_value (float or string/blobname): 存储的值（y轴）</li>
+<li>global_step (int): 全局的步数（x轴）</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    writer.add_scalar(<span class="string">&#x27;y=2x&#x27;</span>,<span class="number">2</span>*i,i)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p><code>add_image(tag,img_tensor,global_step,dataformat)</code></p>
+<blockquote>
+<ul>
+<li>tag (string): 数据标识</li>
+<li>img_tensor (torch.Tensor, numpy.array, or string/blobname): 图像数据（tensor或narray）</li>
+<li>global_step (int): 全局步数</li>
+<li>dataformat(string): 默认tensor类型为’CHW’，对于narray类型需要给定’HWC’</li>
+</ul>
+</blockquote>
+<ol>
+<li>图像转化为narray类型的几种方法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法一：cv2</span></span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">img_narray = cv2.imread(img_path)</span><br><span class="line"><span class="comment"># 方法二：numpy</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">img_PIL = Image.<span class="built_in">open</span>(img_path)</span><br><span class="line">img_narray = np.array(img_PIL)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>图像转化为tensor类型的方法</p>
+<p>详见<code>transforms</code></p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">writer.add_image(<span class="string">&#x27;Image01&#x27;</span>,img_narray,<span class="number">0</span>,dataformat=<span class="string">&#x27;HWC&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>最后一定要关闭！！！</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">writer.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行后在终端输入命令tensorboard --logdir=选取的目录名 --port=指定的端口号</span></span><br><span class="line"><span class="comment"># 端口号默认为6006</span></span><br></pre></td></tr></table></figure>
+<h2 id="torchvision中的数据集"><a href="#torchvision中的数据集" class="headerlink" title="torchvision中的数据集"></a>torchvision中的数据集</h2><p><a target="_blank" rel="noopener" href="https://pytorch.org/vision/stable/index.html">torchvision说明文档</a>，以CIFAR10为例</p>
+<blockquote>
+<ul>
+<li><strong>root</strong> (<em>string</em>) – Root directory of dataset where directory <code>cifar-10-batches-py</code> exists or will be saved to if download is set to True.</li>
+<li><strong>train</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If True, creates dataset from training set, otherwise creates from test set.</li>
+<li><strong>transform</strong> (<em>callable**,</em> <em>optional</em>) – A function/transform that takes in an PIL image and returns a transformed version. E.g, <code>transforms.RandomCrop</code></li>
+<li><strong>target_transform</strong> (<em>callable**,</em> <em>optional</em>) – A function/transform that takes in the target and transforms it.</li>
+<li><strong>download</strong> (<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – If true, downloads the dataset from the internet and puts it in root directory. If dataset is already downloaded, it is not downloaded again.</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"></span><br><span class="line">dataset_trans = transforms.Compose([</span><br><span class="line">    transforms.ToTensor()</span><br><span class="line">])</span><br><span class="line">train_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">True</span>,dataset_trans,download=<span class="literal">True</span>)</span><br><span class="line">test_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">False</span>,dataset_trans,download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># img_tensor,target = train_sets[0]</span></span><br><span class="line"><span class="comment"># print(img_tensor,train_sets.classes[target])</span></span><br><span class="line"><span class="comment"># print(len(train_sets))</span></span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&quot;./logs/dataset&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    writer.add_image(<span class="string">&#x27;train_sets&#x27;</span>,train_sets[i][<span class="number">0</span>],i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    writer.add_image(<span class="string">&#x27;test_sets&#x27;</span>,test_sets[i][<span class="number">0</span>],i)</span><br><span class="line"></span><br><span class="line">writer.close()</span><br></pre></td></tr></table></figure>
+<h2 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h2><p>每次从Dataset中选取batch_size个样本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms</span><br><span class="line"></span><br><span class="line">test_sets = torchvision.datasets.CIFAR10(<span class="string">&#x27;./dataset/CIFAR10&#x27;</span>,<span class="literal">False</span>,transform=transforms.ToTensor(),download=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(test_sets)) <span class="comment"># 10000</span></span><br><span class="line"><span class="comment"># shuffle：是否随机选取；drop_last：图像数量不足batch_size，是否丢弃</span></span><br><span class="line">dl = DataLoader(test_sets,batch_size=<span class="number">64</span>,shuffle=<span class="literal">True</span>,drop_last=<span class="literal">False</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(dl)) <span class="comment"># drop_last=True:156 ; drop_last=False:157</span></span><br><span class="line"></span><br><span class="line">writer = SummaryWriter(<span class="string">&#x27;./logs/dataloader&#x27;</span>)</span><br><span class="line">step = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> dl:</span><br><span class="line">    imgs,targets = item</span><br><span class="line">    <span class="built_in">print</span>(imgs.shape,targets) <span class="comment"># torch.Size([6, 3, 32, 32]) tensor([8, 4, 6, 5, 6, 3])</span></span><br><span class="line">    <span class="comment"># 某个步骤同时显示多个图像</span></span><br><span class="line">    writer.add_images(<span class="string">&#x27;CIFAR10_Test&#x27;</span>,imgs,step)</span><br><span class="line">    step += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">writer.close()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Lyb92nlf</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lyb92nlf.github.io/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/">https://lyb92nlf.github.io/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lyb92nlf.github.io" target="_blank">少年歌行</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/PyTorch/">PyTorch</a><a class="post-meta__tags" href="/tags/Dataset/">Dataset</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/01/14/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"><img class="prev-cover" src="https://pic1.zhimg.com/80/v2-f7a5a6197a77d9939778dccd5d6c0138_r.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PyTorch环境安装</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/01/14/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="PyTorch环境安装"><img class="cover" src="https://pic1.zhimg.com/80/v2-f7a5a6197a77d9939778dccd5d6c0138_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-14</div><div class="title">PyTorch环境安装</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Lyb92nlf</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lyb92nlf"><i class="fab fa-github"></i><span>Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:lyb92nlf@126.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/wuyou2386276537" target="_blank" title="Wechat"><i class="fab fa-weixin"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">学习内容：西瓜书搁置，读论文,学习进度：聚类</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%B1%BB-Dataset"><span class="toc-number">1.</span> <span class="toc-text">数据集类 - Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transforms"><span class="toc-number">2.</span> <span class="toc-text">transforms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tensorboard"><span class="toc-number">3.</span> <span class="toc-text">tensorboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#torchvision%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.</span> <span class="toc-text">torchvision中的数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DataLoader"><span class="toc-number">5.</span> <span class="toc-text">DataLoader</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/" title="PyTorch01-图像数据处理操作"><img src="https://pic3.zhimg.com/80/v2-81dcf104f422fc0032b61e7b9a0b2382_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PyTorch01-图像数据处理操作"/></a><div class="content"><a class="title" href="/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/" title="PyTorch01-图像数据处理操作">PyTorch01-图像数据处理操作</a><time datetime="2022-01-15T03:12:36.000Z" title="发表于 2022-01-15 11:12:36">2022-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/01/14/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="PyTorch环境安装"><img src="https://pic1.zhimg.com/80/v2-f7a5a6197a77d9939778dccd5d6c0138_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PyTorch环境安装"/></a><div class="content"><a class="title" href="/2022/01/14/Anaconda%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" title="PyTorch环境安装">PyTorch环境安装</a><time datetime="2022-01-14T03:12:36.000Z" title="发表于 2022-01-14 11:12:36">2022-01-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/30/Chapter09%E8%81%9A%E7%B1%BB/" title="聚类"><img src="https://pic1.zhimg.com/80/v2-4ab84e352ad19a1e1996a239875caa78_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="聚类"/></a><div class="content"><a class="title" href="/2021/11/30/Chapter09%E8%81%9A%E7%B1%BB/" title="聚类">聚类</a><time datetime="2021-11-30T03:12:36.000Z" title="发表于 2021-11-30 11:12:36">2021-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/25/Chapter08%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" title="集成学习"><img src="https://pic2.zhimg.com/80/v2-750f514c2d35d42d60442e7da2dd12c9_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="集成学习"/></a><div class="content"><a class="title" href="/2021/11/25/Chapter08%E9%9B%86%E6%88%90%E5%AD%A6%E4%B9%A0/" title="集成学习">集成学习</a><time datetime="2021-11-25T02:12:36.000Z" title="发表于 2021-11-25 10:12:36">2021-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/" title="贝叶斯分类器"><img src="https://pic2.zhimg.com/80/v2-cdec7c3061884c08b8320545d498c259_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="贝叶斯分类器"/></a><div class="content"><a class="title" href="/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/" title="贝叶斯分类器">贝叶斯分类器</a><time datetime="2021-11-22T02:12:36.000Z" title="发表于 2021-11-22 10:12:36">2021-11-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Lyb92nlf</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'b521d1351df6186fb66e',
+      clientSecret: '4429af4a3bc878bc295fd505065b34db38c683c6',
+      repo: 'blog-comments',
+      owner: 'lyb92nlf',
+      admin: ['lyb92nlf'],
+      id: '95a72928b1006079d77eb98a1ab923ad',
+      language: 'zh-CN',
+      perPage: 10,
+      distractionFreeMode: false,
+      pagerDirection: 'last',
+      createIssueManually: false,
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !false) {
+  if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="190" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
