@@ -118,6 +118,136 @@
       </tags>
   </entry>
   <entry>
+    <title>线性模型</title>
+    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
+<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
+<script type="math/tex; mode=display">
+f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
+<script type="math/tex; mode=display">
+f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
+<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
+<p>首先，以<em>单属性</em>为例，给定数据集D</p>
+<script type="math/tex; mode=display">
+f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
+<script type="math/tex; mode=display">
+\begin{align}
+(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
+&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
+\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
+<p>然后，通过使偏导等于0，可以得到w和b</p>
+<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
+<script type="math/tex; mode=display">
+X=\left[
+\begin{matrix}
+ x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
+ x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
+ \vdots & \vdots & \ddots & \vdots \\
+ x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+ x_1^T      & 1    \\
+ x_2^T      & 1    \\
+ \vdots & \vdots   \\
+ x_m^T      & 1    \\
+\end{matrix}
+\right]</script><script type="math/tex; mode=display">
+X\left[
+\begin{matrix}
+ w_1\\
+ w_2\\
+ \vdots\\
+ w_d\\
+ b\\
+\end{matrix}
+\right]=\left[
+\begin{matrix}
+ f(x_1)\\
+ f(x_2)\\
+ \vdots \\
+ f(x_m)\\
+\end{matrix}
+\right]\Longrightarrow
+XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
+<script type="math/tex; mode=display">
+f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
+\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
+<p>更一般的，考虑存在反函数g，令</p>
+<script type="math/tex; mode=display">
+g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
+<script type="math/tex; mode=display">
+y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
+<p>对数几率回归的<strong>优点</strong>：</p>
+<ol>
+<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
+<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
+<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
+</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
+<p>给定数据集</p>
+<script type="math/tex; mode=display">
+D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
+<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
+<p>最终结果：</p>
+<ul>
+<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
+<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
+<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
+<p>ECOC的工作步骤：</p>
+<ul>
+<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
+<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
+</ul>
+<p>编码矩阵：</p>
+<ul>
+<li><strong>二元码：</strong>正类、反类</li>
+<li><strong>三元码：</strong>正类、反类、停用类</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
+<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
+<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
+<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
+<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
+<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
+</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
+<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
+<p>解决方法：</p>
+<ol>
+<li><p>使正反例的数目接近</p>
+<ul>
+<li>欠采样 - 减少反例</li>
+<li>过采样 - 增加正例</li>
+</ul>
+</li>
+<li><p>再放缩</p>
+<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
+<p>则分类器的决策规则为：</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
+<script type="math/tex; mode=display">
+若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
+</li>
+</ol>
+<hr>
+<blockquote id="fn_1">
+<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
+</blockquote>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>模型评估与选择</title>
     <url>/2021/11/14/Chapter02%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E5%92%8C%E8%AF%84%E4%BC%B0/</url>
     <content><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><ul>
@@ -270,136 +400,6 @@ micro-F1=\frac{2\times micro-P\times micro-R}{micro-P+macro-R}</script><button t
       </tags>
   </entry>
   <entry>
-    <title>线性模型</title>
-    <url>/2021/11/14/Chapter03%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h1><p>$x=(x_1,x_2,\ldots,x_d)$</p>
-<p>线性模型（linear model）试图学得一个通过属性的线性组合来进行预测的函数，即</p>
-<script type="math/tex; mode=display">
-f(x)=w_1x_1+w_2x_2+\ldots+w_dx_d+b</script><p>一般用向量形式写成</p>
-<script type="math/tex; mode=display">
-f(x)=w^Tx+b</script><p>w 和 b 学得之后， 模型就得以确定</p>
-<h1 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h1><div class="tabs" id="回归任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#回归任务-1">线性回归（linear regression）</button></li><li class="tab"><button type="button" data-href="#回归任务-2">对数线性回归(log-linear regression)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="回归任务-1"><p>线性回归的任务是寻找线性模型，使得预测值尽可能接近样本的标记</p>
-<p>首先，以<em>单属性</em>为例，给定数据集D</p>
-<script type="math/tex; mode=display">
-f(x_i)=wx_i+b\;\;\;\;\;D=\lbrace(x_i,y_i)\rbrace_{i=1}^m</script><p>求解(w,b)，列方程，使均方误差最小</p>
-<script type="math/tex; mode=display">
-\begin{align}
-(w^*,b^*)&=\underset{(w,b)}{arg\min}\sum_{i=1}^m(f(x_i)-y_i)^2\\
-&= \underset{(w,b)}{arg\min}\sum_{i=1}^m(wx_i+b-y_i)^2
-\end{align}</script><p>基于均方误差最小化进行模型求解的方法称为<strong>最小二乘法</strong>，线性回归中，最小二乘法就是找到一条直线，使得所有样本到直线的<strong>欧式距离|f(x)-y|</strong>之和最小</p>
-<p>然后，通过使偏导等于0，可以得到w和b</p>
-<p>对于<em>多属性</em>，同理列均方误差方程，求偏导，令偏导为0</p>
-<script type="math/tex; mode=display">
-X=\left[
-\begin{matrix}
- x_{11}      & x_{12}      & \cdots & x_{1d}  & 1    \\
- x_{21}      & x_{22}      & \cdots & x_{2d}  & 1    \\
- \vdots & \vdots & \ddots & \vdots \\
- x_{m1}      & x_{m2}      & \cdots & x_{md}  & 1    \\
-\end{matrix}
-\right]
-=\left[
-\begin{matrix}
- x_1^T      & 1    \\
- x_2^T      & 1    \\
- \vdots & \vdots   \\
- x_m^T      & 1    \\
-\end{matrix}
-\right]</script><script type="math/tex; mode=display">
-X\left[
-\begin{matrix}
- w_1\\
- w_2\\
- \vdots\\
- w_d\\
- b\\
-\end{matrix}
-\right]=\left[
-\begin{matrix}
- f(x_1)\\
- f(x_2)\\
- \vdots \\
- f(x_m)\\
-\end{matrix}
-\right]\Longrightarrow
-XW = Y</script><p>最终$ W = (X^TX)^{-1}X^Ty$</p>
-<script type="math/tex; mode=display">
-f(x_i)=x_i^TW=x_i^T(X^TX)^{-1}X^Ty</script><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="回归任务-2"><script type="math/tex; mode=display">
-\ln y=w^Tx+b\tag{lny与x呈线性关系}</script><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151739916.jpg" alt="对数线性回归" style="zoom:50%;" /></p>
-<p>更一般的，考虑存在反函数g，令</p>
-<script type="math/tex; mode=display">
-g(y)=w^Tx+b</script><p>这样得到的模型称为<strong>广义线性模型</strong><code>generalized linear model</code>，函数 g 称为<strong>联系函数</strong><code>link function</code></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h1 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h1><div class="tabs" id="分类任务"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#分类任务-1">对数几率回归(logistic regression)</button></li><li class="tab"><button type="button" data-href="#分类任务-2">线性判别分析(Linear Discriminant Analysis)</button></li><li class="tab"><button type="button" data-href="#分类任务-3">多分类问题</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="分类任务-1"><p>由广义线性模型，定义对数几率<sup><a href="#fn_1" id="reffn_1">1</a></sup>函数</p>
-<script type="math/tex; mode=display">
-y=\frac{1}{1+e^{-(w^Tx+b)}}\;\;\;\ln\frac{y}{1-y}=w^Tx+b</script><p>使用线性模型的预测结果去逼近真实标记的对数几率</p>
-<p>对数几率回归的<strong>优点</strong>：</p>
-<ol>
-<li>它直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题。</li>
-<li>它不仅预测出类别，还得到近似概率预测，对许多需利用概率辅助决策的任务很有用。</li>
-<li>对率函数是任意阶可导的凸函数，有很好的数学性质，现有的许多数值优化算法都可直接用于求取最优解。</li>
-</ol><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-2"><p>线性判别分析的<strong>思想</strong>：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影尽可能接近，异类样例的投影尽可能远离。在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111151802354.png" alt="LDA"></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="分类任务-3"><p>多分类问题的<strong>基本思路</strong>是拆解法，即将多分类的任务拆为若干个二分类任务求解。</p>
-<p>给定数据集</p>
-<script type="math/tex; mode=display">
-D=\lbrace(x_i,y_i)\rbrace_{i=1}^m,y_i\in\lbrace C_1,C_2,\dots,C_N\rbrace\tag{C属于不同类别}</script><div class="tabs" id="拆分策略"><ul class="nav-tabs"><li class="tab active"><button type="button" data-href="#拆分策略-1">一对一(OvO)</button></li><li class="tab"><button type="button" data-href="#拆分策略-2">一对其余(OvR)</button></li><li class="tab"><button type="button" data-href="#拆分策略-3">多对多(MvM)</button></li></ul><div class="tab-contents"><div class="tab-item-content active" id="拆分策略-1"><p><strong>OvO</strong>将这 N 个类别两两配对，从而产生$\frac{N(N-1)}{2}$个二分类任务。</p>
-<p>最终结果：被预测的最多的类别</p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-2"><p><strong>OvR</strong>是每次将一个类的样例作为正例、所有其他类的样例作为反例来训练 N 个分类器。</p>
-<p>最终结果：</p>
-<ul>
-<li>只有一个分类器预测为正类，则对应的类别标记为最终结果</li>
-<li>有多个分类器预测为正类，则取置信度最大的类别作为最终结果</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170940591.jpg" alt="OvO与OvR" style="zoom:50%;" /></p><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div><div class="tab-item-content" id="拆分策略-3"><p><strong>MvM</strong>将多个类别作为正例，多个类别作为反例</p>
-<p>而正反例的选取必须由特殊的设计，常用的MvM技术有<strong>纠错输出码ECOC</strong></p>
-<p>ECOC的工作步骤：</p>
-<ul>
-<li><strong>编码：</strong>将N个类别做M次划分，形成M个分类器</li>
-<li><strong>解码：</strong>M个分类器对测试样本进行预测得到编码，与各个类别的编码进行比较，返回距离最小的类别作为<em>最终结果</em></li>
-</ul>
-<p>编码矩阵：</p>
-<ul>
-<li><strong>二元码：</strong>正类、反类</li>
-<li><strong>三元码：</strong>正类、反类、停用类</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111170958614.jpg" alt="MvM" style="zoom:50%;" /></p>
-<p>其中，海明距离：不相同的个数(停用类算0.5)；欧式距离：差值平方和的1/2次方(停用类算0)</p>
-<div class="note success no-icon flat"><p>为什么叫做纠错输出码呢？</p>
-<p>假设测试实例在预测时某位出错，不会影响最终的结果</p>
-<p>一般来说，同一个学习任务，编码越长，纠错能力越强</p>
-<p>同等长度的编码，任意两个位置的编码距离越远，纠错能力越强</p>
-</div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div><button type="button" class="tab-to-top" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div></div>
-<h2 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h2><p>分类任务中不同类别的训练样例差别很大的情况</p>
-<p>解决方法：</p>
-<ol>
-<li><p>使正反例的数目接近</p>
-<ul>
-<li>欠采样 - 减少反例</li>
-<li>过采样 - 增加正例</li>
-</ul>
-</li>
-<li><p>再放缩</p>
-<p>几率$\frac{y}{1-y}$，y为正例的可能性，假设阈值为0.5</p>
-<p>则分类器的决策规则为：</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>1,预测为正例</script><p>考虑到正反例数目的差别，令$m^+$为正例的数目，$m^-$为反例的数目，则</p>
-<script type="math/tex; mode=display">
-若\frac{y}{1-y}>\frac{m^+}{m^-},预测为正例</script><p>正例数目与反例数目的比称为<strong>观测几率</strong></p>
-</li>
-</ol>
-<hr>
-<blockquote id="fn_1">
-<sup>1</sup>. 样本x为正例的可能性/为反例的可能性<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#8617;</a>
-</blockquote>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>决策树</title>
     <url>/2021/11/16/Chapter04%E5%86%B3%E7%AD%96%E6%A0%91/</url>
     <content><![CDATA[<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>决策树是基于<strong>树结构</strong>来进行决策的，例如在西瓜问题中，对新样本的分类可看作对“当前样本属于正类吗”这个问题的“决策”过程。</p>
@@ -520,151 +520,6 @@ Ent(\stackrel{*}{D})=-\sum_{k=1}^{|y|}\stackrel{*}{p_k}\log_2^{\stackrel{*}{p_k}
       </tags>
   </entry>
   <entry>
-    <title>支持向量机</title>
-    <url>/2021/11/18/Chapter06%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</url>
-    <content><![CDATA[<h1 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h1><p>分类学习的基本思想是基于训练集在样本空间中找到一个划分超平面，将不同类别的样本分开。但是划分样本的超平面有很多，怎么找到最好的那一个呢？</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181659982.jpg" alt="多个超平面" style="zoom:50%;" /></p>
-<blockquote>
-<p>上图中，直观上“正中间”的超平面是最好的。的确，该超平面产生的分类结果是最鲁棒的，对未见示例的泛化能力最强</p>
-<p>其中，x和o表示具有两个属性的样本数据X=(x1;x2)</p>
-</blockquote>
-<p><code>Vapnik</code>定义了一个性能指标来选择最好的划分超平面。定义一个划分超平面1，不断平移平面直到最先接触到一个正类或一个反类，这样就得到了两个超平面1-1和1-2，这两个超平面之间的距离就作为性能指标。最好的划分超平面就是使<strong>距离(性能指标)最大</strong>的划分超平面。然而，这样的超平面有无数个，那我们就选择1-1和1-2<strong>中间</strong>的超平面。</p>
-<h2 id="数学描述"><a href="#数学描述" class="headerlink" title="数学描述"></a>数学描述</h2><ol>
-<li><p>训练数据和标签</p>
-<script type="math/tex; mode=display">
-D=\{(x_i,y_i)\}_{i=1}^N\;\;\;\;y_i\in\{-1,1\}\;\;\;x_i为d维向量</script></li>
-<li><p>超平面（类比三维空间容易理解）</p>
-<script type="math/tex; mode=display">
-w^Tx+b=0</script><p>w为d维列向量，表示超平面的法向量。b是常数，决定超平面与原点的位置。</p>
-</li>
-<li><p>样本x到超平面的距离（类比点到直线的距离）</p>
-<script type="math/tex; mode=display">
-r=\frac{|w^Tx+b|}{||w||}</script></li>
-<li><p>训练集线性可分的含义</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-w^Tx_i+b\geq0,y_i=1\\
-w^Tx_i+b < 0,y_i=-1 
-\end{cases}</script><p>即</p>
-<script type="math/tex; mode=display">
-y_i(w^Tx_i+b)\geq0\tag{公式一}</script></li>
-<li><p>间隔（上面说的性能指标 - 距离）</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181659745.jpg" alt="支持向量与间隔" style="zoom:50%;" /></p>
-<p>已知wTx+b=0与awT+ab=0是同一平面，a属于正实数，则利用a进行放缩，使得支持向量x上有</p>
-<script type="math/tex; mode=display">
-|w^Tx+b|=1</script><p>那么，间隔公式为</p>
-<script type="math/tex; mode=display">
-r=\frac{2}{||w||}</script><p>有了上述5点的描述，我们便可以引出支持向量机的优化问题（凸优化的二次规划问题）：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&\underset{w,b}{\max}\frac{2}{||w||}\Leftrightarrow \underset{w,b}{\min}\frac{1}{2}||w||^2\nonumber\\
-&s.t. y_i(w^Tx_i+b)\geq1,i=1,2,\dots,N\nonumber
-\end{align}</script><blockquote>
-<ol>
-<li><p>1/2只是为了求导方便</p>
-</li>
-<li><p>二次规划问题</p>
-<ul>
-<li>目标函数为二次项</li>
-<li>约束条件为一次项</li>
-</ul>
-<p>那么要么无解，要么只有一个极小值（类似梯度下降）</p>
-</li>
-</ol>
-</blockquote>
-</li>
-</ol>
-<h1 id="优化问题求解"><a href="#优化问题求解" class="headerlink" title="优化问题求解"></a>优化问题求解</h1><p>相关理论参照<a href="https://lyb92nlf.github.io/2021/11/18/SVM数学知识补充/">SVM数学知识补充</a></p>
-<h2 id="转换为原问题"><a href="#转换为原问题" class="headerlink" title="转换为原问题"></a>转换为原问题</h2><p>最小值目标函数不变</p>
-<p>限制条件</p>
-<script type="math/tex; mode=display">
-s.t. 1-y_i(w^Tx_i+b)\leq0,i=1,2,\dots,N</script><h2 id="转换为对偶问题"><a href="#转换为对偶问题" class="headerlink" title="转换为对偶问题"></a>转换为对偶问题</h2><script type="math/tex; mode=display">
-L(w,b,\alpha)=\frac{1}{2}||w||^2+\sum_{i=1}^N\alpha_i(1-y_i(w^Tx_i+b))</script><script type="math/tex; mode=display">
-\frac{\partial L}{\partial w}=w-\sum_{i=1}^N\alpha_iy_ix_i=0\;\;\;\;\frac{\partial L}{\partial b}=\sum_{i=1}^N\alpha_iy_i=0</script><script type="math/tex; mode=display">
-\begin{align}
-\theta(\alpha)&=\underset{所有w,b}{\inf}\lbrace L(w,b,\alpha)\rbrace \nonumber\\
-&=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\alpha_i\alpha_jy_iy_jx_i^Tx_j\nonumber\\
-& s.t. \sum_{i=1}^N\alpha_iy_i=0,\alpha_i\geq0\nonumber\\
-&\alpha_i(1-y_i(w^Tx_i+b))=0,y_i(w^Tx_i+b)-1\geq0\nonumber
-\end{align}</script><h2 id="求解α"><a href="#求解α" class="headerlink" title="求解α"></a>求解α</h2><p>SMO算法不断执行以下两个步骤知道收敛：</p>
-<ul>
-<li>选取一对需更新的变量$ \alpha_i,\alpha_j $</li>
-<li>固定这两个参数以外的参数，根据上述公式获得更新后的变量</li>
-</ul>
-<hr>
-<hr>
-<h1 id="非线性模型"><a href="#非线性模型" class="headerlink" title="非线性模型"></a>非线性模型</h1><h2 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h2><p>前面线性模型中，我们假设存在一个超平面能够将不同类别的样本完全划分开。然而，在现实任务中往往很难做到。所以，缓解该问题的一个方法就是允许支持向量在一些样本中出错。</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211305321.jpg" alt="软间隔" style="zoom:50%;" /></p>
-<p>引入松弛变量$ \xi_i $，控制某些样本满足限制条件</p>
-<p>引入C（事先设定的参数），限制每个$ \xi _i $，不能让它特别特别大。同时，使目标函数具有最小值</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&最小值：\frac{1}{2}||w||^2+\overbrace{C\sum_{i=1}^N\xi_i}^\text{正则项}\nonumber\\
-&s.t. y_i(w^Tx_i+b)\geq1-\xi_i,\xi_i\geq0\nonumber
-\end{align}</script><h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>将样本从原始空间映射到一个更高维的特征空间，使得样本在这个特征空间内线性可分</p>
-<script type="math/tex; mode=display">
-\underbrace{x}_\text{低维}\longrightarrow\underbrace{\psi(x)}_\text{高维}</script><blockquote>
-<p>异或问题（二维空间内线性不可分）：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&X_1={0\brack 0}\in C_1\;\;\;X_2={1\brack 1}\in C_1\nonumber\\
-&X_3={0\brack 1}\in C_2\;\;\;X_4={1\brack 0}\in C_2\nonumber
-\end{align}</script><p>定义ψ(x)=[a*a;b*b;a;b;a*b]，使得X为五维向量</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\psi(X_1)=\left[ \begin{matrix}0\\0\\0\\0\\0 \end{matrix}\right]\;\;\;\psi(X_2)=\left[ \begin{matrix}1\\1\\1\\1\\1 \end{matrix}\right]\nonumber\\
-\psi(X_3)=\left[ \begin{matrix}1\\0\\1\\0\\0 \end{matrix}\right]\;\;\;\psi(X_4)=\left[ \begin{matrix}0\\1\\0\\1\\0 \end{matrix}\right]\nonumber
-\end{align}</script><p>此时存在超平面</p>
-<script type="math/tex; mode=display">
-w^T\xi (X_i)+b=0,w=\left[ \begin{matrix}-1\\-1\\-1\\-1\\6 \end{matrix}\right]\;\;\;b=1</script><p>使得不同类别的样本线性可分</p>
-</blockquote>
-<p>那么优化问题变成了</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&最小值：\frac{1}{2}||w||^2+\overbrace{C\sum_{i=1}^N\xi_i}^\text{正则项}\nonumber\\
-&s.t. y_i(w^T\psi(x_i)+b)\geq1-\xi_i,\xi_i\geq0\nonumber
-\end{align}\tag{优化式}</script><ul>
-<li><p>我们可以不知道无限维映射$ \psi(x) $的显示表达，我们只要知道一个<strong>核函数</strong></p>
-<script type="math/tex; mode=display">
-K(x_1,x_2)=\psi(x_1)^T\psi(x_2)</script><p>则优化式仍然可解</p>
-<blockquote>
-<p>核函数成立的充要条件：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-&1.\;\;\;K(x_1,x_2)=K(x_2,x_1)\nonumber\\
-&2.\;\;\;\forall \underbrace{C_i}_\text{常数},x_i,\sum_{i=1}^N\sum_{j=1}^NC_iC_jK(x_ix_j)
-\geq0\nonumber
-\end{align}</script></blockquote>
-</li>
-</ul>
-<h2 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h2><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211446322.jpg" style="zoom:50%;" /><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211446467.jpg" style="zoom:50%;" /></p>
-<hr>
-<hr>
-<h1 id="SVM算法"><a href="#SVM算法" class="headerlink" title="SVM算法"></a>SVM算法</h1><ol>
-<li><p>训练流程</p>
-<p>输入训练样本，求优化问题。</p>
-<p>最大化θ，根据SMO算法求解α</p>
-<p>求解b（取一个或所有α∈(0,c)后取平均）</p>
-</li>
-<li><p>测试流程</p>
-<p>输入测试样本</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-\sum_{i=1}^N\alpha_iy_iK(x_i,x)+b\geq0,y=+1\nonumber\\
-\sum_{i=1}^N\alpha_iy_iK(x_i,x)+b < 0,y=-1\nonumber
-\end{cases}</script></li>
-</ol>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>神经网络</title>
     <url>/2021/11/17/Chapter05%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</url>
     <content><![CDATA[<h1 id="M-P神经元模型"><a href="#M-P神经元模型" class="headerlink" title="M-P神经元模型"></a>M-P神经元模型</h1><p>在这个模型中，神经元收到来自n个神经元传递过来的输入信号，这些输入信号通过带权重的连接进行传递，神经元收到的总输入值与神经元的阈值进行比较，然后通过激活函数处理以产生神经元的输出</p>
@@ -737,73 +592,6 @@ E=\lambda\frac{1}{m}\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2</script></li>
         <tag>机器学习</tag>
         <tag>西瓜书</tag>
         <tag>神经网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贝叶斯分类器</title>
-    <url>/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/</url>
-    <content><![CDATA[<blockquote>
-<p>可以先学习<a href="https://zhuanlan.zhihu.com/p/32825019">贝叶斯公式</a>和<a href="https://zhuanlan.zhihu.com/p/26262151">一个简单的朴素贝叶斯分类算法</a></p>
-</blockquote>
-<h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>是概率框架下实施决策的基本方法，以多分类任务解释其基本原理</p>
-<p>定义样本x的风险</p>
-<script type="math/tex; mode=display">
-R(c_i|x)=\sum_{j=1}^N\lambda_{ij}P(c_j|x)</script><p>大概意思就是：基于x的特征判定为某类别的概率 × 判定为该类别的损失λ 之和</p>
-<p>任务：使所有样本x的风险最小。</p>
-<p>贝叶斯判定准则：为最小化总体风险，只需每个样本选择能使风险最小的类别</p>
-<p><br/></p>
-<p>具体来说，定义损失λ为：正确类别（即i=j），损失为0；不正确类别，损失为1</p>
-<p>那么，样本x的风险=1-基于x的特征判定为某类别的概率</p>
-<p>所以最小化风险的贝叶斯最优分类器为<strong>基于x的特征判定为某类别的概率最大</strong></p>
-<p><strong>即对于每个样本x，选择能使基于x的特征判定概率最大的类别</strong></p>
-<script type="math/tex; mode=display">
-p(c|x)=\frac{p(c)p(x|c)}{p(x)}</script><p>关键就是<strong>类条件概率p(x|c)</strong>的求取</p>
-<h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><blockquote>
-<p>参考<a href="https://www.matongxue.com/madocs/447/">马同学 (matongxue.com)</a>，极大似然估计就是通过事实，推断出最有可能的参数</p>
-</blockquote>
-<p>估计类条件概率的一种常用策略：</p>
-<ol>
-<li>先假设类条件概率具有某种确定的概率分布形式</li>
-<li>再基于训练集对概率分布的参数进行估计。</li>
-</ol>
-<p>假设p(x|c)，x为多维向量</p>
-<ol>
-<li>具有确定的形式，且被多个参数唯一确定</li>
-<li>使用训练集D对多个参数进行估计（设定参数，使得所有的x出现的概率最大）</li>
-<li>通过估计的参数求出各类别的p(x|c)</li>
-</ol>
-<p>实际应用中，概率分布形式应利用应用任务本身的经验知识，如果只是猜测，很可能产生误导性结果</p>
-<h2 id="朴素贝叶斯分类器"><a href="#朴素贝叶斯分类器" class="headerlink" title="朴素贝叶斯分类器"></a>朴素贝叶斯分类器</h2><script type="math/tex; mode=display">
-p(类别|特征)=\frac{p(类别)p(特征|类别)}{p(特征)}</script><p>前提：假设样本所有属性相互独立</p>
-<script type="math/tex; mode=display">
-p(c|x)=\frac{p(c)p(x|c)}{p(x)}=\frac{p(c)}{p(x)}\prod_{i=1}^dp(x_i|c)</script><p>由于每个样本的p(x)相等，所以，朴素贝叶斯分类器的表达式为</p>
-<script type="math/tex; mode=display">
-h_{nb}(x)=\underset{c\in \gamma}{argmax}\;p(c)\prod_{i=1}^dp(x_i|c)</script><p>对于连续属性的p(xi|c)使用<strong>极大似然估计</strong>，xi为一维向量</p>
-<h3 id="拉普拉斯修正"><a href="#拉普拉斯修正" class="headerlink" title="拉普拉斯修正"></a>拉普拉斯修正</h3><p>如果在训练集里好瓜从未出现过敲声清脆的值，那么当测试样本x中出现清脆时，p(清脆|好瓜)=0，p(好瓜|x)=0，这样，无论该样本其他属性哪怕明显是好瓜，分类结果都将是坏瓜。为了避免这种问题，常用<strong>拉普拉斯修正</strong></p>
-<p>定义N：训练集D中可能的类别个数，Ni表示第i个属性可能的取值数</p>
-<p>则</p>
-<script type="math/tex; mode=display">
-p(c)=\frac{|D_c|+1}{|D|+N}\;\;\;\;\;p(x_i|c)=\frac{|D_{c,x_i}|+1}{|D_c|+N_i}</script><h1 id="半朴素贝叶斯分类器"><a href="#半朴素贝叶斯分类器" class="headerlink" title="半朴素贝叶斯分类器"></a>半朴素贝叶斯分类器</h1><h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><p>隐变量：例如由于西瓜的根蒂脱落，无法看出是“蜷缩”或“硬挺”，这种未观察的变量叫做隐变量</p>
-<p>以初始值Θ为起点，迭代执行以下步骤直至收敛：</p>
-<ul>
-<li>基于Θ推断隐变量的期望</li>
-<li>基于期望和已观测的变量对参数Θ做极大似然估计</li>
-</ul>
-<h1 id="朴素贝叶斯分类器示例"><a href="#朴素贝叶斯分类器示例" class="headerlink" title="朴素贝叶斯分类器示例"></a>朴素贝叶斯分类器示例</h1><p>假设存在以下训练集</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111221412472.jpg" alt="训练集" style="zoom:80%;" /></p>
-<p>测试集：第一行样本</p>
-<p>计算过程和测试结果</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007713.jpg" alt="过程" style="zoom:80%;" /></p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007688.jpg" alt="结果" style="zoom:80%;" /></p>
-]]></content>
-      <categories>
-        <category>笔记</category>
-        <category>西瓜书</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>贝叶斯分类器</tag>
       </tags>
   </entry>
   <entry>
@@ -985,8 +773,303 @@ MinkovDM_p(x_i,x_j)=\left(\sum_u^{n_c}|x_{iu}-x_{ju}|^p+\sum_{u=n_c+1}^nVDM_p(x_
       </tags>
   </entry>
   <entry>
+    <title>贝叶斯分类器</title>
+    <url>/2021/11/22/Chapter07%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8/</url>
+    <content><![CDATA[<blockquote>
+<p>可以先学习<a href="https://zhuanlan.zhihu.com/p/32825019">贝叶斯公式</a>和<a href="https://zhuanlan.zhihu.com/p/26262151">一个简单的朴素贝叶斯分类算法</a></p>
+</blockquote>
+<h1 id="贝叶斯决策论"><a href="#贝叶斯决策论" class="headerlink" title="贝叶斯决策论"></a>贝叶斯决策论</h1><p>是概率框架下实施决策的基本方法，以多分类任务解释其基本原理</p>
+<p>定义样本x的风险</p>
+<script type="math/tex; mode=display">
+R(c_i|x)=\sum_{j=1}^N\lambda_{ij}P(c_j|x)</script><p>大概意思就是：基于x的特征判定为某类别的概率 × 判定为该类别的损失λ 之和</p>
+<p>任务：使所有样本x的风险最小。</p>
+<p>贝叶斯判定准则：为最小化总体风险，只需每个样本选择能使风险最小的类别</p>
+<p><br/></p>
+<p>具体来说，定义损失λ为：正确类别（即i=j），损失为0；不正确类别，损失为1</p>
+<p>那么，样本x的风险=1-基于x的特征判定为某类别的概率</p>
+<p>所以最小化风险的贝叶斯最优分类器为<strong>基于x的特征判定为某类别的概率最大</strong></p>
+<p><strong>即对于每个样本x，选择能使基于x的特征判定概率最大的类别</strong></p>
+<script type="math/tex; mode=display">
+p(c|x)=\frac{p(c)p(x|c)}{p(x)}</script><p>关键就是<strong>类条件概率p(x|c)</strong>的求取</p>
+<h2 id="极大似然估计"><a href="#极大似然估计" class="headerlink" title="极大似然估计"></a>极大似然估计</h2><blockquote>
+<p>参考<a href="https://www.matongxue.com/madocs/447/">马同学 (matongxue.com)</a>，极大似然估计就是通过事实，推断出最有可能的参数</p>
+</blockquote>
+<p>估计类条件概率的一种常用策略：</p>
+<ol>
+<li>先假设类条件概率具有某种确定的概率分布形式</li>
+<li>再基于训练集对概率分布的参数进行估计。</li>
+</ol>
+<p>假设p(x|c)，x为多维向量</p>
+<ol>
+<li>具有确定的形式，且被多个参数唯一确定</li>
+<li>使用训练集D对多个参数进行估计（设定参数，使得所有的x出现的概率最大）</li>
+<li>通过估计的参数求出各类别的p(x|c)</li>
+</ol>
+<p>实际应用中，概率分布形式应利用应用任务本身的经验知识，如果只是猜测，很可能产生误导性结果</p>
+<h2 id="朴素贝叶斯分类器"><a href="#朴素贝叶斯分类器" class="headerlink" title="朴素贝叶斯分类器"></a>朴素贝叶斯分类器</h2><script type="math/tex; mode=display">
+p(类别|特征)=\frac{p(类别)p(特征|类别)}{p(特征)}</script><p>前提：假设样本所有属性相互独立</p>
+<script type="math/tex; mode=display">
+p(c|x)=\frac{p(c)p(x|c)}{p(x)}=\frac{p(c)}{p(x)}\prod_{i=1}^dp(x_i|c)</script><p>由于每个样本的p(x)相等，所以，朴素贝叶斯分类器的表达式为</p>
+<script type="math/tex; mode=display">
+h_{nb}(x)=\underset{c\in \gamma}{argmax}\;p(c)\prod_{i=1}^dp(x_i|c)</script><p>对于连续属性的p(xi|c)使用<strong>极大似然估计</strong>，xi为一维向量</p>
+<h3 id="拉普拉斯修正"><a href="#拉普拉斯修正" class="headerlink" title="拉普拉斯修正"></a>拉普拉斯修正</h3><p>如果在训练集里好瓜从未出现过敲声清脆的值，那么当测试样本x中出现清脆时，p(清脆|好瓜)=0，p(好瓜|x)=0，这样，无论该样本其他属性哪怕明显是好瓜，分类结果都将是坏瓜。为了避免这种问题，常用<strong>拉普拉斯修正</strong></p>
+<p>定义N：训练集D中可能的类别个数，Ni表示第i个属性可能的取值数</p>
+<p>则</p>
+<script type="math/tex; mode=display">
+p(c)=\frac{|D_c|+1}{|D|+N}\;\;\;\;\;p(x_i|c)=\frac{|D_{c,x_i}|+1}{|D_c|+N_i}</script><h1 id="半朴素贝叶斯分类器"><a href="#半朴素贝叶斯分类器" class="headerlink" title="半朴素贝叶斯分类器"></a>半朴素贝叶斯分类器</h1><h1 id="EM算法"><a href="#EM算法" class="headerlink" title="EM算法"></a>EM算法</h1><p>隐变量：例如由于西瓜的根蒂脱落，无法看出是“蜷缩”或“硬挺”，这种未观察的变量叫做隐变量</p>
+<p>以初始值Θ为起点，迭代执行以下步骤直至收敛：</p>
+<ul>
+<li>基于Θ推断隐变量的期望</li>
+<li>基于期望和已观测的变量对参数Θ做极大似然估计</li>
+</ul>
+<h1 id="朴素贝叶斯分类器示例"><a href="#朴素贝叶斯分类器示例" class="headerlink" title="朴素贝叶斯分类器示例"></a>朴素贝叶斯分类器示例</h1><p>假设存在以下训练集</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111221412472.jpg" alt="训练集" style="zoom:80%;" /></p>
+<p>测试集：第一行样本</p>
+<p>计算过程和测试结果</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007713.jpg" alt="过程" style="zoom:80%;" /></p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111231007688.jpg" alt="结果" style="zoom:80%;" /></p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+        <tag>贝叶斯分类器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SVM数学知识补充</title>
+    <url>/2021/11/18/SVM%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h1 id="原问题"><a href="#原问题" class="headerlink" title="原问题"></a>原问题</h1><p>Prime Problem</p>
+<p>最小化$f(w)$，w为所有待优化的未知量</p>
+<p>限制条件：</p>
+<ul>
+<li>$g_i(w)\leq0,i\in[1,k]$</li>
+<li>$h_i(w)=0,i\in[1,M]$</li>
+</ul>
+<blockquote>
+<p>非常具有普适性：</p>
+<ol>
+<li>最小化问题f(x)，则-f(x)是最大化问题</li>
+<li>限制条件包含大于等于0和等于C的情况</li>
+</ol>
+</blockquote>
+<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>首先，定义</p>
+<script type="math/tex; mode=display">
+\begin{align}
+L(w,\alpha,\beta)&=f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\nonumber
+\end{align}</script><p>Dual Problem</p>
+<p>最大化</p>
+<script type="math/tex; mode=display">
+\theta(\alpha,\beta)=\underset{所有w}{\inf}\lbrace L(w,\alpha,\beta)\rbrace</script><p>限制条件</p>
+<ul>
+<li>$\alpha_i\geq0,i\in[0,k]$</li>
+</ul>
+<blockquote>
+<p>inf：求最小值</p>
+<p>确定α、β的取值的情况下，遍历所有的w求L最小值</p>
+<p>当取不同的α、β的情况下，取最大值θ</p>
+</blockquote>
+<h1 id="原问题与对偶问题的关系"><a href="#原问题与对偶问题的关系" class="headerlink" title="原问题与对偶问题的关系"></a>原问题与对偶问题的关系</h1><p>定理：</p>
+<script type="math/tex; mode=display">
+如果w^*是原问题的解，\alpha^*,\beta^*是对偶问题的解，则有
+f(w^*)\geq\theta(\alpha^*,\beta^*)</script><p>证明</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
+&\leq L(w^*,\alpha^*,\beta^*)\nonumber\\
+&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
+&\leq f(w^*)\nonumber
+\end{align}</script><p>第三步证明过程：</p>
+<script type="math/tex; mode=display">
+因为w^*,\alpha^*,\beta^*是解，且限制条件\alpha_i^*\geq0,g_i(w*)\leq0,h_i(w^*)=0</script><h1 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h1><ol>
+<li>原问题与对偶问题的间距<code>Duality Gap</code></li>
+</ol>
+<script type="math/tex; mode=display">
+G=f(w^*)-\theta(\alpha^*,\beta^*)</script><ol>
+<li><p>对于某些特定的优化问题，可以证明G=0</p>
+</li>
+<li><p>强对偶定理</p>
+<p>若f(w)为<strong>凸函数</strong>，且g(w)、h(w)为<strong>线性函数</strong>，则此优化问题的G=0</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
+&=L(w^*,\alpha^*,\beta^*)\nonumber\\
+&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
+&=f(w^*)\nonumber
+\end{align}</script></li>
+</ol>
+<blockquote>
+<p>第一个≤变成=：w*在α*、β*的条件下是L取到最小值</p>
+<p>第二个≤变成=：KKT条件</p>
+</blockquote>
+<script type="math/tex; mode=display">
+a_i^*=0\; 或\; g_i(w^*)=0\tag{对任意的i∈[1,k]}</script><h1 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h1><p>必然存在最小值。外国人认为的凸与中国人认为的凸不太一样，下面给出凸函数的定义</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181607529.png" alt="凸函数" style="zoom: 33%;" /></p>
+<p>这里的x,y可以扩展到多维，仍然满足</p>
+<script type="math/tex; mode=display">
+f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</script>]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>数学知识</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+        <tag>对偶问题</tag>
+        <tag>优化理论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>支持向量机</title>
+    <url>/2021/11/18/Chapter06%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h1><p>分类学习的基本思想是基于训练集在样本空间中找到一个划分超平面，将不同类别的样本分开。但是划分样本的超平面有很多，怎么找到最好的那一个呢？</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181659982.jpg" alt="多个超平面" style="zoom:50%;" /></p>
+<blockquote>
+<p>上图中，直观上“正中间”的超平面是最好的。的确，该超平面产生的分类结果是最鲁棒的，对未见示例的泛化能力最强</p>
+<p>其中，x和o表示具有两个属性的样本数据X=(x1;x2)</p>
+</blockquote>
+<p><code>Vapnik</code>定义了一个性能指标来选择最好的划分超平面。定义一个划分超平面1，不断平移平面直到最先接触到一个正类或一个反类，这样就得到了两个超平面1-1和1-2，这两个超平面之间的距离就作为性能指标。最好的划分超平面就是使<strong>距离(性能指标)最大</strong>的划分超平面。然而，这样的超平面有无数个，那我们就选择1-1和1-2<strong>中间</strong>的超平面。</p>
+<h2 id="数学描述"><a href="#数学描述" class="headerlink" title="数学描述"></a>数学描述</h2><ol>
+<li><p>训练数据和标签</p>
+<script type="math/tex; mode=display">
+D=\{(x_i,y_i)\}_{i=1}^N\;\;\;\;y_i\in\{-1,1\}\;\;\;x_i为d维向量</script></li>
+<li><p>超平面（类比三维空间容易理解）</p>
+<script type="math/tex; mode=display">
+w^Tx+b=0</script><p>w为d维列向量，表示超平面的法向量。b是常数，决定超平面与原点的位置。</p>
+</li>
+<li><p>样本x到超平面的距离（类比点到直线的距离）</p>
+<script type="math/tex; mode=display">
+r=\frac{|w^Tx+b|}{||w||}</script></li>
+<li><p>训练集线性可分的含义</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+w^Tx_i+b\geq0,y_i=1\\
+w^Tx_i+b < 0,y_i=-1 
+\end{cases}</script><p>即</p>
+<script type="math/tex; mode=display">
+y_i(w^Tx_i+b)\geq0\tag{公式一}</script></li>
+<li><p>间隔（上面说的性能指标 - 距离）</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181659745.jpg" alt="支持向量与间隔" style="zoom:50%;" /></p>
+<p>已知wTx+b=0与awT+ab=0是同一平面，a属于正实数，则利用a进行放缩，使得支持向量x上有</p>
+<script type="math/tex; mode=display">
+|w^Tx+b|=1</script><p>那么，间隔公式为</p>
+<script type="math/tex; mode=display">
+r=\frac{2}{||w||}</script><p>有了上述5点的描述，我们便可以引出支持向量机的优化问题（凸优化的二次规划问题）：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&\underset{w,b}{\max}\frac{2}{||w||}\Leftrightarrow \underset{w,b}{\min}\frac{1}{2}||w||^2\nonumber\\
+&s.t. y_i(w^Tx_i+b)\geq1,i=1,2,\dots,N\nonumber
+\end{align}</script><blockquote>
+<ol>
+<li><p>1/2只是为了求导方便</p>
+</li>
+<li><p>二次规划问题</p>
+<ul>
+<li>目标函数为二次项</li>
+<li>约束条件为一次项</li>
+</ul>
+<p>那么要么无解，要么只有一个极小值（类似梯度下降）</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h1 id="优化问题求解"><a href="#优化问题求解" class="headerlink" title="优化问题求解"></a>优化问题求解</h1><p>相关理论参照<a href="https://lyb92nlf.github.io/2021/11/18/SVM数学知识补充/">SVM数学知识补充</a></p>
+<h2 id="转换为原问题"><a href="#转换为原问题" class="headerlink" title="转换为原问题"></a>转换为原问题</h2><p>最小值目标函数不变</p>
+<p>限制条件</p>
+<script type="math/tex; mode=display">
+s.t. 1-y_i(w^Tx_i+b)\leq0,i=1,2,\dots,N</script><h2 id="转换为对偶问题"><a href="#转换为对偶问题" class="headerlink" title="转换为对偶问题"></a>转换为对偶问题</h2><script type="math/tex; mode=display">
+L(w,b,\alpha)=\frac{1}{2}||w||^2+\sum_{i=1}^N\alpha_i(1-y_i(w^Tx_i+b))</script><script type="math/tex; mode=display">
+\frac{\partial L}{\partial w}=w-\sum_{i=1}^N\alpha_iy_ix_i=0\;\;\;\;\frac{\partial L}{\partial b}=\sum_{i=1}^N\alpha_iy_i=0</script><script type="math/tex; mode=display">
+\begin{align}
+\theta(\alpha)&=\underset{所有w,b}{\inf}\lbrace L(w,b,\alpha)\rbrace \nonumber\\
+&=\sum_{i=1}^N\alpha_i-\frac{1}{2}\sum_{i=1}^N\sum_{j=1}^N\alpha_i\alpha_jy_iy_jx_i^Tx_j\nonumber\\
+& s.t. \sum_{i=1}^N\alpha_iy_i=0,\alpha_i\geq0\nonumber\\
+&\alpha_i(1-y_i(w^Tx_i+b))=0,y_i(w^Tx_i+b)-1\geq0\nonumber
+\end{align}</script><h2 id="求解α"><a href="#求解α" class="headerlink" title="求解α"></a>求解α</h2><p>SMO算法不断执行以下两个步骤知道收敛：</p>
+<ul>
+<li>选取一对需更新的变量$ \alpha_i,\alpha_j $</li>
+<li>固定这两个参数以外的参数，根据上述公式获得更新后的变量</li>
+</ul>
+<hr>
+<hr>
+<h1 id="非线性模型"><a href="#非线性模型" class="headerlink" title="非线性模型"></a>非线性模型</h1><h2 id="软间隔"><a href="#软间隔" class="headerlink" title="软间隔"></a>软间隔</h2><p>前面线性模型中，我们假设存在一个超平面能够将不同类别的样本完全划分开。然而，在现实任务中往往很难做到。所以，缓解该问题的一个方法就是允许支持向量在一些样本中出错。</p>
+<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211305321.jpg" alt="软间隔" style="zoom:50%;" /></p>
+<p>引入松弛变量$ \xi_i $，控制某些样本满足限制条件</p>
+<p>引入C（事先设定的参数），限制每个$ \xi _i $，不能让它特别特别大。同时，使目标函数具有最小值</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&最小值：\frac{1}{2}||w||^2+\overbrace{C\sum_{i=1}^N\xi_i}^\text{正则项}\nonumber\\
+&s.t. y_i(w^Tx_i+b)\geq1-\xi_i,\xi_i\geq0\nonumber
+\end{align}</script><h2 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h2><p>将样本从原始空间映射到一个更高维的特征空间，使得样本在这个特征空间内线性可分</p>
+<script type="math/tex; mode=display">
+\underbrace{x}_\text{低维}\longrightarrow\underbrace{\psi(x)}_\text{高维}</script><blockquote>
+<p>异或问题（二维空间内线性不可分）：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&X_1={0\brack 0}\in C_1\;\;\;X_2={1\brack 1}\in C_1\nonumber\\
+&X_3={0\brack 1}\in C_2\;\;\;X_4={1\brack 0}\in C_2\nonumber
+\end{align}</script><p>定义ψ(x)=[a*a;b*b;a;b;a*b]，使得X为五维向量</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\psi(X_1)=\left[ \begin{matrix}0\\0\\0\\0\\0 \end{matrix}\right]\;\;\;\psi(X_2)=\left[ \begin{matrix}1\\1\\1\\1\\1 \end{matrix}\right]\nonumber\\
+\psi(X_3)=\left[ \begin{matrix}1\\0\\1\\0\\0 \end{matrix}\right]\;\;\;\psi(X_4)=\left[ \begin{matrix}0\\1\\0\\1\\0 \end{matrix}\right]\nonumber
+\end{align}</script><p>此时存在超平面</p>
+<script type="math/tex; mode=display">
+w^T\xi (X_i)+b=0,w=\left[ \begin{matrix}-1\\-1\\-1\\-1\\6 \end{matrix}\right]\;\;\;b=1</script><p>使得不同类别的样本线性可分</p>
+</blockquote>
+<p>那么优化问题变成了</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&最小值：\frac{1}{2}||w||^2+\overbrace{C\sum_{i=1}^N\xi_i}^\text{正则项}\nonumber\\
+&s.t. y_i(w^T\psi(x_i)+b)\geq1-\xi_i,\xi_i\geq0\nonumber
+\end{align}\tag{优化式}</script><ul>
+<li><p>我们可以不知道无限维映射$ \psi(x) $的显示表达，我们只要知道一个<strong>核函数</strong></p>
+<script type="math/tex; mode=display">
+K(x_1,x_2)=\psi(x_1)^T\psi(x_2)</script><p>则优化式仍然可解</p>
+<blockquote>
+<p>核函数成立的充要条件：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&1.\;\;\;K(x_1,x_2)=K(x_2,x_1)\nonumber\\
+&2.\;\;\;\forall \underbrace{C_i}_\text{常数},x_i,\sum_{i=1}^N\sum_{j=1}^NC_iC_jK(x_ix_j)
+\geq0\nonumber
+\end{align}</script></blockquote>
+</li>
+</ul>
+<h2 id="求解"><a href="#求解" class="headerlink" title="求解"></a>求解</h2><p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211446322.jpg" style="zoom:50%;" /><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111211446467.jpg" style="zoom:50%;" /></p>
+<hr>
+<hr>
+<h1 id="SVM算法"><a href="#SVM算法" class="headerlink" title="SVM算法"></a>SVM算法</h1><ol>
+<li><p>训练流程</p>
+<p>输入训练样本，求优化问题。</p>
+<p>最大化θ，根据SMO算法求解α</p>
+<p>求解b（取一个或所有α∈(0,c)后取平均）</p>
+</li>
+<li><p>测试流程</p>
+<p>输入测试样本</p>
+<script type="math/tex; mode=display">
+\begin{cases}
+\sum_{i=1}^N\alpha_iy_iK(x_i,x)+b\geq0,y=+1\nonumber\\
+\sum_{i=1}^N\alpha_iy_iK(x_i,x)+b < 0,y=-1\nonumber
+\end{cases}</script></li>
+</ol>
+]]></content>
+      <categories>
+        <category>笔记</category>
+        <category>西瓜书</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>西瓜书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PyTorch01-图像数据处理操作</title>
-    <url>/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96/</url>
+    <url>/2022/01/15/pytorch01-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%92%8C%E5%8F%AF%E8%A7%86%E5%8C%96%20-%20%E5%89%AF%E6%9C%AC/</url>
     <content><![CDATA[<p>库学习两大利器</p>
 <ul>
 <li><p><code>dir()</code></p>
@@ -1080,86 +1163,87 @@ MinkovDM_p(x_i,x_j)=\left(\sum_u^{n_c}|x_{iu}-x_{ju}|^p+\sum_{u=n_c+1}^nVDM_p(x_
       </tags>
   </entry>
   <entry>
-    <title>SVM数学知识补充</title>
-    <url>/2021/11/18/SVM%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<h1 id="原问题"><a href="#原问题" class="headerlink" title="原问题"></a>原问题</h1><p>Prime Problem</p>
-<p>最小化$f(w)$，w为所有待优化的未知量</p>
-<p>限制条件：</p>
+    <title>PyTorch02-神经网络的“组件”</title>
+    <url>/2022/01/18/pytorch02-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E2%80%9C%E7%BB%84%E4%BB%B6%E2%80%9D/</url>
+    <content><![CDATA[<p><a href="https://pytorch.org/docs/stable/nn.html">torch.nn文档在这里！！！</a></p>
+<h2 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a>Containers</h2><h3 id="Moudle"><a href="#Moudle" class="headerlink" title="Moudle"></a>Moudle</h3><p>对于所有神经网络的基础类。自定义模型需要继承这个类，必须重写<code>forward</code>方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Model</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(Model, self).__init__()</span><br><span class="line">        self.conv1 = nn.Conv2d(<span class="number">1</span>, <span class="number">20</span>, <span class="number">5</span>)</span><br><span class="line">        self.conv2 = nn.Conv2d(<span class="number">20</span>, <span class="number">20</span>, <span class="number">5</span>)</span><br><span class="line">        self.avgPool1 = nn.AvgPool2d(<span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line">        self.relu1 = nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = self.conv1(x)</span><br><span class="line">        x = self.conv2(x)</span><br><span class="line">        x = self.avgPool1(x)</span><br><span class="line">        x = self.relu1(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<h2 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h2><h3 id="Conv2d"><a href="#Conv2d" class="headerlink" title="Conv2d"></a>Conv2d</h3><p><strong>参数列表</strong></p>
 <ul>
-<li>$g_i(w)\leq0,i\in[1,k]$</li>
-<li>$h_i(w)=0,i\in[1,M]$</li>
+<li><strong>in_channels</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – 输入图像的通道数</li>
+<li><strong>out_channels</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>) – 经过卷积后输出图像的通道数</li>
+<li><strong>kernel_size</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a>) – 卷积核的尺寸</li>
+<li><strong>stride</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 卷积的步长。默认: 1</li>
+<li><strong>padding</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#str"><em>str</em></a><em>,</em> <em>optional</em>) – 对输入图像的边缘进行填充。默认: 0</li>
+<li><strong>padding_mode</strong> (<em>string**,</em> <em>optional</em>) – 填充模式。默认：零填充<ul>
+<li><code>&#39;zeros&#39;</code> - 零填充</li>
+<li><code>&#39;reflect&#39;</code> - 以矩阵边缘为对称轴，将矩阵中的元素对称的填充到最外围</li>
+<li><code>&#39;replicate&#39;</code> - 将矩阵的边缘复制并填充到矩阵的外围</li>
+<li><code>`&#39;circular&#39;</code> - 循环的进行填充</li>
 </ul>
-<blockquote>
-<p>非常具有普适性：</p>
-<ol>
-<li>最小化问题f(x)，则-f(x)是最大化问题</li>
-<li>限制条件包含大于等于0和等于C的情况</li>
-</ol>
-</blockquote>
-<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>首先，定义</p>
-<script type="math/tex; mode=display">
-\begin{align}
-L(w,\alpha,\beta)&=f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^M\beta_ih_i(w)\nonumber
-\end{align}</script><p>Dual Problem</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-\theta(\alpha,\beta)=\underset{所有w}{\inf}\lbrace L(w,\alpha,\beta)\rbrace</script><p>限制条件</p>
-<ul>
-<li>$\alpha_i\geq0,i\in[0,k]$</li>
-</ul>
-<blockquote>
-<p>inf：求最小值</p>
-<p>确定α、β的取值的情况下，遍历所有的w求L最小值</p>
-<p>当取不同的α、β的情况下，取最大值θ</p>
-</blockquote>
-<h1 id="原问题与对偶问题的关系"><a href="#原问题与对偶问题的关系" class="headerlink" title="原问题与对偶问题的关系"></a>原问题与对偶问题的关系</h1><p>定理：</p>
-<script type="math/tex; mode=display">
-如果w^*是原问题的解，\alpha^*,\beta^*是对偶问题的解，则有
-f(w^*)\geq\theta(\alpha^*,\beta^*)</script><p>证明</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
-&\leq L(w^*,\alpha^*,\beta^*)\nonumber\\
-&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
-&\leq f(w^*)\nonumber
-\end{align}</script><p>第三步证明过程：</p>
-<script type="math/tex; mode=display">
-因为w^*,\alpha^*,\beta^*是解，且限制条件\alpha_i^*\geq0,g_i(w*)\leq0,h_i(w^*)=0</script><h1 id="重要结论"><a href="#重要结论" class="headerlink" title="重要结论"></a>重要结论</h1><ol>
-<li>原问题与对偶问题的间距<code>Duality Gap</code></li>
-</ol>
-<script type="math/tex; mode=display">
-G=f(w^*)-\theta(\alpha^*,\beta^*)</script><ol>
-<li><p>对于某些特定的优化问题，可以证明G=0</p>
 </li>
-<li><p>强对偶定理</p>
-<p>若f(w)为<strong>凸函数</strong>，且g(w)、h(w)为<strong>线性函数</strong>，则此优化问题的G=0</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\theta(\alpha^*,\beta^*)&=\inf(L(w,\alpha^*,\beta^*))\nonumber\\
-&=L(w^*,\alpha^*,\beta^*)\nonumber\\
-&=f(w^*)+\sum_{i=1}^k\alpha_i^*g_i(w*)+\sum_{i=1}^M\beta_i^*h_i(w^*)\nonumber\\
-&=f(w^*)\nonumber
-\end{align}</script></li>
-</ol>
-<blockquote>
-<p>第一个≤变成=：w*在α*、β*的条件下是L取到最小值</p>
-<p>第二个≤变成=：KKT条件</p>
-</blockquote>
-<script type="math/tex; mode=display">
-a_i^*=0\; 或\; g_i(w^*)=0\tag{对任意的i∈[1,k]}</script><h1 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h1><p>必然存在最小值。外国人认为的凸与中国人认为的凸不太一样，下面给出凸函数的定义</p>
-<p><img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202111181607529.png" alt="凸函数" style="zoom: 33%;" /></p>
-<p>这里的x,y可以扩展到多维，仍然满足</p>
-<script type="math/tex; mode=display">
-f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)\;\;\;\lambda\in[0,1]</script>]]></content>
+<li><strong>dilation</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a> <em>or</em> <a href="https://docs.python.org/3/library/stdtypes.html#tuple"><em>tuple</em></a><em>,</em> <em>optional</em>) – 膨胀系数。默认: 1</li>
+<li><strong>groups</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a><em>,</em> <em>optional</em>) – 分组的个数。默认: 1</li>
+<li><strong>bias</strong> (<a href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – 如果<code>True</code>, 为输出添加一个可学习的偏置。默认: <code>True</code></li>
+</ul>
+<h2 id="池化层-减少参数"><a href="#池化层-减少参数" class="headerlink" title="池化层 - 减少参数"></a>池化层 - 减少参数</h2><h3 id="MaxPool2d"><a href="#MaxPool2d" class="headerlink" title="MaxPool2d"></a>MaxPool2d</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>kernel_size</strong> – 卷积核（无参）的大小</li>
+<li><strong>stride</strong> – 步长。默认值是<code>kernel_size</code></li>
+<li><strong>padding</strong> – 零填充各个边缘的围数。</li>
+<li><strong>dilation</strong> – 膨胀系数</li>
+<li><strong>return_indices</strong> – 暂时用不到</li>
+<li><strong>ceil_mode</strong> – 如果<code>True</code>, 即使图像不能填满卷积核也算一次</li>
+</ul>
+<h3 id="AvgPool2d"><a href="#AvgPool2d" class="headerlink" title="AvgPool2d"></a>AvgPool2d</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>kernel_size</strong> – 卷积核（无参）的大小</li>
+<li><strong>stride</strong> – 步长。默认值是<code>kernel_size</code></li>
+<li><strong>padding</strong> – 零填充各个边缘的围数。</li>
+<li><strong>ceil_mode</strong> – 如果<code>True</code>, 即使图像不能填满卷积核也算一次</li>
+<li><strong>count_include_pad</strong> – 如果<code>True</code>，在计算平均值时包括零填充的边</li>
+<li><strong>divisor_override</strong> – 指定除数，否则就是卷积核的尺寸</li>
+</ul>
+<h2 id="非线性激活-提高泛化能力"><a href="#非线性激活-提高泛化能力" class="headerlink" title="非线性激活 - 提高泛化能力"></a>非线性激活 - 提高泛化能力</h2><h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>inplace</strong> – 是否直接替换处理的值。默认: <code>False</code></li>
+</ul>
+<h3 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h3><h3 id="Softmax"><a href="#Softmax" class="headerlink" title="Softmax"></a>Softmax</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>dim</strong> (<a href="https://docs.python.org/3/library/functions.html#int"><em>int</em></a>)<ul>
+<li>当 dim=0 时，是对每一维度相同位置的数值进行softmax运算；</li>
+<li>当 dim=1 时，是对某一维度的列进行softmax运算；</li>
+<li>当 dim=2 或 -1 时，是对某一维度的行进行softmax运算；</li>
+</ul>
+</li>
+</ul>
+<p>​    <img src="https://raw.githubusercontent.com/lyb92nlf/pictures/master/img/202201191155696.png" alt="dim"></p>
+<h2 id="标准化层"><a href="#标准化层" class="headerlink" title="标准化层"></a>标准化层</h2><p><a href="https://zhuanlan.zhihu.com/p/75603087">好处</a></p>
+<h3 id="BatchNorm2d"><a href="#BatchNorm2d" class="headerlink" title="BatchNorm2d"></a>BatchNorm2d</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>num_features</strong> – (<em>N</em>,<em>C</em>,<em>H</em>,<em>W</em>)中的通道数</li>
+<li><strong>affine</strong> – 如果<code>True</code>，添加一个可学习的参数。默认：<code>True</code></li>
+</ul>
+<h2 id="线性层"><a href="#线性层" class="headerlink" title="线性层"></a>线性层</h2><h3 id="Linear"><a href="#Linear" class="headerlink" title="Linear"></a>Linear</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>in_features</strong> – 输入个数</li>
+<li><strong>out_features</strong> – 输出个数</li>
+<li><strong>bias</strong> – 如果<code>True</code>, 添加一个可学习的偏置。默认: <code>True</code></li>
+</ul>
+<p>常用函数<code>torch.reshape</code>或<code>torch.flatten</code></p>
+<h2 id="Dropout层"><a href="#Dropout层" class="headerlink" title="Dropout层"></a>Dropout层</h2><h3 id="Dropout2d"><a href="#Dropout2d" class="headerlink" title="Dropout2d"></a>Dropout2d</h3><p><strong>参数列表</strong></p>
+<ul>
+<li><strong>p</strong> (<a href="https://docs.python.org/3/library/functions.html#float"><em>float</em></a><em>,</em> <em>optional</em>) – 整个通道被替换成0的可能性</li>
+<li><strong>inplace</strong> (<a href="https://docs.python.org/3/library/functions.html#bool"><em>bool</em></a><em>,</em> <em>optional</em>) – 是否直接替换处理的值。默认: <code>False</code></li>
+</ul>
+]]></content>
       <categories>
-        <category>笔记</category>
-        <category>数学知识</category>
+        <category>Python</category>
+        <category>PyTorch</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
-        <tag>西瓜书</tag>
-        <tag>对偶问题</tag>
-        <tag>优化理论</tag>
+        <tag>PyTorch</tag>
+        <tag>神经网络</tag>
       </tags>
   </entry>
   <entry>
